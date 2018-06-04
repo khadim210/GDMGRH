@@ -11,7 +11,8 @@ module.exports = {
 
 	// Mongoose config
 	mongo: {
-		uri: `mongodb://hermanang:P@ssw0rd@ds247330.mlab.com:47330/database_gdmgrh`,
+		// uri: `mongodb://localhost:27017/${dbname}`,
+		uri: `mongodb://hermanang:Passw0rd@ds247330.mlab.com:47330/database_gdmgrh`,
 		option: {
 			autoIndex: false, // Don't build indexes
 			reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
