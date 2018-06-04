@@ -3,6 +3,7 @@
 </HEAD>
 
 <BODY>
+Bonjour tout le monde
 </BODY>
 
 </HTML>
