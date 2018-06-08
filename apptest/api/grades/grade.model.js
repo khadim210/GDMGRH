@@ -10,7 +10,7 @@ const GradeSchema = mongoose.Schema({
     categoriegrade: {
         
         categorie: { type: String},
-        niveau: { type: String},
+        niveau: { type: String}
 
     }
 });
