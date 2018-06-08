@@ -2,10 +2,16 @@ const mongoose = require('mongoose');
 
 const GradeSchema = mongoose.Schema({
     nomgrade: {
+        type: String ,require:true
+    },
+    codegrade: {
         type: String
     },
     categoriegrade: {
-        type: String
+        
+        categorie: { type: String},
+        niveau: { type: String},
+
     }
 });
 
