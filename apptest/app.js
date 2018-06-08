@@ -24,6 +24,8 @@ expressConfig(app);
 // Router
 app.use('/users', require('./api/users'));
 
+//module grade
+app.use('/grades', require('./api/grades'));
 // Invalid Router Index
 app.use('/*', (req, res) => {
 		res.send('Invalid Endpoint');
@@ -35,4 +37,3 @@ app.listen( envConfig.port, envConfig.ip, () => {
 		console.log('Server Start on http://'+envConfig.ip+':'+ envConfig.port);
 	}
 );
-
