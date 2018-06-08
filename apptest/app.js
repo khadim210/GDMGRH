@@ -23,6 +23,10 @@ expressConfig(app);
 
 // Router
 app.use('/users', require('./api/users'));
+app.use('/decoration', require('./api/decoration'));
+app.use('/punition', require('./api/punition'));
+app.use('/recompense', require('./api/recompense'));
+
 
 // Invalid Router Index
 app.use('/*', (req, res) => {
