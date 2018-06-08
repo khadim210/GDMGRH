@@ -17,7 +17,10 @@ module.exports = {
             var gradeParams = {
                 nomgrade : nomgrade,
                 codegrade : codegrade,
-                categoriegrade: categoriegrade
+                categoriegrade: {
+                    categorie : categorie,
+                    niveau : niveau 
+                                }
             };
             var grade = new Grade(gradeParams);
             try {
