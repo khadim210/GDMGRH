@@ -7,12 +7,14 @@ module.exports = {
 
     addPunition : async (req, res) => {
         var nature = req.body.nature;
-        var sous_officier = req.body.sous_officier;
+        var categorie_sous_officier = req.body.categorie_sous_officier;
+        var libelle_punition = req.body.libelle_punition
 
-        if(nature && sous_officier) {
+        if(nature && libelle_punition && categorie_sous_officier) {
             var punitionParams = {
                 nature : nature,
-                sous_officier: sous_officier
+                categorie_sous_officier: categorie_sous_officier,
+                libelle_punition: libelle_punition
             };
             var punition = new Punition(punitionParams);
             try {
