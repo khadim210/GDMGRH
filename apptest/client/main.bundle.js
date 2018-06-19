@@ -122,6 +122,7 @@ var CreatGroupComponent = /** @class */ (function () {
     };
     CreatGroupComponent.prototype.addGroup = function () {
         var _this = this;
+        console.log(this.groupForm);
         this.accountService.createdUserGroup(this.groupForm).subscribe(function (res) {
             if (res.response) {
                 _this.group.emit({ group: res.response, action: 'add' });
@@ -173,7 +174,7 @@ module.exports = ""
 /***/ "./src/app/account-manager/component/created-users/created-users.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div>\n    <form>\n      <div class=\"form-row\">\n        <div class=\"form-group col-md-12\">\n          <label for=\"inputUsername\">Nom d'utilisateur</label>\n          <input type=\"username\" class=\"form-control form-control-sm\" \n            placeholder=\"nom d'utilisateur\" name=\"username\" [(ngModel)]=\"userForm.username\">\n        </div>\n      </div>\n      <div class=\"form-row\">\n        <div class=\"form-group col-md-12\">\n          <label for=\"inputPassword\">Mot de passe</label>\n          <input type=\"password\" class=\"form-control form-control-sm\" \n            placeholder=\"mot de passe\" name=\"password\" [(ngModel)]=\"userForm.password\">\n        </div>\n      </div>\n      <div class=\"form-row\">\n        <div class=\"form-group col-md-12\">\n          <label for=\"inputAgent\">Agent</label>\n          <select class=\"form-control form-control-sm\" name=\"agent\" [(ngModel)]=\"userForm.agent\">\n            <option *ngFor=\"let agent of allAgent\" [value]=\"agent._id\" > {{agent?.name}}</option>\n          </select>\n        </div>\n      </div>\n\n      <div class=\"form-row\" [hidden]=\"!userForm.status\">\n          <div class=\"form-group col-md-12\">\n            <label for=\"inputStatus\">Status</label>\n            <select class=\"form-control form-control-sm\" class=\"form-control form-control-sm\" \n                  name=\"status\" [(ngModel)]=\"userForm.status\">\n                <option [value]=\"'actif'\" >actif</option>\n                <option [value]=\"'inactif'\" >inactif</option>\n              </select>\n          </div>\n        </div>\n\n      <div class=\"form-group row\">\n          <div class=\"col-sm-2\">Role :</div>\n          <div *ngFor=\"let rule of userForm.rule\">\n              <span class=\"badge badge-info\">{{rule}}</span><br/>\n          </div>\n      </div>\n\n      <div class=\"form-group row\">\n          <div class=\" col-sm-12\">\n            <select multiple class=\"form-control form-control-sm\" name=\"agent\" [(ngModel)]=\"userForm.rule\">\n                <option *ngFor=\"let rules of allRules; let i = index\" [value]=\"rules\" > {{rules}}</option>\n            </select>\n          </div>\n      </div>\n      <div class=\"form-group row\" [hidden]=\"action !== 'ajouter'\">\n        <div class=\"col-sm-12\">\n          <button type=\"submit\" (click)=\"addUsers()\" class=\"btn-sm btn-block btn-primary\">Enregister</button>\n        </div>\n      </div>\n\n      <div class=\"form-group row\" [hidden]=\"action !== 'modifier'\">\n          <div class=\"col-sm-12\">\n            <button type=\"submit\" (click)=\"updateUsers()\" class=\"btn-sm btn-block btn-primary\">Modifier</button>\n          </div>\n      </div>\n    </form>\n\n  </div>\n</div>\n"
+module.exports = "<div>\n  <div>\n    <form>\n      <div class=\"form-row\">\n        <div class=\"form-group col-md-12\">\n          <label for=\"inputUsername\">Nom d'utilisateur</label>\n          <input type=\"username\" class=\"form-control form-control-sm\" \n            placeholder=\"nom d'utilisateur\" name=\"username\" [(ngModel)]=\"userForm.username\">\n        </div>\n      </div>\n      <div class=\"form-row\">\n        <div class=\"form-group col-md-12\">\n          <label for=\"inputPassword\">Mot de passe</label>\n          <input type=\"password\" class=\"form-control form-control-sm\" \n            placeholder=\"mot de passe\" name=\"password\" [(ngModel)]=\"userForm.password\">\n        </div>\n      </div>\n\n      <div class=\"form-group row\">\n        <div class=\"col-sm-2\">Agent :</div>\n        <div *ngIf=\"agentName\">\n            <span class=\"badge badge-info\">{{agentName}}</span><br/>\n        </div>\n      </div>\n\n      <div class=\"form-row\">\n        <div class=\"form-group col-md-12\">\n          <select class=\"form-control form-control-sm\" (click)=\"showAgent(userForm.agent)\" name=\"agent\" [(ngModel)]=\"userForm.agent\">\n            <option *ngFor=\"let agent of allAgent\" [value]=\"agent._id\" > {{agent?.name}}</option>\n          </select>\n        </div>\n      </div>\n\n      <div class=\"form-row\" [hidden]=\"!userForm.status\">\n          <div class=\"form-group col-md-12\">\n            <label for=\"inputStatus\">Status</label>\n            <select class=\"form-control form-control-sm\" class=\"form-control form-control-sm\" \n                  name=\"status\" [(ngModel)]=\"userForm.status\">\n                <option [value]=\"'actif'\" >actif</option>\n                <option [value]=\"'inactif'\" >inactif</option>\n              </select>\n          </div>\n        </div>\n\n      <div class=\"form-group row\">\n          <div class=\"col-sm-2\">Role :</div>\n          <div *ngFor=\"let rule of userForm.rule\">\n              <span class=\"badge badge-info\">{{rule}}</span><br/>\n          </div>\n      </div>\n\n      <div class=\"form-group row\">\n          <div class=\" col-sm-12\">\n            <select multiple class=\"form-control form-control-sm\" name=\"agent\" [(ngModel)]=\"userForm.rule\">\n                <option *ngFor=\"let rules of allRules; let i = index\" [value]=\"rules\" > {{rules}}</option>\n            </select>\n          </div>\n      </div>\n      <div class=\"form-group row\" [hidden]=\"action !== 'ajouter'\">\n        <div class=\"col-sm-12\">\n          <button type=\"submit\" (click)=\"addUsers()\" class=\"btn-sm btn-block btn-primary\">Enregister</button>\n        </div>\n      </div>\n\n      <div class=\"form-group row\" [hidden]=\"action !== 'modifier'\">\n          <div class=\"col-sm-12\">\n            <button type=\"submit\" (click)=\"updateUsers()\" class=\"btn-sm btn-block btn-primary\">Modifier</button>\n          </div>\n      </div>\n    </form>\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -205,53 +206,61 @@ var CreatedUsersComponent = /** @class */ (function () {
         this.allAgent = [];
         this.allRules = [];
     }
+    CreatedUsersComponent.prototype.ngOnChanges = function (change) {
+        this.agentName = '';
+        if (change.userForm.currentValue.agent) {
+            this.allAgent = this.allAgent.filter(function (agent) { return agent.access !== true; });
+            this.allAgent.push(change.userForm.currentValue.agent);
+            this.agentName = change.userForm.currentValue.agent.name;
+        }
+    };
     CreatedUsersComponent.prototype.ngOnInit = function () {
         this.getDataForm();
     };
     CreatedUsersComponent.prototype.getDataForm = function () {
-        this.allAgent = [{ _id: '5b19f17bef483e37c8b0b05c', name: 'Bab' }, { _id: '5b19f32270332246d4f5cc70', name: 'Bib' },
-            { _id: '5b1e5ebdd22dd63f94fd45e5', name: 'Bob' }];
+        var _this = this;
         this.allRules = ['subalterne', 'superieure', 'autoriser'];
-        /*
-        this.accountsService.getDataUserForm().subscribe(res => {
-          if (res.data) {
-            const data = res.data;
-            this.allAgent = data.agents;
-          }
+        this.accountsService.getDataUserForm().subscribe(function (res) {
+            if (res.response) {
+                var data = res.response;
+                _this.allAgent = data;
+            }
         });
-        */
     };
-    CreatedUsersComponent.prototype.ruleHandler = function (check, rule) {
-        console.log(rule);
-        if (check) {
-            this.addRule(rule);
+    CreatedUsersComponent.prototype.showAgent = function (_agentName) {
+        if (_agentName) {
+            for (var index = 0; index < this.allAgent.length; index++) {
+                if (_agentName === this.allAgent[index]._id) {
+                    this.agentName = this.allAgent[index].name;
+                }
+            }
         }
-        else {
-            this.deleteRule(rule);
-        }
-    };
-    CreatedUsersComponent.prototype.addRule = function (rule) {
-        this.userForm.rule.push(rule);
-    };
-    CreatedUsersComponent.prototype.deleteRule = function (rule) {
-        this.userForm.rule = this.userForm.rule.filter(function (_rule) { return _rule !== rule; });
     };
     CreatedUsersComponent.prototype.addUsers = function () {
         var _this = this;
         this.accountsService.createdUsers(this.userForm).subscribe(function (res) {
-            if (res.response) {
-                _this.user.emit({ user: res.response, action: 'add' });
+            if (res) {
+                var user = res;
+                _this.user.emit({ user: user.user });
                 _this.userForm = {};
                 _this.userForm.rule = [];
+                _this.allAgent = user.agent;
+                _this.agentName = '';
             }
         });
     };
     CreatedUsersComponent.prototype.updateUsers = function () {
         var _this = this;
-        console.log(this.userForm);
         this.accountsService.updateUser(this.userForm).subscribe(function (res) {
-            if (res.response) {
-                _this.user.emit({ user: res.response, action: 'update' });
+            if (res) {
+                var user = res;
+                _this.user.emit({ user: user.user });
+                _this.userForm = {};
+                _this.userForm.rule = [];
+                _this.allAgent = user.agent;
+                _this.agentName = '';
+                _this.action = 'ajouter';
+                console.log(res);
             }
         });
     };
@@ -385,7 +394,7 @@ module.exports = ""
 /***/ "./src/app/account-manager/component/list-users/list-users.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div >\n    <div class=\"row\">\n        <div class=\"col-md-10\">\n          <h2>Liste des utilisateurs</h2>\n        </div> \n        <div class=\"col-md-2\">\n          <!-- Button trigger modal -->\n          <button type=\"button\" class=\"btn-sm btn-primary\" data-toggle=\"modal\" data-target=\"#userModal\">\n            Ajouter\n          </button>\n        </div>\n    </div>\n\n    <div class=\"row\" >\n      <table class=\"col-md-12 table\">\n          <thead>\n              <tr>\n                <th scope=\"col\">#</th>\n                <th scope=\"col\">Username</th>\n                <th scope=\"col\">Agent</th>\n                <th scope=\"col\">rule</th>\n                <th scope=\"col\">Status</th>\n              </tr>\n          </thead>\n\n          <tbody *ngIf=\"userList\">\n              <tr *ngFor=\"let user of userList, let i = index\">\n                <td>{{i}}</td>\n                <td>{{user.username}}</td>\n                <td>{{user.agent}}</td>\n                <td ><div *ngFor=\"let rule of user?.rule\">{{rule}}</div></td>\n                <th><span class=\"badge {{user.status === 'actif' ? 'badge-success' : 'badge-danger'}}\">{{user.status}}</span></th>\n                <td><span class=\"badge badge-info\">\n                    <button type=\"button\" class=\"btn-sm btn-info\" (click)=\"showUser(user)\" data-toggle=\"modal\" data-target=\"#userModal\">\n                        afficher\n                      </button>\n                </span></td>\n              </tr>\n          </tbody>\n          <tbody *ngIf=\"!userList\">\n              <tr>\n                <td></td>\n                <th></th>\n                <td></td>\n                <td>Vide</td>\n                <th></th>\n                <td></td>\n                <td></td>\n              </tr>\n          </tbody>\n      </table>\n    </div>\n  </div>\n\n  <!-- Modal -->\n  <div class=\"modal fade\" id=\"userModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"userModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\" role=\"document\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <h5 class=\"modal-title\" id=\"userModalLabel\">Gestion des utilisateurs</h5>\n          <button type=\"button\" class=\"close\" (click)=\"closeModal()\" data-dismiss=\"modal\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n        <div class=\"modal-body\">\n          <app-created-users [action]=\"btnModal\" [userForm]=\"userItem\" (user)=\"handlerUserEmit($event)\"></app-created-users>\n        </div>\n      </div>\n    </div>\n  </div>\n"
+module.exports = "<div>\n  <div >\n    <div class=\"row\">\n        <div class=\"col-md-10 col-sm-12 col-12\">\n          <h2>Liste des utilisateurs</h2>\n        </div> \n        <div class=\"col-md-2 col-sm-12 col-12\">\n          <!-- Button trigger modal -->\n          <button type=\"button\" class=\"btn-sm btn-block btn-primary\" data-toggle=\"modal\" data-target=\"#userModal\">\n            Ajouter\n          </button>\n        </div>\n    </div>\n\n    <div class=\"row\" >\n      <table class=\"col-md-12 table\">\n          <thead>\n              <tr>\n                <th scope=\"col\">#</th>\n                <th scope=\"col\">Username</th>\n                <th scope=\"col\">Agent</th>\n                <th scope=\"col\">rule</th>\n                <th scope=\"col\">Status</th>\n              </tr>\n          </thead>\n\n          <tbody *ngIf=\"userList\">\n              <tr *ngFor=\"let user of userList, let i = index\">\n                <td>{{i}}</td>\n                <td>{{user.username}}</td>\n                <td>{{user.agent?.name}}</td>\n                <td ><div *ngFor=\"let rule of user?.rule\">{{rule}}</div></td>\n                <th><span class=\"badge {{user.status === 'actif' ? 'badge-success' : 'badge-danger'}}\">{{user.status}}</span></th>\n                <td><span class=\"badge badge-info\">\n                    <button type=\"button\" class=\"btn-sm btn-info\" (click)=\"showUser(user)\" data-toggle=\"modal\" data-target=\"#userModal\">\n                        afficher\n                      </button>\n                </span></td>\n              </tr>\n          </tbody>\n          <tbody *ngIf=\"!userList\">\n              <tr>\n                <td></td>\n                <th></th>\n                <td></td>\n                <td>Vide</td>\n                <th></th>\n                <td></td>\n                <td></td>\n              </tr>\n          </tbody>\n      </table>\n    </div>\n  </div>\n\n  <!-- Modal -->\n  <div class=\"modal fade\" id=\"userModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"userModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\" role=\"document\">\n      <div class=\"modal-content\">\n        <div class=\"modal-header\">\n          <h5 class=\"modal-title\" id=\"userModalLabel\">Gestion des utilisateurs</h5>\n          <button type=\"button\" class=\"close\" (click)=\"closeModal()\" data-dismiss=\"modal\" aria-label=\"Close\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n        <div class=\"modal-body\">\n          <app-created-users [action]=\"btnModal\" [userForm]=\"userItem\" (user)=\"handlerUserEmit($event)\"></app-created-users>\n        </div>\n      </div>\n    </div>\n  </div>\n"
 
 /***/ }),
 
@@ -427,7 +436,6 @@ var ListUsersComponent = /** @class */ (function () {
         this.getAllUsers();
     };
     ListUsersComponent.prototype.showUser = function (user) {
-        console.log(user);
         this.userItem = __assign({}, user);
         this.btnModal = 'modifier';
     };
@@ -440,17 +448,7 @@ var ListUsersComponent = /** @class */ (function () {
         });
     };
     ListUsersComponent.prototype.handlerUserEmit = function (userEmit) {
-        if (userEmit.action === 'add') {
-            this.userList.push(userEmit.user);
-        }
-        else {
-            for (var index = 0; index < this.userList.length; index++) {
-                if (this.userList[index]._id === userEmit.user._id) {
-                    this.userList[index] = userEmit.user;
-                    break;
-                }
-            }
-        }
+        this.userList = userEmit.user;
     };
     ListUsersComponent.prototype.closeModal = function () {
         this.userItem = {};
@@ -497,30 +495,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AccountsService = /** @class */ (function () {
     function AccountsService(http) {
         this.http = http;
-        this.serverUrl = "http://localhost:3000/users/";
+        this.serverUrl = "http://localhost:3000/";
     }
     AccountsService.prototype.getUsers = function () {
-        return this.http.get("" + this.serverUrl)
+        return this.http.get(this.serverUrl + "users/")
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError('getUsers')));
     };
     AccountsService.prototype.createdUsers = function (user) {
-        return this.http.post("" + this.serverUrl, user)
+        return this.http.post(this.serverUrl + "users/", user)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError('getUsers')));
     };
     AccountsService.prototype.updateUser = function (user) {
-        return this.http.put("" + this.serverUrl + user._id, user)
+        return this.http.put(this.serverUrl + "users/" + user._id, user)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError('updateUser')));
     };
     AccountsService.prototype.getDataUserForm = function () {
-        return this.http.get("" + this.serverUrl)
+        return this.http.get(this.serverUrl + "users/data")
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError('getAtatUserForm')));
     };
     AccountsService.prototype.getUsersGroup = function () {
-        return this.http.get(this.serverUrl + "groupe")
+        return this.http.get(this.serverUrl + "groupe/")
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError('getGroupUser')));
     };
     AccountsService.prototype.createdUserGroup = function (group) {
-        return this.http.post(this.serverUrl + "groupe", group)
+        return this.http.post(this.serverUrl + "groupe/", group)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["a" /* catchError */])(this.handleError('createdUserGroup')));
     };
     AccountsService.prototype.updateUserGroup = function (group) {

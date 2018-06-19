@@ -16,7 +16,8 @@ const UserSchema = mongoose.Schema({
       select: false
     },
     agent: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Agent'
     },
     rule: [{
         type: String

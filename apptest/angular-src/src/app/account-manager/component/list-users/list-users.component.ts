@@ -26,7 +26,6 @@ export class ListUsersComponent implements OnInit {
   }
 
   showUser(user): void {
-    console.log(user);
     this.userItem = {...user};
     this.btnModal = 'modifier';
   }
@@ -40,16 +39,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   handlerUserEmit(userEmit) {
-    if (userEmit.action === 'add') {
-      this.userList.push(userEmit.user);
-    } else {
-      for (let index = 0; index < this.userList.length; index++) {
-        if (this.userList[index]._id === userEmit.user._id) {
-          this.userList[index] = userEmit.user;
-          break;
-        }
-      }
-    }
+    this.userList = userEmit.user;
   }
 
   closeModal(): void {

@@ -7,35 +7,35 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class AccountsService {
 
-  private serverUrl = `http://localhost:3000/users/`;
+  private serverUrl = `http://localhost:3000/`;
 
   constructor(
     private http: HttpClient
   ) { }
 
   getUsers() {
-    return this.http.get<any>(`${this.serverUrl}`)
+    return this.http.get<any>(`${this.serverUrl}users/`)
       .pipe(
         catchError(this.handleError('getUsers'))
       );
   }
 
   createdUsers(user) {
-    return this.http.post<any>(`${this.serverUrl}`, user)
+    return this.http.post<any>(`${this.serverUrl}users/`, user)
       .pipe(
         catchError(this.handleError('getUsers'))
       );
   }
 
   updateUser(user) {
-    return this.http.put<any>(`${this.serverUrl}${user._id}`, user)
+    return this.http.put<any>(`${this.serverUrl}users/${user._id}`, user)
       .pipe(
         catchError(this.handleError('updateUser'))
       );
   }
 
   getDataUserForm() {
-    return this.http.get<any>(`${this.serverUrl}`)
+    return this.http.get<any>(`${this.serverUrl}users/data`)
     .pipe(
       catchError(this.handleError('getAtatUserForm'))
     );
@@ -43,14 +43,14 @@ export class AccountsService {
 
 
   getUsersGroup() {
-    return this.http.get<any>(`${this.serverUrl}groupe`)
+    return this.http.get<any>(`${this.serverUrl}groupe/`)
       .pipe(
         catchError(this.handleError('getGroupUser'))
       );
   }
 
   createdUserGroup(group) {
-    return this.http.post<any>(`${this.serverUrl}groupe`, group)
+    return this.http.post<any>(`${this.serverUrl}groupe/`, group)
       .pipe(
         catchError(this.handleError('createdUserGroup'))
       );

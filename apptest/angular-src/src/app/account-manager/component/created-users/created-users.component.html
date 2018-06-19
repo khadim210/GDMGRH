@@ -15,10 +15,17 @@
             placeholder="mot de passe" name="password" [(ngModel)]="userForm.password">
         </div>
       </div>
+
+      <div class="form-group row">
+        <div class="col-sm-2">Agent :</div>
+        <div *ngIf="agentName">
+            <span class="badge badge-info">{{agentName}}</span><br/>
+        </div>
+      </div>
+
       <div class="form-row">
         <div class="form-group col-md-12">
-          <label for="inputAgent">Agent</label>
-          <select class="form-control form-control-sm" name="agent" [(ngModel)]="userForm.agent">
+          <select class="form-control form-control-sm" (click)="showAgent(userForm.agent)" name="agent" [(ngModel)]="userForm.agent">
             <option *ngFor="let agent of allAgent" [value]="agent._id" > {{agent?.name}}</option>
           </select>
         </div>
