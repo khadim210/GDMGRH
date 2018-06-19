@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const RecompenseSchema = mongoose.Schema({
-    nature_recompense: {
+    type_recompense: {
         type: String
     },
-    libelle: [
+    intitules: [
         {
             nom_recompense: String
         }

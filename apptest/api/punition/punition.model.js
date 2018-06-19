@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const PunitionSchema = mongoose.Schema({
-    nature: {
+    type_punition: {
         type: String
     },
-    suspensions: {
-        officier: [
+    intitules: {
+        suspension: [
             {
-                nom_categorie: String,
-                libelle_punition: [
+                type_officier: String,
+                libelle: [
                     {
                         nom_punition: String
                     }
@@ -17,5 +17,4 @@ const PunitionSchema = mongoose.Schema({
         ]
     }
 });
-
 module.exports = mongoose.model('Punition', PunitionSchema);

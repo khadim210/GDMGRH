@@ -6,13 +6,13 @@ const PunitionRepository = new GenericRepository(Punition);
 module.exports = {
 
     addPunition : async (req, res) => {
-        var nature = req.body.nature;
-        var suspensions = req.body.suspensions;
+        var type_punition = req.body.type_punition;
+        var intitules = req.body.intitules;
 
-        if(nature && suspensions ) {
+        if(type_punition && intitules ) {
             var punitionParams = {
-                nature : nature,
-                suspensions: suspensions
+                type_punition : type_punition,
+                intitules: intitules
             };
             var punition = new Punition(punitionParams);
             try {

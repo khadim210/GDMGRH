@@ -6,13 +6,13 @@ const RecompenseRepository = new GenericRepository(Recompense);
 module.exports = {
 
     addRecompense : async (req, res) => {
-        var nature_recompense = req.body.nature_recompense;
-        var libelle = req.body.libelle;
+        var type_recompense = req.body.type_recompense;
+        var intitules = req.body.intitules;
 
-        if(libelle && nature_recompense) {
+        if(type_recompense && intitules) {
             var recompenseParams = {
-                libelle : libelle,
-                nature_recompense: nature_recompense
+                type_recompense : type_recompense,
+                intitules: intitules
             };
             var recompense = new Recompense(recompenseParams);
             try {
