@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 
 const RecompenseSchema = mongoose.Schema({
-    libelle: {
+    nature_recompense: {
         type: String
-    }
+    },
+    libelle: [
+        {
+            nom_recompense: String
+        }
+    ]
+
 });
 
 module.exports = mongoose.model('Recompense', RecompenseSchema);

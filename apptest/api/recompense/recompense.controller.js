@@ -6,11 +6,13 @@ const RecompenseRepository = new GenericRepository(Recompense);
 module.exports = {
 
     addRecompense : async (req, res) => {
+        var nature_recompense = req.body.nature_recompense;
         var libelle = req.body.libelle;
 
-        if(libelle) {
+        if(libelle && nature_recompense) {
             var recompenseParams = {
-                libelle : libelle
+                libelle : libelle,
+                nature_recompense: nature_recompense
             };
             var recompense = new Recompense(recompenseParams);
             try {
@@ -27,7 +29,8 @@ module.exports = {
     getAllRecompense : async (req, res) => {
         try {
             var allRecompense = await RecompenseRepository.getAll();
-            res.status(200).json({response: allRecompense});
+            // res.status(200).json({response: allRecompense});
+            res.status(200).send(allRecompense);
         } catch (error) {
             res.json({response: 'Bad request'});
         }

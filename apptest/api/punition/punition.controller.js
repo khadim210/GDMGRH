@@ -7,14 +7,12 @@ module.exports = {
 
     addPunition : async (req, res) => {
         var nature = req.body.nature;
-        var categorie_sous_officier = req.body.categorie_sous_officier;
-        var libelle_punition = req.body.libelle_punition
+        var suspensions = req.body.suspensions;
 
-        if(nature && libelle_punition && categorie_sous_officier) {
+        if(nature && suspensions ) {
             var punitionParams = {
                 nature : nature,
-                categorie_sous_officier: categorie_sous_officier,
-                libelle_punition: libelle_punition
+                suspensions: suspensions
             };
             var punition = new Punition(punitionParams);
             try {
@@ -31,7 +29,8 @@ module.exports = {
     getAllPunition : async (req, res) => {
         try {
             var allPunition = await PunitionRepository.getAll();
-            res.status(200).json({response: allPunition});
+            // res.status(200).json({response: allPunition});
+            res.status(200).send(allPunition);
         } catch (error) {
             res.json({response: 'Bad request'});
         }
