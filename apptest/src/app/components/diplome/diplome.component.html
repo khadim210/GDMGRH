@@ -1,0 +1,24 @@
+<div class="container">
+	<h1 align="center">Liste des diplomes</h1><br>
+	<div *ngIf="!diplo" class="alert alert-info" style="width: 70%; margin: auto;">
+		<strong>Information!</strong> Vous n'avez pas de diplômes créés dans la base de données. Cliquez <a href="javascript:void(0);" (click)="openDialog()">ici</a> pour en ajouter.
+	</div>
+
+	<div *ngIf="diplo" class="container" style="position: relative; padding: 10px; margin: auto;">
+		<div class="list-group">
+			<div class="list-group-item"  *ngFor="let dip of diplo">
+				<div style="width: 76%;">
+					<h4 class="list-group-item-heading">{{dip.nomcourt}}</h4>
+					<p class="list-group-item-text">{{dip.nom}} ({{dip.niveauequivalent}})</p>
+				</div>
+				<div class="btn-group float-right">
+					<button type="button" class="btn btn-default btn-rounded" style="margin: 5px" id="{{dip._id}}" (click)="edit($event)">Modifier</button>
+					<button type="button" class="btn btn-danger btn-rounded" style="margin: 5px" id="{{dip._id}}" (click)="delete($event)">Supprimer</button>
+				</div>
+			</div>
+		</div> <br><br>
+		<button type="button" class="btn btn-primary btn-md" (click)="openDialog()">
+			Ajouter
+		</button>
+	</div>
+</div>

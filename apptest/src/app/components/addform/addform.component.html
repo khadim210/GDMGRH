@@ -1,0 +1,25 @@
+<div>
+	<h3>Ajouter un diplôme</h3>
+	<form [formGroup]="form" (submit)="submit()">
+		<div class="form-group">
+			<label for="Nom">Nom:</label>
+			<input type="text" name="nom" class="form-control" id="nom" formControlName="nom" required="">
+		</div>
+		<div class="form-group">
+			<label for="Nom Court">Nom Court:</label>
+			<input type="text" name="nomcourt" class="form-control" id="nomcourt" formControlName="nomcourt" required="">
+		</div>
+		<div class="form-group">
+			<label for="niveau">Niveau:</label>
+			<input type="text" name="niveau" class="form-control" id="niveau" formControlName="niveau" required="">
+		</div> <br>
+		<div>
+			<button type="submit" class="btn btn-primary btn-md" style="margin: 10px">
+				Valider
+			</button>
+			<button type="button" class="btn btn-default btn-md" (click)="cancel()" style="margin: 10px">
+				Annuler
+			</button>
+		</div>
+	</form>
+</div>

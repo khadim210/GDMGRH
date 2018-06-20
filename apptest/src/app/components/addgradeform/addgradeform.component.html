@@ -1,0 +1,36 @@
+<div>
+	<h3>Ajouter un diplôme</h3>
+	<form [formGroup]="form" (submit)="submit()">
+		<div class="form-group">
+			<label for="Categorie">Catégorie:</label>
+			<select name="categorie" class="form-control" id="categorie" formControlName="categorie"  (change)="getCategorie($event)">
+				<option *ngFor="let categorie of categories" value="{{categorie.nom}}">{{categorie.nom}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="Niveau">Niveau:</label>
+			<select type="text" name="niveau" class="form-control" id="niveau" formControlName="niveau" required>
+				<option *ngFor="let item of niveaux">{{item.nom}}</option>
+			</select>
+		</div>
+		<!-- <div class="form-group">
+			<label for="Nom">Niveau:</label>
+			<input type="text" name="nom" class="form-control" id="nom" formControlName="nom" required>
+		</div>
+		<div class="form-group">
+			<label for="Nom Court">Nom du grade:</label>
+		</div>
+		<div class="form-group">
+			<label for="niveau">Dode du grade:</label>
+			<input type="text" name="niveau" class="form-control" id="niveau" formControlName="niveau" required>
+		</div> <br> -->
+		<div>
+			<button type="submit" class="btn btn-primary btn-md" style="margin: 10px">
+				Valider
+			</button>
+			<button type="button" class="btn btn-default btn-md" (click)="cancel()" style="margin: 10px">
+				Annuler
+			</button>
+		</div>
+	</form>
+</div>

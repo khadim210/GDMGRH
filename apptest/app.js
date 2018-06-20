@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+const cors = require('cors');
 
 const expressConfig = require('./config/express');
 const envConfig = require('./config/config');
@@ -20,15 +22,19 @@ mongoose.connection.on('error', (error) => {
 
 // Express config
 expressConfig(app);
+//app.use(express.static(__dirname+'/dist/myapp/'));
+
 
 // Router
 app.use('/users', require('./api/users'));
+app.use('/diplomes', require('./api/diplome'));
+app.use('/grades', require('./api/grade'));
 
 // Invalid Router Index
-app.use('/*', (req, res) => {
+/*app.use('/*', (req, res) => {
 		res.send('Invalid Endpoint');
 	}
-);
+);*/
 
 // Start Server
 app.listen( envConfig.port, envConfig.ip, () => {
