@@ -7,11 +7,11 @@ const envConfig = require('./config/config');
 const app = express();
 
 // connect to database
-mongoose.connect(envConfig.mongo.urimlab, envConfig.mongo.option);
+mongoose.connect(envConfig.mongo.uri, envConfig.mongo.option);
 
 // On connection
 mongoose.connection.on('connected', () => {
-    console.log('connected to database '+envConfig.mongo.urimlab);
+    console.log('connected to database '+envConfig.mongo.uri);
 });
 
 // On error

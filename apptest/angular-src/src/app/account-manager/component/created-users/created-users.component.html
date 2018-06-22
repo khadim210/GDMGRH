@@ -4,7 +4,7 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="inputUsername">Nom d'utilisateur</label>
-          <input type="username" class="form-control form-control-sm" 
+          <input type="username" class="form-control form-control-sm" required
             placeholder="nom d'utilisateur" name="username" [(ngModel)]="userForm.username">
         </div>
       </div>
@@ -25,7 +25,7 @@
 
       <div class="form-row">
         <div class="form-group col-md-12">
-          <select class="form-control form-control-sm" (click)="showAgent(userForm.agent)" name="agent" [(ngModel)]="userForm.agent">
+          <select class="form-control form-control-sm" (change)="showAgent($event.target.value)" name="agent" [(ngModel)]="userForm.agent">
             <option *ngFor="let agent of allAgent" [value]="agent._id" > {{agent?.name}}</option>
           </select>
         </div>

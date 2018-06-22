@@ -51,6 +51,7 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   }
 
   showAgent(_agentName): void {
+    console.log(_agentName);
     if (_agentName) {
       for (let index = 0; index < this.allAgent.length; index++) {
         if (_agentName === this.allAgent[index]._id) {
