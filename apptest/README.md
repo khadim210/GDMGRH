@@ -12,4 +12,4 @@
 
 2. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
 
-3. Run `npm start` to start server.
+3. Run `npm run dev` to start server.

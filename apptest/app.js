@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 const expressConfig = require('./config/express');
 const envConfig = require('./config/config');
@@ -22,7 +23,10 @@ mongoose.connection.on('error', (error) => {
 expressConfig(app);
 
 // Router
+// User
 app.use('/users', require('./api/users'));
+// Groupe
+app.use('/groupe', require('./api/goupe'));
 
 // Invalid Router Index
 app.use('/*', (req, res) => {

@@ -1,0 +1,63 @@
+<div>
+    <div>
+      
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control form-control-sm" 
+              placeholder="nom du groupe" name="name" [(ngModel)]="groupForm.name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="description">Description</label>
+            <input type="text" class="form-control form-control-sm" 
+              placeholder="description" name="description" [(ngModel)]="groupForm.description">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="inputUser">Utilisateurs</label>
+            <select multiple class="form-control form-control-sm" name="user" [(ngModel)]="groupForm.users">
+              <option *ngFor="let user of userList" [value]="user._id" > {{user?.username}}</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="inputUnite">Unite</label>
+              <select class="form-control form-control-sm" name="unite" [(ngModel)]="groupForm.unite">
+                <option *ngFor="let unite of uniteList" [value]="unite._id" > {{unite?.name}}</option>
+              </select>
+            </div>
+          </div>
+
+        <div class="form-row" [hidden]="!groupForm.status">
+            <div class="form-group col-md-12">
+              <label for="inputStatus">Status</label>
+              <select class="form-control form-control-sm" class="form-control form-control-sm" 
+                    name="status" [(ngModel)]="groupForm.status">
+                  <option [value]="'actif'" >actif</option>
+                  <option [value]="'inactif'" >inactif</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row" [hidden]="action !== 'ajouter'">
+          <div class="col-sm-12">
+            <button type="submit" (click)="addGroup()" class="btn-sm btn-block btn-primary">Enregister</button>
+          </div>
+        </div>
+        <div class="form-group row" [hidden]="action !== 'modifier'">
+            <div class="col-sm-12">
+              <button type="submit" (click)="updateGroup()" class="btn-sm btn-block btn-primary">Modifier</button>
+            </div>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  
