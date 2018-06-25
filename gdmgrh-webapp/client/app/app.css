@@ -1,5 +1,6 @@
-@import '~bootstrap/dist/css/bootstrap.css';
 /**
+@import '~bootstrap/dist/css/bootstrap.css';
+
  * Bootstrap Fonts
  */
 
@@ -43,6 +44,21 @@
 
 [hidden] {
   display: none !important;
+}
+
+.bg-gdmrh {
+  background-color: midnightblue;
+  color: white;
+}
+
+.square-null {
+  margin: 0px;
+  padding: 0px
+}
+
+.select-item {
+  background-color: blue;
+  color: white;
 }
 
 /* Component styles are injected through gulp */

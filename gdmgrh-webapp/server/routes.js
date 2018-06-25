@@ -7,10 +7,11 @@
 import errors from './components/errors';
 import path from 'path';
 
+import config from './config/environment';
+
 export default function(app) {
     // Insert routes below
-    app.use('/api/things', require('./api/thing'));
-  app.use('/api/users', require('./api/user'));
+  app.use(`${config.url}user`, require('./api/module_noyau/account_management/user'));
   app.use('/auth', require('./auth').default);
 
     // All undefined asset or api routes should return a 404

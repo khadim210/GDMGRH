@@ -4,8 +4,45 @@
  */
 
 'use strict';
+import User from '../api/module_noyau/account_management/user/user.model';
+import Agent from '../api/module_noyau/account_management/agent/agent.model'
+
+User.find({}).remove()
+    .then(() => {
+      User.create({
+        username: 'admin',
+        password: 'admin',
+        role: ['admin']
+      })
+    .then(() => {
+        console.log('finished populating users');
+      });
+    });
+
+    /*
+Agent.find({}).remove()
+    .then(() => {
+      Agent.create({
+        name: 'Ndiaye Samba'
+      }, {
+        name: 'Diaw Samba'
+      }, {
+        name: 'Tall Abrahm'
+      }, {
+        name: 'Sall Mark'
+      }, {
+        name: 'Sy Aziz'
+      }, {
+        name: 'Fall Soulman'
+      })
+      .then(() => {
+        console.log('finished populating agents');
+      });;
+    });
+    */
+
+/*
 import Thing from '../api/thing/thing.model';
-import User from '../api/user/user.model';
 
 Thing.find({}).remove()
     .then(() => {
@@ -37,22 +74,4 @@ Thing.find({}).remove()
         info: 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
       });
     });
-
-User.find({}).remove()
-    .then(() => {
-      User.create({
-        provider: 'local',
-        name: 'Test User',
-        email: 'test@example.com',
-        password: 'test'
-      }, {
-        provider: 'local',
-        role: 'admin',
-        name: 'Admin',
-        email: 'admin@example.com',
-        password: 'admin'
-      })
-            .then(() => {
-              console.log('finished populating users');
-            });
-    });
+*/

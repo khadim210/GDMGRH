@@ -1,0 +1,73 @@
+<div>
+  <div>
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="inputUsername">Nom d'utilisateur</label>
+          <input type="username" class="form-control form-control-sm" required
+            placeholder="nom d'utilisateur" name="username" [(ngModel)]="userForm.username">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="inputPassword">Mot de passe</label>
+          <input type="password" class="form-control form-control-sm" 
+            placeholder="mot de passe" name="password" [(ngModel)]="userForm.password">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-2">Agent :</div>
+        <div *ngIf="agentName">
+            <span class="badge badge-info">{{agentName}}</span><br/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <select class="form-control form-control-sm" (change)="showAgent($event.target.value)" name="agent" [(ngModel)]="userForm.agent">
+            <option *ngFor="let agent of allAgent" [value]="agent._id" > {{agent?.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" [hidden]="!userForm.status">
+          <div class="form-group col-md-12">
+            <label for="inputStatus">Status</label>
+            <select class="form-control form-control-sm" class="form-control form-control-sm" 
+                  name="status" [(ngModel)]="userForm.status">
+                <option [value]="'actif'" >actif</option>
+                <option [value]="'inactif'" >inactif</option>
+              </select>
+          </div>
+        </div>
+
+      <div class="form-group row">
+          <div class="col-sm-2">Role :</div>
+          <div *ngFor="let rule of userForm.rule">
+              <span class="badge badge-info">{{rule}}</span><br/>
+          </div>
+      </div>
+
+      <div class="form-group row">
+          <div class=" col-sm-12">
+            <select multiple class="form-control form-control-sm" name="agent" [(ngModel)]="userForm.rule">
+                <option *ngFor="let rules of allRules; let i = index" [value]="rules" > {{rules}}</option>
+            </select>
+          </div>
+      </div>
+      <div class="form-group row" [hidden]="action !== 'ajouter'">
+        <div class="col-sm-12">
+          <button type="submit" (click)="addUsers()" class="btn-sm btn-block btn-primary">Enregister</button>
+        </div>
+      </div>
+
+      <div class="form-group row" [hidden]="action !== 'modifier'">
+          <div class="col-sm-12">
+            <button type="submit" (click)="updateUsers()" class="btn-sm btn-block btn-primary">Modifier</button>
+          </div>
+      </div>
+    </form>
+
+  </div>
+</div>

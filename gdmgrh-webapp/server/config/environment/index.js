@@ -14,6 +14,9 @@ import _ from 'lodash';
 // All configurations will extend these options
 // ============================================
 var all = {
+  //URL API
+  url: '/api/gmgrh/',
+
   env: process.env.NODE_ENV,
 
     // Root path of server
@@ -46,9 +49,9 @@ var all = {
       poolSize: 10, // increase poolsize
       keepAlive: true,
       promiseLibrary: global.Promise,
-      db: {
+      /*db: {
         safe: true
-      }
+      }*/
     }
   }
 };
