@@ -12,10 +12,10 @@
                             <div class="btn-group">
                                 <span class="badge badge-primary dropdown-toggle mouse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img class="rounded-circle mouse" src="assets/images/military-personnel.png" width="30" height="30" alt="...">
-                                    Nom Chef de division
+                                    {{nameUserConnected ? nameUserConnected : 'Nom Gendarme Connecter'}}
                                 </span>                                
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <h6 class="dropdown-header">Nom Chef de division</h6>
+                                    <h6 class="dropdown-header">{{nameUserConnected ? nameUserConnected : 'Nom Gendarme Connecter'}}</h6>
                                     <div class="dropdown-divider"></div>
                                     <span class="dropdown-item  mouse" (click)="setting()" >
                                         <img class="rounded-circle mouse" src="assets/images/settings.png" width="20" height="20" alt="...">

@@ -23,23 +23,29 @@ User.find({}).remove()
 Agent.find({}).remove()
     .then(() => {
       Agent.create({
-        name: 'Ndiaye Samba'
+        name: 'Ndiaye Samba',
+        unite: 'DAM'
       }, {
-        name: 'Diaw Samba'
+        name: 'Diaw Samba',
+        unite: 'DCC'
       }, {
-        name: 'Tall Abrahm'
+        name: 'Tall Abrahm',
+        unite: 'DGP'
       }, {
-        name: 'Sall Mark'
+        name: 'Sall Mark',
+        unite: 'DIF'
       }, {
-        name: 'Sy Aziz'
+        name: 'Sy Aziz',
+        unite: 'DDD'
       }, {
-        name: 'Fall Soulman'
+        name: 'Fall Soulman',
+        unite: 'AAA'
       })
       .then(() => {
         console.log('finished populating agents');
       });;
     });
-    */
+*/
 
 /*
 import Thing from '../api/thing/thing.model';

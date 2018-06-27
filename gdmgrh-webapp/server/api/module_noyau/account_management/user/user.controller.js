@@ -1,12 +1,15 @@
 'use strict';
 
 import User from './user.model';
+import * as AuthService from '../../../service/auth.service';
 import * as AgentControllers from '../agent/agent.controller';
 import GenericRepository from '../../../service/generic.repository';
 
-
+// User Repository
 const UserRepository = new GenericRepository(User); 
 
+
+// Get User by criteria 
 export async function getAllUserBy (res, criteria = {}) {
     try {
         var allUser = await UserRepository.getAll(criteria);
@@ -16,6 +19,7 @@ export async function getAllUserBy (res, criteria = {}) {
     }
 }
 
+//
 export async function getDataUser (req, res) {
     try {
         var agent = await AgentControllers.getAllAgent({access: false});
@@ -26,6 +30,7 @@ export async function getDataUser (req, res) {
     }
 }
 
+//
 export async function addUser(req, res) {
     var agent_id = req.body.agent;
     var role = req.body.role;
@@ -66,6 +71,7 @@ export async function addUser(req, res) {
     }
 }
 
+// Get all users with their respective agent
 export async function getAllUser (req, res) {
     try {
         var allUser = await UserRepository.getAllPopulate('agent');
@@ -77,6 +83,7 @@ export async function getAllUser (req, res) {
     } 
 }
 
+//
 export async function getOneUser (req, res) {
     var id = req.params.id;
     if(id) {
@@ -91,6 +98,7 @@ export async function getOneUser (req, res) {
     } 
 }
 
+// Update User profile
 export async function updateUser (req, res) {
     var agent = null;
     var user = null;
@@ -123,5 +131,59 @@ export async function updateUser (req, res) {
         }
     } else {
         return res.json({error: 'User doesn\'t exist !!!'});
-    }  
+    }
+}
+
+// Sign-in
+export async function signin (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    var user = null;
+    var agent = null;
+    if(username && password) {
+        try {
+            user = await UserRepository.getOneBy({username: username}, '_id username salt hashedPassword agent provider active created updated role');
+        } catch (error) {
+            console.log(error);
+            return res.json({error: 'Mauvaise requête, veuillez contacter l\'administrateur !!!'});
+        }
+        if(user === null || !user.verifyPassword(password)) {
+            return res.json({error: 'Nom d\'utilisateur ou mot de passe incorrect, en cas d\'oublie veuillez contacter l\'administrateur !!!'});
+        }
+        if(!user.active) {
+            return res.json({error: 'Identifiant revoquer, veuillez contacter l\'administrateur !!!'});
+        }
+        if(user.agent) {
+            try {
+                //console.log('agent')
+                agent = await AgentControllers.getOneAgent(user.agent);
+            } catch (error) {
+                console.log(error);
+                return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+            }
+
+            var token = AuthService.signToken(user._id, user.role);
+            return res.json({response: {
+                _id: user._id,
+                username: user.username,
+                agent: agent,
+                token: token,
+                role: user.role,
+                created: user.created,
+                updated: user.updated
+            }});
+        } else {
+            return res.json({response: {
+                _id: user._id,
+                username: user.username,
+                agent: agent,
+                token: AuthService.signToken(user._id, user.role),
+                role: user.role,
+                created: user.created,
+                updated: user.updated
+            }});
+        }
+    } else {
+        return res.json({error: 'Mauvaise requête, veuillez contacter l\'administrateur !!!'});
+    }
 }

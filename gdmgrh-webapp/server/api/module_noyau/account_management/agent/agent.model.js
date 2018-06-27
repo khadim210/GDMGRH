@@ -5,6 +5,7 @@ import mongoose, {Schema} from 'mongoose';
 
 const AgentSchema = Schema({
     name: String,
+    unite: String,
     access: {
         type: Boolean,
         default: false

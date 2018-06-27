@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     },
     hashedPassword: {
       type: String,
-      required: true,
+      required: false,
       select: false
     },
     salt: {
@@ -26,8 +26,7 @@ const UserSchema = new Schema({
     },
     active: {
         type: Boolean,
-        default: true,
-        select: true
+        default: true
     },
     created: {
         type: Date,
@@ -38,6 +37,11 @@ const UserSchema = new Schema({
         type: Date,
         select: false
     },
+    provider: {
+      type: String,
+      default: 'local',
+      required: true
+    },
 });
 
 UserSchema
@@ -46,6 +50,9 @@ UserSchema
         this.salt = this.makeSalt();
         this.hashedPassword = this.encryptPassword(password);
     })
+    .get(function() {
+      return this._password;
+    });
 
 /**
  * Méthod
@@ -70,4 +77,12 @@ UserSchema.methods = {
     },
 }
 
-module.exports = mongoose.model('User', UserSchema);
+/**
+ *  hooks methods
+ */
+UserSchema.pre('save', function(next) {
+    this.updated = Date.now();
+    next();
+  });
+
+export default mongoose.model('User', UserSchema);

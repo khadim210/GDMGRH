@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
     selector: 'selector-header',
@@ -8,11 +9,31 @@ import {Router} from '@angular/router';
 
 export class HeaderComponent implements OnInit {
 
-    constructor(
-        private router: Router
-    ) { }
+    userProfile: any;
+    nameUserConnected: string;
 
-    ngOnInit() { }
+    constructor(
+        private router: Router,
+        private authService: AuthService
+    ) {
+        this.userProfile = {};
+        this.nameUserConnected = '';
+    }
+
+    ngOnInit() {
+        this.getUserProfile();
+    }
+
+    getUserProfile() {
+        this.userProfile = this.authService.getUser();
+        if (this.userProfile) {
+            this.userProfile.agent ?
+                this.nameUserConnected = this.userProfile.agent.name :
+                this.nameUserConnected = this.userProfile.username;
+        } else {
+            this.router.navigate(['/signin']);
+        }
+    }
 
     setting() {
         console.log('setting');

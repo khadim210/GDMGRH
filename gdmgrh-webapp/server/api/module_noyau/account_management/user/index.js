@@ -6,6 +6,7 @@ import * as controller from './user.controller';
 var router = new Router();
 
 //router.get('/', auth.hasRole('admin'), controller.index);
+router.post('/signin', controller.signin)
 router.get('/', controller.getAllUser);
 router.get('/data', controller.getDataUser);
 router.post('/', controller.addUser);

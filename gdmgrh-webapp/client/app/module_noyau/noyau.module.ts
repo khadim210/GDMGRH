@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { NoyauService } from './service/noyau.service';
+import { AuthService } from './service/auth.service';
+import { SanctionService } from './service/sanction.service';
+import { UniteService } from './service/unite.service';
 
 import { NoyauRoutingModule } from './noyau.routing';
 
@@ -19,8 +22,6 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { UniteComponent } from './components/unite/unite.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
-import { SanctionService } from './service/sanction.service';
-import { UniteService } from './service/unite.service';
 import { DashboadComponent } from './components/dashboad/dashboad.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { SettingComponent } from './components/setting/setting.component';
@@ -57,6 +58,7 @@ import { SettingComponent } from './components/setting/setting.component';
     ],
     providers: [
         NoyauService,
+        AuthService,
         SanctionService,
         UniteService
     ]

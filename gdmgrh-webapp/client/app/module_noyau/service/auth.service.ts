@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { localStorageName } from '../../app.constants';
+import { localStorageName, apiUrl } from '../../app.constants';
 
 @Injectable()
 export class AuthService {
 
+    private serverUrl = `${apiUrl}`;
     constructor(
         private http: HttpClient
     ) { }
@@ -44,6 +45,6 @@ export class AuthService {
      * Sign-in User
      */
     signin(user) {
-
+        return this.http.post<any>(`${apiUrl}/user/signin`, user).pipe();
     }
 }

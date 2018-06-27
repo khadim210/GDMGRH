@@ -1,9 +1,9 @@
 'use strict';
-import config from '../config/environment';
+import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import compose from 'composable-middleware';
-import User from '../api/module_noyau/account_management/user/user.model';
+import User from '../module_noyau/account_management/user/user.model';
 
 var validateJwt = expressJwt({
   secret: config.secrets.session
