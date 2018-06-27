@@ -23,9 +23,7 @@ export class SigninComponent implements OnInit {
     ngOnInit() { }
 
     signin() {
-        console.log(this.signinModel);
         this.authService.signin(this.signinModel).subscribe(res => {
-            console.log(res);
             if (res.response) {
                 const response = res.response;
                 if (response.role === 'admin') {
@@ -36,6 +34,5 @@ export class SigninComponent implements OnInit {
                 this.msgerror = res.error;
             }
         });
-        //this.router.navigate(['/users/']);
     }
 }

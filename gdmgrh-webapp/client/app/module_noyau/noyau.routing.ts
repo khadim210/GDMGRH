@@ -31,7 +31,7 @@ const routes: Routes = [
         { path: '', redirectTo: '/users/dashboad', pathMatch: 'full' }
       ]
     },
-    { path: 'signin', component: SigninComponent },
+    { path: 'sign-in', component: SigninComponent },
 ];
 
 @NgModule({

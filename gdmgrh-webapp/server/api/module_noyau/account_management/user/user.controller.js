@@ -12,8 +12,7 @@ const UserRepository = new GenericRepository(User);
 // Get User by criteria 
 export async function getAllUserBy (res, criteria = {}) {
     try {
-        var allUser = await UserRepository.getAll(criteria);
-        return allUser;
+        return await UserRepository.getAll(criteria);
     } catch (error) {
         return res.json({error: 'Bad request'});
     }
@@ -155,7 +154,6 @@ export async function signin (req, res) {
         }
         if(user.agent) {
             try {
-                //console.log('agent')
                 agent = await AgentControllers.getOneAgent(user.agent);
             } catch (error) {
                 console.log(error);
