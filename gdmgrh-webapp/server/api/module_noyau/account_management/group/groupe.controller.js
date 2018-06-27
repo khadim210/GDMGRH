@@ -1,9 +1,8 @@
-import User from '../user/user.controller';
 import Groupe from './groupe.model';
 import GenericRepository from '../../../service/generic.repository';
+import * as UserController from '../user/user.controller';
 
 const GroupeRepository = new GenericRepository(Groupe);
-const UserController = new User();
 
 
     /**

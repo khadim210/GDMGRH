@@ -12,7 +12,7 @@ User.find({}).remove()
       User.create({
         username: 'admin',
         password: 'admin',
-        role: ['admin']
+        role: 'admin'
       })
     .then(() => {
         console.log('finished populating users');

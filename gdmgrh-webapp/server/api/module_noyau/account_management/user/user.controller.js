@@ -12,7 +12,7 @@ export async function getAllUserBy (res, criteria = {}) {
         var allUser = await UserRepository.getAll(criteria);
         return allUser;
     } catch (error) {
-        return res.json({response: 'Bad request'});
+        return res.json({error: 'Bad request'});
     }
 }
 
@@ -22,7 +22,7 @@ export async function getDataUser (req, res) {
         return res.json({response: agent});
     } catch (error) {
         console.log(error);
-        return res.json({response: 'Bad request'});
+        return res.json({error: 'Bad request'});
     }
 }
 
@@ -39,14 +39,14 @@ export async function addUser(req, res) {
             username: username,
             password: password
         };
-        var user = new User(userParams);
         try {
-            if(await UserRepository.getOneBy({username: user.username})) {
-                return res.json({response: 'User already exist'});
+            if(await UserRepository.getOneBy({username: userParams.username})) {
+                return res.json({error: 'Nom d\'utilisateur exist déjà'});
             } else {
+                var user = new User(userParams);
                 agent = await AgentControllers.getOneAgent(user.agent);
                 if(!agent) {
-                    return res.json({response: 'Agent doesn\'t exist'});
+                    return res.json({error: 'Agent selectionné n\'existe pas'});
                 }
                 user = await UserRepository.save(user);
                 if(user) {
@@ -59,10 +59,10 @@ export async function addUser(req, res) {
             }
         } catch (error) {
             console.log(error)
-            return res.json({response: 'Bad request POST USER'});
+            return res.json({error: 'Bad request POST USER'});
         }
     } else {
-        return res.json({response: 'Bad params POST USER'});
+        return res.json({error: 'Bad params POST USER'});
     }
 }
 
@@ -72,7 +72,8 @@ export async function getAllUser (req, res) {
 
         return res.status(200).json({response: allUser});
     } catch (error) {
-        return res.json({response: 'Bad request GET USER'});
+        console.log(error)
+        return res.json({error: 'Bad request GET USER'});
     } 
 }
 
@@ -83,10 +84,10 @@ export async function getOneUser (req, res) {
             var allUser = await UserRepository.getOne(id);
             return res.status(200).json({response: allUser});
         } catch (error) {
-            return res.json({response: 'Bad request GET ONE USER'});
+            return res.json({error: 'Bad request GET ONE USER'});
         }
     } else {
-        return res.json({response: 'User doesn\'t exist !!!'});
+        return res.json({error: 'User doesn\'t exist !!!'});
     } 
 }
 
@@ -118,9 +119,9 @@ export async function updateUser (req, res) {
             }
             return res.status(200).json({user, agent});
         } catch (error) {
-            return res.json({response: 'Bad request PUT USER'});
+            return res.json({error: 'Bad request PUT USER'});
         }
     } else {
-        return res.json({response: 'User doesn\'t exist !!!'});
+        return res.json({error: 'User doesn\'t exist !!!'});
     }  
 }

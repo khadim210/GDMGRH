@@ -15,7 +15,7 @@ import _ from 'lodash';
 // ============================================
 var all = {
   //URL API
-  url: '/api/gmgrh/',
+  url: '/api',
 
   env: process.env.NODE_ENV,
 

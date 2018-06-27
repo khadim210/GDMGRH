@@ -1,6 +1,39 @@
-<div class="shadow-lg p-1 text-white bg-primary">
+<div class="shadow-lg text-white bg-primary sticky-top">
+    <nav class="navbar navbar-light navbar-expand-md bg-primary justify-content-center">
+        <img src="assets/images/logo_gend_sn.png" width="60" height="50" alt="...">
+        <span class="navbar-brand mr-0 text-white">Gendarmerie Nationale</span> 
+        <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse w-100" id="collapsingNavbar2">
+            <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <span class="badge badge-primary dropdown-toggle mouse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="rounded-circle mouse" src="assets/images/military-personnel.png" width="30" height="30" alt="...">
+                                    Nom Chef de division
+                                </span>                                
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <h6 class="dropdown-header">Nom Chef de division</h6>
+                                    <div class="dropdown-divider"></div>
+                                    <span class="dropdown-item  mouse" (click)="setting()" >
+                                        <img class="rounded-circle mouse" src="assets/images/settings.png" width="20" height="20" alt="...">
+                                        Paramètre
+                                    </span>
+                                    <div class="dropdown-divider"></div>
+                                    <selector-logout></selector-logout>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+    
+    <!--
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-md-4">
             <div class="row">
                     <div class="col-sm-2">
                         <img src="assets/images/logo_gend_sn.png" width="50" height="60" alt="...">   
@@ -17,20 +50,25 @@
                 </div>
         </div>
 
-        <div class="offset-sm-6 col-sm-2">
+        <div class="offset-sm-6 col-sm-2 offset-md-6 col-md-2">
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-md-2">
                     <img class="rounded-circle" src="assets/images/profile-icon.png" width="60" height="60" alt="...">   
                 </div>
-                <div class="offset-sm-3 col-sm-4">
+                <div class="offset-sm-3 col-sm-7 offset-md-1 col-md-7">
                     <div class="row">
-                        Chef
+                        <div class="col-sm-12">
+                            Chef
+                        </div>
                     </div> 
                     <div class="row">
-                        <span class="text-danger">Déconnexion</span>
+                        <div class="col-sm-12">
+                            <span class="text-danger mouse">Déconnexion</span>
+                        </div>
                     </div>
                 </div>
             </div>  
         </div>
     </div>
+    -->
 </div>

@@ -17,28 +17,26 @@
           <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Username</th>
+                <th scope="col">Utilisateur</th>
                 <th scope="col">Agent</th>
-                <th scope="col">rule</th>
+                <th scope="col">role</th>
                 <th scope="col">Status</th>
               </tr>
           </thead>
 
-          <tbody *ngIf="userList">
+          <tbody *ngIf="userList.length">
               <tr *ngFor="let user of userList, let i = index">
                 <td>{{i}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.agent?.name}}</td>
-                <td ><div *ngFor="let rule of user?.rule">{{rule}}</div></td>
-                <th><span class="badge {{user.status === 'actif' ? 'badge-success' : 'badge-danger'}}">{{user.status}}</span></th>
-                <td><span class="badge badge-info">
-                    <button type="button" class="btn-sm btn-info" (click)="showUser(user)" data-toggle="modal" data-target="#userModal">
+                <td>{{user?.username}}</td>
+                <td>{{user?.agent?.name}}</td>
+                <td >{{user?.role}}</td>
+                <th><span class="badge badge-pill {{user.active ? 'badge-success' : 'badge-danger'}} ">{{user.active ? 'actif' : 'inactif'}}</span></th>
+                <td><span class="badge badge-primary mouse" (click)="showUser(user)" data-toggle="modal" data-target="#userModal">
                         afficher
-                      </button>
                 </span></td>
               </tr>
           </tbody>
-          <tbody *ngIf="!userList">
+          <tbody *ngIf="!userList.length">
               <tr>
                 <td></td>
                 <th></th>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { NoyauService } from '../../../../service/noyau.service';
+import { NoyauService } from '../../../service/noyau.service';
 
 @Component({
   selector: 'app-created-users',
@@ -12,13 +12,14 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   allRules: any;
   allAgent: any;
   agentName: string;
+  errormsg: string;
 
   constructor(
     private noyauService: NoyauService
   ) {
     this.action = 'ajouter';
     this.userForm = {};
-    this.userForm.rule = [];
+    //this.userForm.role = [];
     this.allAgent = [];
     this.allRules = [];
    }
@@ -29,6 +30,7 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
       this.allAgent = this.allAgent.filter(agent => agent.access !== true);
       this.allAgent.push(change.userForm.currentValue.agent);
       this.agentName = change.userForm.currentValue.agent.name;
+      this.userForm.agent = change.userForm.currentValue.agent._id;
     }
    }
   ngOnInit() {
@@ -36,7 +38,7 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   }
 
   getDataForm(): void {
-    this.allRules = ['subalterne', 'superieure', 'autoriser'];
+    this.allRules = ['chef', 'chef_secretaire', 'secretaire'];
 
     this.noyauService.getDataUserForm().subscribe(res => {
       if (res.response) {
@@ -48,7 +50,6 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   }
 
   showAgent(_agentName): void {
-    console.log(_agentName);
     if (_agentName) {
       for (let index = 0; index < this.allAgent.length; index++) {
         if (_agentName === this.allAgent[index]._id) {
@@ -59,31 +60,55 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   }
 
   addUsers(): void {
+    console.log(this.userForm);
     this.noyauService.createdUsers(this.userForm).subscribe(res => {
-      if (res) {
+      console.log(res);
+      if (res.user && res.agent) {
         const user = res;
         this.user.emit({user: user.user});
         this.userForm = {};
-        this.userForm.rule = [];
+        //this.userForm.role = [];
         this.allAgent = user.agent;
         this.agentName = '';
+      } else if (res.error) {
+        this.errormsg = res.error;
       }
     });
   }
 
   updateUsers(): void {
     this.noyauService.updateUser(this.userForm).subscribe(res => {
-      if (res) {
-        const user = res;
-        this.user.emit({user: user.user});
+      if (res.user && res.agent) {
+        this.user.emit({user: res.user});
         this.userForm = {};
-        this.userForm.rule = [];
-        this.allAgent = user.agent;
+        //this.userForm.role = [];
+        this.allAgent = res.agent;
         this.agentName = '';
         this.action = 'ajouter';
-        console.log(res);
+      } else if (res.error) {
+        this.errormsg = res.error;
       }
     });
   }
 
+  searchRole(input) {
+    this.filterTable(this.allRules, `${input}`);
+  }
+
+  filterTable(table = [], input) {
+    if (table.length) {
+      for (let index = 0; index < table.length; index++) {
+        console.log(this.matchString(table[index], input));
+      }
+    }
+  }
+
+  matchString(string1, string2) {
+    console.log(string1);
+    console.log(string2);
+      if (string2.test(new RegExp(string1))) {
+        return true;
+      }
+    return false;
+  }
 }

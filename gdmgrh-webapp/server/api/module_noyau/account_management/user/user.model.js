@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     },
     hashedPassword: {
       type: String,
-      required: false,
+      required: true,
       select: false
     },
     salt: {
@@ -21,12 +21,13 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Agent'
     },
-    role: [{
+    role: {
         type: String
-    }],
+    },
     active: {
         type: Boolean,
-        default: true
+        default: true,
+        select: true
     },
     created: {
         type: Date,

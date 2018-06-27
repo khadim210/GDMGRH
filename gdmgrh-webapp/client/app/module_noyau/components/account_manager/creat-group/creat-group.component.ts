@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NoyauService } from '../../../../service/noyau.service';
+import { NoyauService } from '../../../service/noyau.service';
 
 @Component({
   selector: 'app-creat-group',

@@ -1,7 +1,6 @@
 'use strict';
 
 import {Router} from 'express';
-var router = express.Router();
 import * as controller from './groupe.controller';
 
 var router = new Router();

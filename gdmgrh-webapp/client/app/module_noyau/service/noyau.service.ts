@@ -14,28 +14,28 @@ export class NoyauService {
   ) { }
 
   getUsers() {
-    return this.http.get<any>(`${this.serverUrl}/users/`)
+    return this.http.get<any>(`${this.serverUrl}/user`)
       .pipe(
         catchError(this.handleError('getUsers'))
       );
   }
 
   createdUsers(user) {
-    return this.http.post<any>(`${this.serverUrl}/users/`, user)
+    return this.http.post<any>(`${this.serverUrl}/user/`, user)
       .pipe(
         catchError(this.handleError('getUsers'))
       );
   }
 
   updateUser(user) {
-    return this.http.put<any>(`${this.serverUrl}/users/${user._id}`, user)
+    return this.http.put<any>(`${this.serverUrl}/user/${user._id}`, user)
       .pipe(
         catchError(this.handleError('updateUser'))
       );
   }
 
   getDataUserForm() {
-    return this.http.get<any>(`${this.serverUrl}/users/data`)
+    return this.http.get<any>(`${this.serverUrl}/user/data`)
     .pipe(
       catchError(this.handleError('getAtatUserForm'))
     );

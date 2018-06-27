@@ -11,7 +11,8 @@ import config from './config/environment';
 
 export default function(app) {
     // Insert routes below
-  app.use(`${config.url}user`, require('./api/module_noyau/account_management/user'));
+  app.use(`/api/user`, require('./api/module_noyau/account_management/user'));
+  app.use(`/api/groupe`, require('./api/module_noyau/account_management/group'));
   app.use('/auth', require('./auth').default);
 
     // All undefined asset or api routes should return a 404
