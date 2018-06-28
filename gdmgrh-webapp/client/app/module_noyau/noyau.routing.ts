@@ -8,6 +8,8 @@ import { ListUsersComponent } from './components/account_manager/compte-user/lis
 import { ListGroupComponent } from './components/account_manager/compte-user/list-group/list-group.component';
 import { UniteComponent } from './components/unite/unite.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
+import { DiplomesComponent } from './components/diplomes/diplomes.component';
+import { GradesComponent } from './components/grades/grades.component';
 
 const routes: Routes = [
     { path: 'users',
@@ -25,6 +27,12 @@ const routes: Routes = [
           children: []
         },
         { path: 'unite', component: UniteComponent,
+          children: []
+        },
+        { path: 'diplomes', component: DiplomesComponent,
+          children: []
+        },
+        { path: 'grades', component: GradesComponent,
           children: []
         },
         { path: '', redirectTo: '/users/signin', pathMatch: 'full' }

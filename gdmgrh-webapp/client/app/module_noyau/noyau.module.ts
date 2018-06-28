@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NoyauService } from './service/noyau.service';
 
@@ -18,16 +20,22 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { UniteComponent } from './components/unite/unite.component';
+import { DiplomesComponent } from './components/diplomes/diplomes.component';
+import { GradesComponent } from './components/grades/grades.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
 import { SanctionService } from './service/sanction.service';
 import { UniteService } from './service/unite.service';
+import { DiplomesService } from './service/diplomes.service';
+import { GradesService } from './service/grades.service';
 
 @NgModule({
     imports: [
         CommonModule,
         HttpClientModule,
         FormsModule,
-        NoyauRoutingModule
+        NoyauRoutingModule,
+        ReactiveFormsModule,
+        NgbModule,
     ],
     exports: [
         CommonModule,
@@ -46,12 +54,16 @@ import { UniteService } from './service/unite.service';
         HeaderComponent,
         NavbarComponent,
         SanctionComponent,
-        UniteComponent
+        UniteComponent,
+        DiplomesComponent,
+        GradesComponent,
     ],
     providers: [
         NoyauService,
         SanctionService,
-        UniteService
+        UniteService,
+        DiplomesService,
+        GradesService
     ]
 })
 

@@ -1,7 +1,7 @@
 'use strict';
 import express from 'express';
 import config from '../config/environment';
-import User from '../api/account_management/user/user.model';
+import User from '../api/module_noyau/account_management/user/user.model';
 
 // Passport Configuration
 require('./local/passport').setup(User, config);

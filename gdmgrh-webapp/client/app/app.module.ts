@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { GeneralModule } from './module_general/general.module';
 import { NoyauModule } from './module_noyau/noyau.module';
@@ -18,6 +20,7 @@ import { AppComponent } from './app.component';
         NoyauModule,
         WebsiteModule,
         AppRoutingModule,
+        NgbModule.forRoot(),
     ],
     declarations: [
         AppComponent,

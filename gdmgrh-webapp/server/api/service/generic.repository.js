@@ -2,6 +2,10 @@ function repository (item) {
     this.item = item;
     this.save = item => item.save(item);
 
+    this.remove = (criteria) => {
+        item.remove(criteria).exec();
+    };
+
     this.getAll = (creterias = null) => {
         return (creterias !== null) ? item.find(creterias).exec() : item.find().exec();
     };
