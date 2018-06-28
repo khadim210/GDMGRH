@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpHeaders } fro
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { AuthService } from './module_noyau/service/auth.service';
+import { AuthService } from './noyau/service/auth.service';
 import { apiUrl } from './app.constants';
 import { tap } from 'rxjs/operators';
 
@@ -28,7 +28,8 @@ export class AppInterceptor implements HttpInterceptor {
                 event => {},
                 error => {
                     if (401 === error.status) {
-                        this.router.navigate(['/sign-in']);
+                        this.authService.logout();
+                        this.router.navigate(['/account/sign-in']);
                     }
                 }
             )

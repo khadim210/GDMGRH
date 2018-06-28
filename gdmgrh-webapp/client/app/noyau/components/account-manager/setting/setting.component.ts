@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'selector-setting',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SettingComponent implements OnInit {
-    constructor() { }
+    constructor(
+        private router: Router
+    ) { }
 
     ngOnInit() { }
+
+    goHome() {
+        this.router.navigate(['/noyau/dashboad']);
+    }
 }

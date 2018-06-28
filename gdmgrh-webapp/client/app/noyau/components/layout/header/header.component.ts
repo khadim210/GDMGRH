@@ -31,12 +31,12 @@ export class HeaderComponent implements OnInit {
                 this.nameUserConnected = this.userProfile.agent.name :
                 this.nameUserConnected = this.userProfile.username;
         } else {
-            this.router.navigate(['/signin']);
+            //this.router.navigate(['/account/sign-in']);
         }
     }
 
     setting() {
         console.log('setting');
-        //this.router.navigate(['/users/signin']);
+        this.router.navigate(['/account/setting']);
     }
 }

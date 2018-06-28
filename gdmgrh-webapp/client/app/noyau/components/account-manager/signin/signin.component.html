@@ -9,6 +9,11 @@
                 <div *ngIf="msgerror" class="alert alert-danger" role="alert">
                     {{msgerror | json}}
                 </div>
+                <!--
+                <div class="d-inline p-2 bg-primary text-white">
+                    <img class="rounded-circle" src="assets/images/loading-icon.gif" alt="...">
+                </div>
+                -->
             </div>
             <div class="checkbox mb-3">
                 <label for="inputUsername" class="sr-only">Nom d'utilisateur</label>
@@ -24,7 +29,9 @@
                 </label>
             -->
             </div>
-            <button class="btn btn-lg btn-primary btn-block"  type="button" (click)="signin()">Envoyer</button>
+            <button class="btn btn-lg btn-primary btn-block"  type="button" (click)="signin()">
+                Envoyer
+            </button>
             <p class="mt-5 mb-3 text-muted">&copy; Gendarmerie-2018</p>
         </form>
     </div>

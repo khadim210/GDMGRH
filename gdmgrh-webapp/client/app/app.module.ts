@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { GeneralModule } from './module_general/general.module';
-import { NoyauModule } from './module_noyau/noyau.module';
+import { GeneralModule } from './general/general.module';
+import { NoyauModule } from './noyau/noyau.module';
 import { WebsiteModule } from './website/website.module';
 import { AppRoutingModule } from './app.routing';
 

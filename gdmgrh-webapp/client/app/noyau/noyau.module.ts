@@ -11,20 +11,23 @@ import { UniteService } from './service/unite.service';
 import { NoyauRoutingModule } from './noyau.routing';
 
 import { NoyauComponent } from './noyau.component';
-import { AccountComponent } from './components/account_manager/account.component';
-import { CreatedUsersComponent } from './components/account_manager/created-users/created-users.component';
-import { CreatGroupComponent } from './components/account_manager/creat-group/creat-group.component';
-import { ListUsersComponent } from './components/account_manager/list-users/list-users.component';
-import { ListGroupComponent } from './components/account_manager/list-group/list-group.component';
-import { SigninComponent } from './components/signin/signin.component';
+import { UserManagerComponent } from './components/user-manager/user-manager.component';
+import { CreatedUsersComponent } from './components/user-manager/created-users/created-users.component';
+import { CreatGroupComponent } from './components/user-manager/creat-group/creat-group.component';
+import { ListUsersComponent } from './components/user-manager/list-users/list-users.component';
+import { ListGroupComponent } from './components/user-manager/list-group/list-group.component';
+import { AccountManagerComponent } from './components/account-manager/account-manager.component';
+import { SigninComponent } from './components/account-manager/signin/signin.component';
+import { LogoutComponent } from './components/account-manager/logout/logout.component';
+import { SettingComponent } from './components/account-manager/setting/setting.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { UniteComponent } from './components/unite/unite.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
 import { DashboadComponent } from './components/dashboad/dashboad.component';
-import { LogoutComponent } from './components/logout/logout.component';
-import { SettingComponent } from './components/setting/setting.component';
+import { AuthGuard } from './auth.guard';
+import { NoyauGuard } from './noyau.guard';
 
 @NgModule({
     imports: [
@@ -37,30 +40,34 @@ import { SettingComponent } from './components/setting/setting.component';
         CommonModule,
         HttpClientModule,
         NoyauComponent,
-        HeaderComponent
+        HeaderComponent,
+        NavbarComponent
     ],
     declarations: [
         NoyauComponent,
-        AccountComponent,
+        UserManagerComponent,
         CreatedUsersComponent,
         CreatGroupComponent,
         ListUsersComponent,
         ListGroupComponent,
+        AccountManagerComponent,
         SigninComponent,
+        LogoutComponent,
+        SettingComponent,
         FooterComponent,
         HeaderComponent,
         NavbarComponent,
         SanctionComponent,
         UniteComponent,
-        DashboadComponent,
-        LogoutComponent,
-        SettingComponent
+        DashboadComponent
     ],
     providers: [
         NoyauService,
         AuthService,
         SanctionService,
-        UniteService
+        UniteService,
+        AuthGuard,
+        NoyauGuard
     ]
 })
 

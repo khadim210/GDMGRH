@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
     selector: 'selector-signin',
@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
                 const response = res.response;
                 if (response.role === 'admin') {
                     this.authService.save(response);
-                    this.router.navigate(['/users/']);
+                    this.router.navigate(['/noyau/']);
                 }
             } else if (res.error) {
                 this.msgerror = res.error;
