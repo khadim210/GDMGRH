@@ -41,7 +41,6 @@ export class DiplomesComponent implements OnInit {
         specialite: '',
       }
     this.createForm();
-    this.test();
   }
 
 	ngOnInit() {
@@ -67,7 +66,6 @@ export class DiplomesComponent implements OnInit {
 
   getCivilDiplomes(){
     this.diplomeService.getcivilDiplomes().subscribe(data => {
-      console.log(data.diplomes);
       if (data.diplomes.length > 0) {
         this.civiles = data.diplomes;
       }
@@ -79,19 +77,12 @@ export class DiplomesComponent implements OnInit {
 
   getMilitaireDiplomes(){
     this.diplomeService.getmiliDiplomes().subscribe(data => {
-      console.log(data.diplomes);
       if (data.diplomes.length > 0) {
         this.militaires = data.diplomes;
       }
       else{
         this.militaires = null;
       }
-    })
-  }
-
-  test(): void {
-    $('#AddDiplome').on('hidden.bs.modal', function (e) {
-      console.log('fermé');
     })
   }
 
@@ -118,7 +109,6 @@ export class DiplomesComponent implements OnInit {
     }
 
     this.diplomeService.addNewDiplome(nouveaudiplome).subscribe(data => {
-      console.log(nouveaudiplome);
       this.getAllDiplomes();
       this.getCivilDiplomes();
       this.getMilitaireDiplomes();
@@ -126,7 +116,6 @@ export class DiplomesComponent implements OnInit {
   }
 
   selected_diplome(event): void {
-    console.log(event.target.id);
     this.id = event.target.id;
     function findbytheid(element){
       return element._id === event.target.id;
@@ -141,7 +130,6 @@ export class DiplomesComponent implements OnInit {
         specialite: dataselected.specialite,
       }
 
-      console.log(this.donnees);
 
   } 
 
@@ -153,7 +141,6 @@ export class DiplomesComponent implements OnInit {
       typediplome:this.form.get('typediplome').value,
       specialite:this.form.get('specialite').value,
     }
-    console.log(diplome);
      this.diplomeService.editDiplome(diplome,this.id).subscribe(data => {
         console.log('modifié');
         this.getAllDiplomes();
@@ -163,9 +150,7 @@ export class DiplomesComponent implements OnInit {
   }
 
   delete(event): void {
-    console.log(event.target.id);
     this.diplomeService.deleteDiplome(event.target.id).subscribe(data =>{
-      console.log('supprimé');
       this.getAllDiplomes();
       this.getCivilDiplomes();
       this.getMilitaireDiplomes();

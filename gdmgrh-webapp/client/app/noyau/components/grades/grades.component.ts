@@ -53,12 +53,10 @@ export class GradesComponent implements OnInit {
     getAllGrades(): void {
     	this.gradeService.getAllGrades().subscribe(data => {
     		this.grades = data.grades;
-    		console.log(this.grades);
     	})
     }
 
     showNiveaux(event): void {
-    	console.log(event.target.value);
 	    var tab = this.allniveaux.filter(
 	    	niv => niv.categorie == event.target.value);
 	    if(tab.length > 0){
@@ -75,18 +73,14 @@ export class GradesComponent implements OnInit {
       nomgrade:this.formgrade.get('nomgrade').value,
       codegrade:this.formgrade.get('codegrade').value,
     }
-    console.log(nouveaugrade);
 
     this.gradeService.addNewGrade(nouveaugrade).subscribe(data => {
-      console.log('ajouté');
       this.getAllGrades();
     })
   }
 
   delete(event): void {
-    console.log(event.target.id);
     this.gradeService.deleteGrade(event.target.id).subscribe(data => {
-      console.log('supprimé');
       this.getAllGrades();
     })
   }
