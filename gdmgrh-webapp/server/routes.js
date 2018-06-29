@@ -13,8 +13,8 @@ export default function(app) {
     // Insert routes below
   app.use(`/api/user`, require('./api/module_noyau/account_management/user'));
   app.use(`/api/groupe`, require('./api/module_noyau/account_management/group'));
-  app.use(`/api/diplomes`, require('./api/module_noyau/diplomes'));
-  app.use(`/api/grades`, require('./api/module_noyau/grades'));
+  app.use(`/api/diplomes`, AuthService.hasRole('admin'), require('./api/module_noyau/diplomes'));
+  app.use(`/api/grades`, AuthService.hasRole('admin'), require('./api/module_noyau/grades'));
   app.use('auth', require('./auth').default);
 
     // All undefined asset or api routes should return a 404
