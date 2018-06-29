@@ -11,6 +11,8 @@ import { ListGroupComponent } from './components/user-manager/list-group/list-gr
 import { UniteComponent } from './components/unite/unite.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
 import { DashboadComponent } from './components/dashboad/dashboad.component';
+import { DiplomesComponent } from './components/diplomes/diplomes.component';
+import { GradesComponent } from './components/grades/grades.component';
 import { AuthGuard } from './auth.guard';
 import { NoyauGuard } from './noyau.guard';
 
@@ -40,6 +42,12 @@ const routes: Routes = [
         children: []
       },
       { path: 'unite', component: UniteComponent,
+        children: []
+      },
+      { path: 'diplomes', component: DiplomesComponent,
+        children: []
+      },
+      { path: 'grades', component: GradesComponent,
         children: []
       },
       { path: '', redirectTo: '/noyau/dashboad', pathMatch: 'full' }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { NoyauService } from './service/noyau.service';
 import { AuthService } from './service/auth.service';
@@ -26,6 +27,11 @@ import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { UniteComponent } from './components/unite/unite.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
 import { DashboadComponent } from './components/dashboad/dashboad.component';
+import { DiplomesComponent } from './components/diplomes/diplomes.component';
+import { GradesComponent } from './components/grades/grades.component';
+import { GlobalData } from './service/globaldata';
+import { DiplomesService } from './service/diplomes.service';
+import { GradesService } from './service/grades.service';
 import { AuthGuard } from './auth.guard';
 import { NoyauGuard } from './noyau.guard';
 
@@ -34,7 +40,8 @@ import { NoyauGuard } from './noyau.guard';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        NoyauRoutingModule
+        NoyauRoutingModule,
+        ReactiveFormsModule
     ],
     exports: [
         CommonModule,
@@ -56,6 +63,8 @@ import { NoyauGuard } from './noyau.guard';
         FooterComponent,
         HeaderComponent,
         NavbarComponent,
+        DiplomesComponent,
+        GradesComponent,
         SanctionComponent,
         UniteComponent,
         DashboadComponent
@@ -65,6 +74,9 @@ import { NoyauGuard } from './noyau.guard';
         AuthService,
         SanctionService,
         UniteService,
+        DiplomesService,
+        GradesService,
+        GlobalData,
         AuthGuard,
         NoyauGuard
     ]
