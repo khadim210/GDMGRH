@@ -9,6 +9,10 @@ import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { AppInterceptor } from './app.interceptor';
+import { DamModule } from './division-dam/dam.module';
+import { DccModule } from './division-dcc/dcc.module';
+import { DgpModule } from './division-dgp/dgp.module';
+import { DifModule } from './division-dif/dif.module';
 
 @NgModule({
     imports: [
@@ -16,6 +20,10 @@ import { AppInterceptor } from './app.interceptor';
         HttpClientModule,
         GeneralModule,
         NoyauModule,
+        DamModule,
+        DccModule,
+        DgpModule,
+        DifModule,
         WebsiteModule,
         AppRoutingModule,
     ],

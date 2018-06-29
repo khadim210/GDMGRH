@@ -29,6 +29,22 @@ export class SigninComponent implements OnInit {
                 if (response.role === 'admin') {
                     this.authService.save(response);
                     this.router.navigate(['/noyau/']);
+                } else {
+                    if (response.agent.unite === 'DAM') {
+                        this.authService.save(response);
+                        this.router.navigate(['/dam/']);
+                    } else if (response.agent.unite === 'DCC') {
+                        this.authService.save(response);
+                        this.router.navigate(['/dcc/']);
+                    } else if (response.agent.unite === 'DGP') {
+                        this.authService.save(response);
+                        this.router.navigate(['/dgp/']);
+                    } else if (response.agent.unite === 'DIF') {
+                        this.authService.save(response);
+                        this.router.navigate(['/dif/']);
+                    } else {
+                        this.msgerror = 'Vous avez pas droit, veuillez prendre contact avec l\'administrateur';
+                    }
                 }
             } else if (res.error) {
                 this.msgerror = res.error;

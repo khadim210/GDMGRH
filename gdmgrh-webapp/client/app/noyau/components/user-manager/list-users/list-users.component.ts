@@ -8,6 +8,8 @@ import { NoyauService } from '../../../service/noyau.service';
 export class ListUsersComponent implements OnInit {
 
   userList: any;
+  userListSearch: any;
+  searchOption: string;
   userItem: any;
   adminProfil: any;
   btnModal: string;
@@ -20,6 +22,8 @@ export class ListUsersComponent implements OnInit {
     this.userItem = {};
     //this.userItem.role = [];
     this.btnModal = 'ajouter';
+    this.userListSearch = [];
+    this.searchOption = 'username';
    }
 
   ngOnInit() {
@@ -40,6 +44,7 @@ export class ListUsersComponent implements OnInit {
           } else {
             this.adminProfil = res.response[index];
           }
+          this.userListSearch = this.userList;
         }
       }
     });
@@ -54,6 +59,42 @@ export class ListUsersComponent implements OnInit {
         this.adminProfil = userEmit.user;
       }
     }
+  }
+
+  searchRole(input) {
+    this.userList = [];
+    if (input !== '') {
+      this.filterTable(this.userListSearch, `${input}`);
+    } else {
+      this.userList = this.userListSearch;
+    }
+  }
+
+  filterTable(table = [], input) {
+    if (table.length) {
+      for (let index = 0; index < table.length; index++) {
+        console.log(this.searchOption);
+        console.log(table[index][`agent`]._id);
+        if (table[index][`${this.searchOption}`]._id) {
+          if (this.matchString(table[index][`${this.searchOption}`].name, input)) {
+            console.log(table[index]);
+            this.userList.push(table[index]);
+          }
+        } else {
+          if (this.matchString(table[index][`${this.searchOption}`], input)) {
+            console.log(table[index]);
+            this.userList.push(table[index]);
+          }
+        }
+      }
+    }
+  }
+
+  matchString(string1, string2) {
+      if (RegExp(string2).test(string1)) {
+        return true;
+      }
+    return false;
   }
 
   closeModal(): void {

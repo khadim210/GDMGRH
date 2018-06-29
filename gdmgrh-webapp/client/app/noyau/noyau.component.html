@@ -17,19 +17,19 @@
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                   aria-controls="v-pills-users" #userRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/users/">
-                    Gestion Utilisateur </a>
+                    Utilisateur </a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                   aria-controls="v-pills-graduation" #graduatonRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/graduation">
-                    Gestion Graduation</a>
+                    Graduation</a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                   aria-controls="v-pills-unite" #commandRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/unite">
-                    Gestion Commandemant</a>
+                    Commandemant</a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                   aria-controls="v-pills-sanction" #sanctionRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/sanction">
-                    Gestion Sanction</a>
+                    Sanction</a>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
           <br>
           
           <!--
-              Sous Menu gestion utilisateur
+              Sous Menu utilisateur
           -->
           <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!userRouterLink.isActive">
             <div class="card-body">
@@ -53,7 +53,7 @@
           </div>
 
             <!--
-              Sous Menu gestion graduation
+              Sous Menu graduation
             -->
             <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!graduatonRouterLink.isActive">
                 <div class="card-body">
@@ -64,7 +64,7 @@
             </div>
             
             <!--
-              Sous Menu gestion commandemant
+              Sous Menu commandemant
             -->
             <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!commandRouterLink.isActive">
                 <div class="card-body">
@@ -75,7 +75,7 @@
             </div>
 
             <!--
-              Sous Menu gestion sanction
+              Sous Menu sanction
             -->
             <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!sanctionRouterLink.isActive">
                 <div class="card-body">

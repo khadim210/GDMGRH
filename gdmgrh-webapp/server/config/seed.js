@@ -7,6 +7,7 @@
 import User from '../api/module_noyau/account_management/user/user.model';
 import Agent from '../api/module_noyau/account_management/agent/agent.model'
 
+/*
 User.find({}).remove()
     .then(() => {
       User.create({
@@ -18,7 +19,7 @@ User.find({}).remove()
         console.log('finished populating users');
       });
     });
-
+*/
     /*
 Agent.find({}).remove()
     .then(() => {

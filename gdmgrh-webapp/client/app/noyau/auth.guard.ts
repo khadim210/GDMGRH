@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (this.authService.isConnected()) {
-            if ( (RegExp('\/account/setting\/*').test(state.url.toString())) ) {
+            if ( (RegExp('\/account/setting\/').test(state.url.toString())) ) {
                 return true;
             }
             switch (this.authService.getUser().role) {

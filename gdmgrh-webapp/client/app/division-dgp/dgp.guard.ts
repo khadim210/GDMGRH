@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, Router } from '@angular/router';
-
-import { AuthService } from './service/auth.service';
+import { AuthService } from '../noyau/service/auth.service';
 
 @Injectable()
-export class NoyauGuard implements CanActivate, CanActivateChild {
-
+export class DgpGuard implements CanActivate, CanActivateChild {
     constructor(
         private authService: AuthService,
         private router: Router
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        if ( (RegExp('\/account/setting\/').test(state.url.toString())) ) {
+            return true;
+        }
         if (!this.authService.getUser()) {
             return false;
         }
-        if (this.authService.isConnected() && this.authService.getUser().role === 'admin') {
-            return true;
-        } else {
-            this.authService.logout();
-            this.router.navigate(['/account/sign-in']);
-            return false;
+        if (this.authService.getUser().agent) {
+            if (this.authService.getUser().agent.unite === 'DGP') {
+                return true;
+            }
         }
+        this.authService.logout();
+        this.router.navigate(['/account/sign-in']);
+        return false;
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

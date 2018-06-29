@@ -39,7 +39,6 @@ import { NoyauGuard } from './noyau.guard';
     exports: [
         CommonModule,
         HttpClientModule,
-        NoyauComponent,
         HeaderComponent,
         NavbarComponent
     ],

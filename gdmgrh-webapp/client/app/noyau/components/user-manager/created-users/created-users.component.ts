@@ -13,6 +13,8 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   allAgent: any;
   agentName: string;
   errormsg: string;
+  agentSearch: any;
+  searchOption: string;
 
   constructor(
     private noyauService: NoyauService
@@ -22,6 +24,8 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
     //this.userForm.role = [];
     this.allAgent = [];
     this.allRules = [];
+    this.agentSearch = [];
+    this.searchOption = '';
    }
 
    ngOnChanges(change: SimpleChanges) {
@@ -91,22 +95,35 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
     });
   }
 
-  searchRole(input) {
-    this.filterTable(this.allRules, `${input}`);
+  selectAgent(agent) {
+    console.log(agent);
+    this.agentName = agent;
+    this.userForm.agent = agent._id;
+    console.log(this.userForm.agent);
+  }
+
+  searchRole(input, option) {
+    this.searchOption = option;
+    this.agentSearch = [];
+    this.filterTable(this.allAgent, `${input}`);
+    console.log(this.agentSearch);
+    if (input === '') {
+      this.agentSearch = [];
+    }
   }
 
   filterTable(table = [], input) {
     if (table.length) {
       for (let index = 0; index < table.length; index++) {
-        console.log(this.matchString(table[index], input));
+        if (this.matchString(table[index][`${this.searchOption}`], input)) {
+          this.agentSearch.push(table[index]);
+        }
       }
     }
   }
 
   matchString(string1, string2) {
-    console.log(string1);
-    console.log(string2);
-      if (string2.test(new RegExp(string1))) {
+      if (RegExp(string2).test(string1.toString())) {
         return true;
       }
     return false;
