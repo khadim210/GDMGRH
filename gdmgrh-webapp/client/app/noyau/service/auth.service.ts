@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import { localStorageName } from '../../app.constants';
 
 @Injectable()
@@ -46,4 +48,16 @@ export class AuthService {
     signin(user) {
         return this.http.post<any>(`/user/signin`, user).pipe();
     }
+
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   *
+   */
+    handleError<T>(operation = 'operation') {
+        return (error: any): Observable<T> => {
+            return of(error as T);
+        };
+  }
 }

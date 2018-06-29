@@ -1,0 +1,198 @@
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1"></span>
+</nav>
+
+<div class="card card-cascade narrower mt-5">
+
+    <!--Card image-->
+    <div class="view view-cascade gradient-card-header purple-gradient narrower py-4 mx-4 mb-3 d-flex justify-content-center align-items-center">
+
+      <h4 class="white-text font-weight-bold text-uppercase mb-0">Liste recompense</h4>
+
+    </div>
+    <!--/Card image-->
+
+    <div class="px-4">
+
+      <!--Table-->
+      <table class="table table-hover table-responsive-md mb-0">
+
+            <!--Table head-->
+            <thead>
+                <tr>
+                    <th scope="row"></th>
+                    <th class="th-lg"> Nom recompense</th>
+                    <th class="th-lg"> Type de recompense</th>
+                    <th></th>
+                    <th>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
+                          add
+                      </button>
+                    </th>
+                </tr>
+            </thead>
+            <!--Table head-->
+
+            <!--Table body-->
+            <tbody>
+                <tr *ngFor="let recompense of datas">
+                    <th scope="row"> </th>
+                    <td>{{recompense.nom_recompense}}</td>
+                    <td>{{recompense.type_recompense}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" data-toggle="modal" (click)="btnEdit(recompense)" data-target="#editRecompense">edit</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" (click)="btnDelete(recompense)" data-target="#delete">delete</button>
+                    </td>
+                </tr>
+          </tbody>
+
+          
+            <!--Table body-->
+            <tbody *ngIf="!datas.length">
+                <tr>
+                    <th scope="row"> </th>
+                    <td></td>
+                    <td>Vide</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+          </tbody>
+        </table>
+
+    </div>
+
+    <hr class="my-0">
+
+    </div>
+
+
+
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--Modal: Contact form-->
+<div class="modal-dialog cascading-modal" role="document">
+
+<!--Content-->
+<div class="modal-content">
+
+  <!--Header-->
+  <div class="modal-header primary-color white-text">
+      <h4 class="title">
+          <i class="fa fa-pencil"></i> Ajout Recompense</h4>
+      <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+      </button>
+  </div>
+  <!--Body-->
+  <div class="modal-body">
+
+      <form #recom="ngForm">
+          <!-- Material input name -->
+        <div class="form-group">
+            <label for="type">Type de recompense</label>
+            <select  id="type" [(ngModel)]="recom.type_recompense" name="type_recompense" class="form-control">
+                <option>Decoration</option>
+                <option>Autre Decoration</option>
+            </select>
+        </div>
+
+      <!-- Material input libelle -->
+      <div class="form-group">
+        <label for="nom" >Nom recompense</label>
+        <input type="text" id="form1" class="form-control" [(ngModel)]="recom.nom_recompense"id="nom"  name="nom_recompense">
+
+    </div>
+
+    <button (click)="recordRecompense(recom)" data-dismiss="modal" class="btn btn-primary form-control">Valider
+        </button>
+      </form>
+
+  </div>
+</div>
+<!--/.Content-->
+</div>
+<!--/Modal: Contact form-->
+</div>
+
+<div class="modal fade" id="editRecompense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--Modal: Contact form-->
+<div class="modal-dialog cascading-modal" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+        <!--Header-->
+        <div class="modal-header primary-color white-text">
+            <h4 class="title">
+                <i class="fa fa-pencil"></i> Editer Recompense</h4>
+            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+
+            <form>
+                <!-- Material input name -->
+                <div class="form-group">
+                        <label for="type">Type de recompense</label>
+                        <select  value="{{type_recompense_edited}}" id="type" [(ngModel)]="type_recompense_edited" name="type_recompense_edited" class="form-control">
+                            <option>Decoration</option>
+                            <option>Autre decoration</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                        <label for="nom" >Editer libelle</label>
+                        <input type="text" value="{{nom_recompense_edited}}" [(ngModel)]="nom_recompense_edited" name="nom_recompense_edited" id="nom" class="form-control">
+                    </div>
+
+                    <button (click)="editerRecompense(type_recompense_edited, nom_recompense_edited)"class="btn btn-primary form-control" data-dismiss="modal">Valider
+                        </button>
+
+            </form>
+        </div>
+    </div>
+    <!--/.Content-->
+</div>
+<!--/Modal: Contact form-->
+</div>
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+        <!--Header-->
+        <div class="modal-header d-flex justify-content-center">
+            <p class="heading">Etes-vous sure?</p>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+
+
+
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer flex-center">
+            <a href="#" class="btn  btn-outline-danger" (click)="delete()" data-dismiss="modal">Yes</a>
+            <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+        </div>
+    </div>
+    <!--/.Content-->
+</div>
+</div>
+<!--Modal: modalConfirmDelete-->
+
+<div *ngIf="succes_action" class="alert alert-success alert-dismissible fade show floa" role="alert">
+    <strong>Action réussie!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+

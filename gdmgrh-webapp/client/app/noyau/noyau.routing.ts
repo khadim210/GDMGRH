@@ -15,6 +15,8 @@ import { DiplomesComponent } from './components/diplomes/diplomes.component';
 import { GradesComponent } from './components/grades/grades.component';
 import { AuthGuard } from './auth.guard';
 import { NoyauGuard } from './noyau.guard';
+import { PunitionComponent } from './components/sanction/punition/punition.component';
+import { RecompenseComponent } from './components/sanction/recompense/recompense.component';
 
 const routes: Routes = [
   { path: 'account',
@@ -33,13 +35,18 @@ const routes: Routes = [
       { path: 'users', component: UserManagerComponent,
         canActivateChild: [NoyauGuard],
         children: [
-          { path: '', redirectTo: '/noyau/users/user-center', pathMatch: 'full' },
           { path: 'user-center', component: ListUsersComponent },
-          { path: 'group', component: ListGroupComponent }
+          { path: 'group', component: ListGroupComponent },
+          { path: '', redirectTo: '/noyau/users/user-center', pathMatch: 'full' }
         ]
       },
       { path: 'sanction', component: SanctionComponent,
-        children: []
+        canActivateChild: [NoyauGuard],
+        children: [
+          { path: 'punition', component: PunitionComponent },
+          { path: 'recompense', component: RecompenseComponent },
+          { path: '', redirectTo: '/noyau/sanction/punition', pathMatch: 'full' }
+        ]
       },
       { path: 'unite', component: UniteComponent,
         children: []

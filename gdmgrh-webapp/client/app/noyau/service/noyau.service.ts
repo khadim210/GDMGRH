@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class NoyauService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   getUsers() {
     return this.http.get<any>(`/user`)
       .pipe(
-        catchError(this.handleError('getUsers'))
+        catchError(this.authService.handleError('getUsers'))
       );
   }
 
   createdUsers(user) {
     return this.http.post<any>(`/user/`, user)
       .pipe(
-        catchError(this.handleError('getUsers'))
+        catchError(this.authService.handleError('getUsers'))
       );
   }
 
   updateUser(user) {
     return this.http.put<any>(`/user/${user._id}`, user)
       .pipe(
-        catchError(this.handleError('updateUser'))
+        catchError(this.authService.handleError('updateUser'))
       );
   }
 
   getDataUserForm() {
     return this.http.get<any>(`/user/data`)
     .pipe(
-      catchError(this.handleError('getAtatUserForm'))
+      catchError(this.authService.handleError('getAtatUserForm'))
     );
   }
 
@@ -43,40 +43,29 @@ export class NoyauService {
   getUsersGroup() {
     return this.http.get<any>(`/groupe/`)
       .pipe(
-        catchError(this.handleError('getGroupUser'))
+        catchError(this.authService.handleError('getGroupUser'))
       );
   }
 
   createdUserGroup(group) {
     return this.http.post<any>(`/groupe/`, group)
       .pipe(
-        catchError(this.handleError('createdUserGroup'))
+        catchError(this.authService.handleError('createdUserGroup'))
       );
   }
 
   updateUserGroup(group) {
     return this.http.put<any>(`/groupe/${group._id}`, group)
       .pipe(
-        catchError(this.handleError('updateUserGroup'))
+        catchError(this.authService.handleError('updateUserGroup'))
       );
   }
 
   getGroupData() {
     return this.http.get<any>(`/groupe/data`)
       .pipe(
-        catchError(this.handleError('getGroupData'))
+        catchError(this.authService.handleError('getGroupData'))
       );
-  }
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   *
-   */
-  private handleError<T>(operation = 'operation') {
-    return (error: any): Observable<T> => {
-      return of(error as T);
-    };
   }
 
 }

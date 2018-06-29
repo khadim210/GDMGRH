@@ -19,9 +19,13 @@
                   aria-selected="false" routerLink="/noyau/users/">
                     Utilisateur </a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                  aria-controls="v-pills-graduation" #graduatonRouterLink="routerLinkActive"
-                  aria-selected="false" routerLink="/noyau/graduation">
-                    Graduation</a>
+                  aria-controls="v-pills-diplomes" #diplomeRouterLink="routerLinkActive"
+                  aria-selected="false" routerLink="/noyau/diplomes">
+                    Diplômes</a>
+                  <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
+                  aria-controls="v-pills-grades" #gradRouterLink="routerLinkActive"
+                  aria-selected="false" routerLink="/noyau/grades">
+                    Grades</a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                   aria-controls="v-pills-unite" #commandRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/unite">
@@ -30,14 +34,6 @@
                   aria-controls="v-pills-sanction" #sanctionRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/sanction">
                     Sanction</a>
-                  <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                  aria-controls="v-pills-diplomes" #sanctionRouterLink="routerLinkActive"
-                  aria-selected="false" routerLink="/noyau/diplomes">
-                    Diplômes</a>
-                  <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                  aria-controls="v-pills-grades" #sanctionRouterLink="routerLinkActive"
-                  aria-selected="false" routerLink="/noyau/grades">
-                    Grades</a>
               </div>
             </div>
           </div>
@@ -59,17 +55,6 @@
               </div>
             </div>
           </div>
-
-            <!--
-              Sous Menu graduation
-            -->
-            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!graduatonRouterLink.isActive">
-                <div class="card-body">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        
-                    </div>
-                </div>
-            </div>
             
             <!--
               Sous Menu commandemant
@@ -88,7 +73,12 @@
             <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!sanctionRouterLink.isActive">
                 <div class="card-body">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/noyau/sanction/punition"  role="tab"
+                      aria-controls="v-pills-user" aria-selected="false">Punition</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/noyau/sanction/recompense" role="tab"
+                      aria-controls="v-pills-group" aria-selected="false">Recompense</a>
                     </div>
                 </div>
             </div>

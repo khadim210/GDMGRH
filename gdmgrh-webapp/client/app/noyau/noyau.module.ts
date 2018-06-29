@@ -34,6 +34,8 @@ import { DiplomesService } from './service/diplomes.service';
 import { GradesService } from './service/grades.service';
 import { AuthGuard } from './auth.guard';
 import { NoyauGuard } from './noyau.guard';
+import { PunitionComponent } from './components/sanction/punition/punition.component';
+import { RecompenseComponent } from './components/sanction/recompense/recompense.component';
 
 @NgModule({
     imports: [
@@ -67,7 +69,9 @@ import { NoyauGuard } from './noyau.guard';
         GradesComponent,
         SanctionComponent,
         UniteComponent,
-        DashboadComponent
+        DashboadComponent,
+        PunitionComponent,
+        RecompenseComponent
     ],
     providers: [
         NoyauService,

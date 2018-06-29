@@ -73,16 +73,12 @@ export class ListUsersComponent implements OnInit {
   filterTable(table = [], input) {
     if (table.length) {
       for (let index = 0; index < table.length; index++) {
-        console.log(this.searchOption);
-        console.log(table[index][`agent`]._id);
         if (table[index][`${this.searchOption}`]._id) {
           if (this.matchString(table[index][`${this.searchOption}`].name, input)) {
-            console.log(table[index]);
             this.userList.push(table[index]);
           }
         } else {
           if (this.matchString(table[index][`${this.searchOption}`], input)) {
-            console.log(table[index]);
             this.userList.push(table[index]);
           }
         }

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 const EntiteSchema = mongoose.Schema({
-    nome: String,
+    nom: String,
     lieu: String,
     chef: String,
     code: String,
