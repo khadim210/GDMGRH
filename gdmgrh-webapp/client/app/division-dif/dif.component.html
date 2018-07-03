@@ -15,24 +15,107 @@
                         aria-controls="v-pills-users" aria-selected="false" routerLink="/dif/dashboad/">
                             Accueil </a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-users" #recruRouterLink="routerLinkActive"
-                        aria-selected="false" routerLink="/dif/recrutement/">
-                            Recrutement </a>
+                        aria-controls="v-pills-instruction" #instruRouterLink="routerLinkActive"
+                        aria-selected="false" routerLink="/dif/instruction/">
+                            Instruction du personnel </a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-graduation" #reservRouterLink="routerLinkActive"
-                        aria-selected="false" routerLink="/dif/reserviste">
-                            Réserviste</a>
+                        aria-controls="v-pills-concours" #concoursRouterLink="routerLinkActive"
+                        aria-selected="false" routerLink="/dif/concours-pro/">
+                            Concours professionnel</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-unite" #auxilRouterLink="routerLinkActive"
-                        aria-selected="false" routerLink="/dif/auxiliaire">
-                            Auxiliaire</a>
+                        aria-controls="v-pills-formation" #formationRouterLink="routerLinkActive"
+                        aria-selected="false" routerLink="/dif/formation">
+                            Formation du personnel</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-sanction" #archRouterLink="routerLinkActive"
-                        aria-selected="false" routerLink="/dif/archive">
-                            Archive</a>
+                        aria-controls="v-pills-diplomes" #diplomesRouterLink="routerLinkActive"
+                        aria-selected="false" routerLink="/dif/diplomes">
+                            Diplômes</a>
+                        <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
+                        aria-controls="v-pills-archives" #archivesRouterLink="routerLinkActive"
+                        aria-selected="false" routerLink="/dif/archives">
+                            Archives</a>
                     </div>
                 </div>
             </div>
+
+
+            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!instruRouterLink.isActive">
+                <div class="card-body">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/instruction/instruction"  role="tab"
+                      aria-controls="v-pills-instruction" aria-selected="false">Instruction</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/instruction/evaluation" role="tab"
+                      aria-controls="v-pills-evaluation" aria-selected="false">Evaluation</a>
+                  </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!concoursRouterLink.isActive">
+                <div class="card-body">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/concours-pro/concours-examens"  role="tab"
+                      aria-controls="v-pills-concours-examens" aria-selected="false">Concours - Examens</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/concours-pro/evaluation" role="tab"
+                      aria-controls="v-pills-evaluation" aria-selected="false">Evaluation</a>
+                  </div>
+                </div>
+            </div>
+
+
+
+            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!formationRouterLink.isActive">
+                <div class="card-body">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/formation/sessions"  role="tab"
+                      aria-controls="v-pills-encours" aria-selected="false">Sessions en cours</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/formation/nouvelle-session" role="tab"
+                      aria-controls="v-pills-nouvellesession" aria-selected="false">Nouvelle Session</a>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!diplomesRouterLink.isActive">
+                <div class="card-body">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/diplomes/encours"  role="tab"
+                      aria-controls="v-pills-enattente" aria-selected="false">Diplômes en attente</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/diplomes/nouvelle-demande" role="tab"
+                      aria-controls="v-pills-nouvelledemande" aria-selected="false">Nouvelle Demande</a>
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/diplomes/traitees"  role="tab"
+                      aria-controls="v-pills-traitees" aria-selected="false">Demandes traitées</a>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!archivesRouterLink.isActive">
+                <div class="card-body">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/archives/liste"  role="tab"
+                      aria-controls="v-pills-archives" aria-selected="false">Les Archives</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/archives/nouvelle-archive" role="tab"
+                      aria-controls="v-pills-nouvellesession" aria-selected="false">Nouvelle Archive</a>
+                  </div>
+                </div>
+            </div>
+
+
+
         </div>
 
         <div class="col-12 col-sm-9">
