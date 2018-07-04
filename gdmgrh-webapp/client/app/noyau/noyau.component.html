@@ -3,12 +3,12 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm-3">
+        <div class="col-12 col-sm-12 col-md-3">
           <br>
           <!--
               Menu Principale module noyau
           -->
-          <div class="card text-white mb-1" style="max-width: 18rem;">
+          <div class="card text-white mb-1">
             <div class="card-body">
               <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
@@ -43,7 +43,7 @@
           <!--
               Sous Menu utilisateur
           -->
-          <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!userRouterLink.isActive">
+          <div class="card text-white mb-1" [hidden]="!userRouterLink.isActive">
             <div class="card-body">
               <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                   <a class="nav-link" data-toggle="pill" routerLinkActive="active"
@@ -59,7 +59,7 @@
             <!--
               Sous Menu commandemant
             -->
-            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!commandRouterLink.isActive">
+            <div class="card text-white mb-1" [hidden]="!commandRouterLink.isActive">
                 <div class="card-body">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         
@@ -70,7 +70,7 @@
             <!--
               Sous Menu sanction
             -->
-            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!sanctionRouterLink.isActive">
+            <div class="card text-white mb-1" [hidden]="!sanctionRouterLink.isActive">
                 <div class="card-body">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                       <a class="nav-link" data-toggle="pill" routerLinkActive="active"
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-9">
+        <div class="col-12 col-sm-12 col-md-9">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="card border-light">
               <div class="card-body">

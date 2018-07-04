@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 
 @Component({
-    selector: 'selector-signin',
-    template: require('./signin.component.html')
+    selector: 'selector-sign-in',
+    template: require('./sign-in.component.html')
 })
 
-export class SigninComponent implements OnInit {
+export class SignInComponent implements OnInit {
 
     signinModel: any;
     msgerror: string;

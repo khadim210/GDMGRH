@@ -3,6 +3,7 @@
 import User from './user.model';
 import * as AuthService from '../../../service/auth.service';
 import * as AgentControllers from '../agent/agent.controller';
+import * as GroupControllers from '../group/groupe.controller';
 import GenericRepository from '../../../service/generic.repository';
 
 // User Repository
@@ -139,6 +140,7 @@ export async function signin (req, res) {
     var password = req.body.password;
     var user = null;
     var agent = null;
+    var group = null;
     if(username && password) {
         try {
             user = await UserRepository.getOneBy({username: username}, '_id username salt hashedPassword agent provider active created updated role');
@@ -152,6 +154,15 @@ export async function signin (req, res) {
         if(!user.active) {
             return res.json({error: 'Identifiant revoquer, veuillez contacter l\'administrateur !!!'});
         }
+
+        try {
+            group = await GroupControllers.getGroupBy({users: user._id});
+        } catch (error) {
+            console.log(error);
+            return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+        }
+
+        console.log(group);
         if(user.agent) {
             try {
                 agent = await AgentControllers.getOneAgent(user.agent);

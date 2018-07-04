@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, Router } from '@angular/router';
 
-import { AuthService } from './service/auth.service';
+import { AuthService } from '../website/service/auth.service';
 
 @Injectable()
 export class NoyauGuard implements CanActivate, CanActivateChild {

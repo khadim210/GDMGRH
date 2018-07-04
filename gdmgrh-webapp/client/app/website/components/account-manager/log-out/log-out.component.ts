@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 
 @Component({
-    selector: 'selector-logout',
-    template: require('./logout.component.html')
+    selector: 'selector-log-out',
+    template: require('./log-out.component.html')
 })
 
-export class LogoutComponent implements OnInit {
+export class LogOutComponent implements OnInit {
 
     constructor(
         private router: Router,

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GlobalData {
-  domain: string = "https://localhost:8080";
-  listeDiplomes: Array<String> = ['Diplome Civil','Diplome Militaire'];
+  //domain: string = "https://localhost:8080";
+  listeDiplomes: Array<String> = ['Diplome Civil', 'Diplome Militaire'];
   listeSpecialites: Array<String> = [
 	'Achat - Approvisionnement - Logistique',
 	'Agro-alimentaire - Agriculture',

@@ -96,17 +96,15 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   }
 
   selectAgent(agent) {
-    console.log(agent);
     this.agentName = agent;
     this.userForm.agent = agent._id;
-    console.log(this.userForm.agent);
   }
 
-  searchRole(input, option) {
+  searchAgent(input, option) {
     this.searchOption = option;
     this.agentSearch = [];
+    input = input.toUpperCase();
     this.filterTable(this.allAgent, `${input}`);
-    console.log(this.agentSearch);
     if (input === '') {
       this.agentSearch = [];
     }
@@ -115,7 +113,7 @@ export class CreatedUsersComponent implements OnInit, OnChanges {
   filterTable(table = [], input) {
     if (table.length) {
       for (let index = 0; index < table.length; index++) {
-        if (this.matchString(table[index][`${this.searchOption}`], input)) {
+        if (this.matchString((table[index][`${this.searchOption}`]).toUpperCase(), input)) {
           this.agentSearch.push(table[index]);
         }
       }

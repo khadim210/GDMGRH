@@ -1,0 +1,149 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+            <h2>Gestion des candidatures</h2>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body h-25 d-inline-block">
+                        <h5 class="card-title">Créer une nouvelle candidature</h5>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="matriculetemporaire">Matricule Temporaire</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="matriculetemporaire" placeholder="matricule temporaire" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="session">Session</label>
+                                            <select class="form-control form-control-sm" name="status">
+                                                <option [value]="''" >Choisir niveau ...</option>
+                                                <option *ngFor="let session of sessionList" [value]="session" >{{session.nom}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nomcandidat">Nom Candidat</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="nomcandidat" placeholder="nom candidat" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="prenomcandidat">Prenom Candidat</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="prenomcandidat" placeholder="prenom candidat" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="numerocni">Numero Carte Identification</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="numerocni" placeholder="numero carte identification nationale" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="genre">Genre</label>
+                                            <select class="form-control form-control-sm" name="genre">
+                                                <option [value]="''" >choisir genre ...</option>
+                                                <option [value]="'homme'" >Homme</option>
+                                                <option [value]="'femme'" >Femme</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label for="fichierjoint">Fichiers Joints au Dossier</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="" id="fichierjoint" placeholder="fichier joint" required>
+                                                <label class="custom-file-label" for="validatedCustomFile">selectionner le fichier ...</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-12 mb-3 col-12">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <button class="btn btn-primary" type="submit">Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card-body">
+                    <h5 class="card-title">Liste des candidats</h5>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <select class="form-control form-control-sm" name="status">
+                                <option [value]="'matricule'" >Matricule</option>
+                                <option [value]="'nom'">Nom</option>
+                                <option [value]="'cni'">cni</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <button class="btn btn-sm">Imprimer</button>
+                        </div>
+                    </div>
+                    <table class="col-md-12 table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Matricule</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">CNI</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody class="fixedcard" *ngIf="candidatList.length">
+                            <tr *ngFor="let candidat of candidatList, let i = index">
+                                <td>{{i}}</td>
+                                <td>{{candidat?.nom}}</td>
+                                <td>{{candidat?.niveau}}</td>
+                                <td>{{candidat?.effectif}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showcandidat(candidat)" data-toggle="modal" data-target="#candidatModal">
+                                        details
+                                </span></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!candidatList.length">
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                <td></td>
+                                <td>Vide</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        

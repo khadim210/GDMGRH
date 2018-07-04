@@ -1,0 +1,127 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+            <h2>Gestion des sessions</h2>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body h-25 d-inline-block">
+                        <h5 class="card-title">Créer une nouvelle session</h5>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="numerosession">Numero Session</label>
+                                            <input type="text" class="form-control form-control-sm" id="numerosession" placeholder="numero session" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="niveausession">Niveau</label>
+                                            <select class="form-control form-control-sm" name="status">
+                                                <option [value]="''" >Choisir niveau ...</option>
+                                                <option [value]="'officier'" >Officier</option>
+                                                <option [value]="'sous-officier'" >Sous-officier</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nomsession">Nom Session</label>
+                                            <input type="text" class="form-control form-control-sm" id="nomsession" placeholder="nom session" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="effectifattendu">Effectif Attendu</label>
+                                            <input type="number" class="form-control form-control-sm" id="effectifattendu" placeholder="effectif" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="datelancement">Date Lancement</label>
+                                            <input type="date" class="form-control form-control-sm" id="datelancement" placeholder="date lancement" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="datecloture">Date Clôture</label>
+                                            <input type="date" class="form-control form-control-sm" id="datecloture" placeholder="date cloture" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label for="attentsession">Les attents de cette session</label>
+                                            <textarea class="form-control" placeholder="description des attends de la session"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label for="ordrelancement">Ordre de lancement</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="ordrelancement" placeholder="State" required>
+                                                <label class="custom-file-label" for="validatedCustomFile">Selectionner le fichier ...</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="fixedcard card-body">
+                    <h5 class="card-title">Liste des sessions</h5>
+                    <table class="col-md-12 table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Nom Session</th>
+                                <th scope="col">Niveau</th>
+                                <th scope="col">Effectif</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody *ngIf="sessionList.length">
+                            <tr *ngFor="let session of sessionList, let i = index">
+                                <td>{{i}}</td>
+                                <td>{{session?.nom}}</td>
+                                <td>{{session?.niveau}}</td>
+                                <td >{{session?.effectif}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showsession(session)" data-toggle="modal" data-target="#sessionModal">
+                                        details
+                                </span></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!sessionList.length">
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                <td></td>
+                                <td>Vide</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      

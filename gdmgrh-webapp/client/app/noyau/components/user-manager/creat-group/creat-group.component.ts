@@ -31,6 +31,7 @@ export class CreatGroupComponent implements OnInit {
       if (res.response) {
         this.userList = res.response;
       }
+      console.log(this.userList);
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../noyau/service/auth.service';
+import { AuthService } from '../../../website/service/auth.service';
 
 @Component({
     selector: 'dcc-dashboad',
