@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { NoyauModule } from '../noyau/noyau.module';
+import { WebsiteModule } from '../website/website.module';
 import { DifComponent } from './dif.component';
 import { DifDashboadComponent } from './components/dif-dashboad/dif-dashboad.component';
 import { DifGuard } from './dif.guard';
@@ -31,9 +31,9 @@ import { ArchivesDIFComponent } from './components/archives/archives.component';
     imports: [
         HttpClientModule,
         FormsModule,
-        NoyauModule,
         DifRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        WebsiteModule
     ],
     exports: [],
     declarations: [

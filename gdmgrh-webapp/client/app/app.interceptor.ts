@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpHeaders } fro
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { AuthService } from './noyau/service/auth.service';
+import { AuthService } from './website/service/auth.service';
 import { apiUrl } from './app.constants';
 import { tap } from 'rxjs/operators';
 

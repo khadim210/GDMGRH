@@ -1,0 +1,84 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+            <h2>Gestion des admis</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="">Lister Par Session</label>
+                            <select class="form-control form-control-sm" name="status">
+                                <option [value]="'matricule'" >Session ...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <select class="form-control form-control-sm" name="status">
+                                <option [value]="'matricule'" >Matricule</option>
+                                <option [value]="'nom'">CNI</option>
+                                <option [value]="'cni'">session</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <button class="btn btn-sm">Imprimer</button>
+                        </div>
+                    </div>
+                    <table class="col-md-12 table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Matricule</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Session</th>
+                                <th scope="col">CNI</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody class="fixedcard" *ngIf="admisList.length">
+                            <tr *ngFor="let admis of admisList, let i = index">
+                                <td>{{i}}</td>
+                                <td>{{admis?.matricule}}</td>
+                                <td>{{admis?.nom}}</td>
+                                <td>{{admis?.prenom}}</td>
+                                <td>{{admis?.session}}</td>
+                                <td>{{admis?.CNI}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showadmis(admis)" data-toggle="modal" data-target="#admisModal">
+                                        details
+                                </span></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!admisList.length">
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                <td></td>
+                                <td>Vide</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        

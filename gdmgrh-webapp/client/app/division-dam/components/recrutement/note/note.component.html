@@ -1,0 +1,133 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+            <h2>Gestion des notes</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-12">
+                <h5 class="card-title">Liste de session</h5>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <select class="form-control form-control-sm" name="status">
+                                <option [value]="'numero'" >Numero</option>
+                                <option [value]="'nom'">non</option>
+                                <option [value]="'anne'">année</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <button class="btn btn-sm">Imprimer</button>
+                            <button class="btn btn-sm">Exporter</button>
+                        </div>
+                    </div>
+                    <table class="col-md-12 table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Effectif</th>
+                                <th scope="col">Année</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody class="fixedcard" *ngIf="sessionList.length">
+                            <tr *ngFor="let session of sessionList, let i = index">
+                                <td>{{i}}</td>
+                                <td>{{session?.numero}}</td>
+                                <td>{{session?.nom}}</td>
+                                <td>{{session?.effectif}}</td>
+                                <td>{{session?.annee}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showsession(session)" data-toggle="modal" data-target="#sessionModal">
+                                        details
+                                </span></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!sessionList.length">
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                <td></td>
+                                <td>Vide</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-12">
+                <div class="card-body">
+                    <h5 class="card-title">Liste des élèves gendarmes</h5>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <select class="form-control form-control-sm" name="status">
+                                <option [value]="'matricule'" >Matricule</option>
+                                <option [value]="'nom'">CNI</option>
+                                <option [value]="'cni'">session</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <button class="btn btn-sm">Imprimer</button>
+                        </div>
+                    </div>
+                    <table class="col-md-12 table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Matricule</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Moyenne</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody class="fixedcard" *ngIf="eleveList.length">
+                            <tr *ngFor="let eleve of eleveList, let i = index">
+                                <td>{{i}}</td>
+                                <td>{{eleve?.matricule}}</td>
+                                <td>{{eleve?.nom}}</td>
+                                <td>{{eleve?.prenom}}</td>
+                                <td>{{eleve?.moyenne}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showeleve(eleve)" data-toggle="modal" data-target="#eleveModal">
+                                        details
+                                </span></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!eleveList.length">
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                <td></td>
+                                <td>Vide</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        

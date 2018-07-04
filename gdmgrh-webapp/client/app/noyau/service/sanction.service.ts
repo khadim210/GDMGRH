@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../../website/service/auth.service';
 
 @Injectable()
 export class SanctionService {

@@ -19,7 +19,10 @@
 
         <div class="form-row">
           <div class="form-group col-md-12">
-            <label for="inputUser">Utilisateurs</label>
+            <label for="inputUser">Utilisateurs</label> 
+            <div *ngIf="groupForm.users.length">
+              <span class="badge badge-info" *ngFor="let user of groupForm.users">{{user}}</span>
+            </div>
             <select multiple class="form-control form-control-sm" name="user" [(ngModel)]="groupForm.users">
               <option *ngFor="let user of userList" [value]="user._id" > {{user?.username}}</option>
             </select>

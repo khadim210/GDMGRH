@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { NoyauModule } from '../noyau/noyau.module';
+import { WebsiteModule } from '../website/website.module';
 
 import { DgpComponent } from './dgp.component';
 import { DgpDashboadComponent } from './components/dgp-dashboad/dgp-dashboad.component';
@@ -12,7 +12,7 @@ import { DgpRoutingModule } from './dgp.routing';
     imports: [
         HttpClientModule,
         FormsModule,
-        NoyauModule,
+        WebsiteModule,
         DgpRoutingModule
     ],
     exports: [],
