@@ -10,6 +10,15 @@ import { EvaluationComponent } from './components/instruction-personnel/evaluati
 import { ConcoursproComponent } from './components/concours-pro/concours-pro.component';
 import { ConcoursExamComponent } from './components/concours-pro/concours-examens/concours-examens.component';
 import { EvaluationConcoursComponent } from './components/concours-pro/evaluation/evaluation.component';
+import { FormationComponent } from './components/formation/formation.component';
+import { DashboardformationComponent } from './components/formation/dashboard/dashboardformation.component';
+import { StagesComponent } from './components/formation/stages/stages.component';
+import { DesignationsComponent } from './components/formation/designations/designations.component';
+import { DiplomesHomologationComponent } from './components/diplomes/diplomes.component';
+import { DashboardhomologationComponent } from './components/diplomes/dashboard/dashboardhomologation.component';
+import { EncoursComponent } from './components/diplomes/encours/encours.component';
+import { TraiteesComponent } from './components/diplomes/traitees/traitees.component';
+import { ArchivesDIFComponent } from './components/archives/archives.component';
 
 const routes: Routes = [
   { path: 'dif',
@@ -37,26 +46,25 @@ const routes: Routes = [
         { path: 'formation', component: ConcoursproComponent,
           canActivateChild: [DifGuard],
           children: [
-            { path: 'sessions', component: ConcoursExamComponent },
-            { path: 'nouvelle-session', component: EvaluationConcoursComponent },
-            { path: '', redirectTo: '/dif/formation/sessions', pathMatch: 'full' }
+            { path: 'dashboard', component: DashboardformationComponent },
+            { path: 'stages', component: StagesComponent },
+            { path: 'designations', component: DesignationsComponent },
+            { path: '', redirectTo: '/dif/formation/dashboard', pathMatch: 'full' }
           ]
         },
         { path: 'diplomes', component: ConcoursproComponent,
           canActivateChild: [DifGuard],
           children: [
-            { path: 'encours', component: ConcoursExamComponent },
-            { path: 'nouvelle-demande', component: EvaluationConcoursComponent },
-            { path: 'traitees', component: EvaluationConcoursComponent },
-            { path: '', redirectTo: '/dif/diplomes/encours', pathMatch: 'full' }
+            { path: 'dashboard', component: DashboardhomologationComponent },
+            { path: 'encours', component: EncoursComponent },
+            { path: 'traitees', component: TraiteesComponent },
+            { path: '', redirectTo: '/dif/diplomes/dashboard', pathMatch: 'full' }
           ]
         },
-        { path: 'archives', component: ConcoursproComponent,
+        { path: 'archives', component: ArchivesDIFComponent,
           canActivateChild: [DifGuard],
           children: [
-            { path: 'liste', component: ConcoursExamComponent },
-            { path: 'nouvelle-archive', component: EvaluationConcoursComponent },
-            { path: '', redirectTo: '/dif/archives/liste', pathMatch: 'full' }
+            
           ]
         }
     ]

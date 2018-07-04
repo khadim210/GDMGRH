@@ -24,11 +24,11 @@
                             Concours professionnel</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                         aria-controls="v-pills-formation" #formationRouterLink="routerLinkActive"
-                        aria-selected="false" routerLink="/dif/formation">
+                        aria-selected="false" routerLink="/dif/formation/">
                             Formation du personnel</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                         aria-controls="v-pills-diplomes" #diplomesRouterLink="routerLinkActive"
-                        aria-selected="false" routerLink="/dif/diplomes">
+                        aria-selected="false" routerLink="/dif/diplomes/">
                             Diplômes</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                         aria-controls="v-pills-archives" #archivesRouterLink="routerLinkActive"
@@ -74,11 +74,14 @@
                 <div class="card-body">
                   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                       <a class="nav-link" data-toggle="pill" routerLinkActive="active"
-                      routerLink="/dif/formation/sessions"  role="tab"
-                      aria-controls="v-pills-encours" aria-selected="false">Sessions en cours</a>
+                      routerLink="/dif/formation/dashboard"  role="tab"
+                      aria-controls="v-pills-dashboard" aria-selected="false">Dashboard</a>
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dif/formation/stages"  role="tab"
+                      aria-controls="v-pills-stages" aria-selected="false">Stages</a>
                       <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
-                      routerLink="/dif/formation/nouvelle-session" role="tab"
-                      aria-controls="v-pills-nouvellesession" aria-selected="false">Nouvelle Session</a>
+                      routerLink="/dif/formation/designations" role="tab"
+                      aria-controls="v-pills-designations" aria-selected="false">Désignations</a>
                   </div>
                 </div>
             </div>
@@ -88,11 +91,11 @@
                 <div class="card-body">
                   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                       <a class="nav-link" data-toggle="pill" routerLinkActive="active"
-                      routerLink="/dif/diplomes/encours"  role="tab"
-                      aria-controls="v-pills-enattente" aria-selected="false">Diplômes en attente</a>
+                      routerLink="/dif/diplomes/dashboard"  role="tab"
+                      aria-controls="v-pills-dashboard" aria-selected="false">Dashboard Homologation</a>
                       <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
-                      routerLink="/dif/diplomes/nouvelle-demande" role="tab"
-                      aria-controls="v-pills-nouvelledemande" aria-selected="false">Nouvelle Demande</a>
+                      routerLink="/dif/diplomes/encours" role="tab"
+                      aria-controls="v-pills-encours" aria-selected="false">Demandes en cours</a>
                       <a class="nav-link" data-toggle="pill" routerLinkActive="active"
                       routerLink="/dif/diplomes/traitees"  role="tab"
                       aria-controls="v-pills-traitees" aria-selected="false">Demandes traitées</a>
@@ -101,7 +104,7 @@
             </div>
 
 
-            <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!archivesRouterLink.isActive">
+           <!--  <div class="card text-white mb-1" style="max-width: 18rem;" [hidden]="!archivesRouterLink.isActive">
                 <div class="card-body">
                   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                       <a class="nav-link" data-toggle="pill" routerLinkActive="active"
@@ -112,7 +115,7 @@
                       aria-controls="v-pills-nouvellesession" aria-selected="false">Nouvelle Archive</a>
                   </div>
                 </div>
-            </div>
+            </div> -->
 
 
 

@@ -2,32 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'selector-concours-examens',
-    template: require('./concours-examens.component.html')
+    selector: 'selector-encours',
+    template: require('./encours.component.html')
 })
 
-export class ConcoursExamComponent implements OnInit {
-	form: FormGroup;
+export class EncoursComponent implements OnInit {
+    form: FormGroup;
 
 
-	  createForm() {
+	createForm() {
     this.form = this.formBuilder.group({
       libelle: '',
-      categorie: '',
-      datedebut: '',
-      datefin: '',
-      lieu: '',
-      note: '',
+      demande: '',
+      imputee: '',
+      matricule: '',
+      nom: '',
+      prenom: '',
+      service: '',
+      datedemande: '',
     });
   }
 
     constructor(private formBuilder: FormBuilder) { 
     	this.createForm();
-	}
+    }
 
     ngOnInit() { }
-
-    submit(): void {
-    	
-    }
 }

@@ -15,6 +15,18 @@ import { ConcoursproComponent } from './components/concours-pro/concours-pro.com
 import { ConcoursExamComponent } from './components/concours-pro/concours-examens/concours-examens.component';
 import { EvaluationConcoursComponent } from './components/concours-pro/evaluation/evaluation.component';
 
+import { FormationComponent } from './components/formation/formation.component';
+import { DashboardformationComponent } from './components/formation/dashboard/dashboardformation.component';
+import { StagesComponent } from './components/formation/stages/stages.component';
+import { DesignationsComponent } from './components/formation/designations/designations.component';
+
+import { DiplomesHomologationComponent } from './components/diplomes/diplomes.component';
+import { DashboardhomologationComponent } from './components/diplomes/dashboard/dashboardhomologation.component';
+import { EncoursComponent } from './components/diplomes/encours/encours.component';
+import { TraiteesComponent } from './components/diplomes/traitees/traitees.component';
+
+import { ArchivesDIFComponent } from './components/archives/archives.component';
+
 @NgModule({
     imports: [
         HttpClientModule,
@@ -33,6 +45,15 @@ import { EvaluationConcoursComponent } from './components/concours-pro/evaluatio
         ConcoursproComponent,
         ConcoursExamComponent,
         EvaluationConcoursComponent,
+        FormationComponent,
+        DashboardformationComponent,
+        StagesComponent,
+        DesignationsComponent,
+        DashboardhomologationComponent,
+        DiplomesHomologationComponent,
+        EncoursComponent,
+        TraiteesComponent,
+        ArchivesDIFComponent,
     ],
     providers: [
         DifGuard
