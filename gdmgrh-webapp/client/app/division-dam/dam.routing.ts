@@ -7,6 +7,7 @@ import { DamDashboadComponent } from './components/dam-dashboad/dam-dashboad.com
 import { RecrutementComponent } from './components/recrutement/recrutement.component';
 import { ReservisteComponent } from './components/reserviste/reserviste.component';
 import { GendarmeAuxiliaireComponent } from './components/gendarme-auxiliaire/gendarme-auxiliaire.component';
+import { ArchiveDamComponent } from './components/archive-dam/archive-dam.component';
 import { SessionComponent } from './components/recrutement/session/session.component';
 import { CandidatureComponent } from './components/recrutement/candidature/candidature.component';
 import { NoteComponent } from './components/recrutement/note/note.component';
@@ -31,7 +32,8 @@ const routes: Routes = [
           ],
         },
         { path: 'reserviste', component: ReservisteComponent },
-        { path: 'auxiliaire', component: GendarmeAuxiliaireComponent }
+        { path: 'auxiliaire', component: GendarmeAuxiliaireComponent },
+        { path: 'archive', component: ArchiveDamComponent }
     ]
   },
 ];

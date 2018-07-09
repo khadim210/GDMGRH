@@ -10,20 +10,13 @@ export class DgpGuard implements CanActivate, CanActivateChild {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if ( (RegExp('\/account/setting\/').test(state.url.toString())) ) {
+        if (this.authService.isConnected() && this.authService.getUser().group === 'DGP') {
             return true;
-        }
-        if (!this.authService.getUser()) {
+        } else {
+            this.authService.logout();
+            this.router.navigate(['/account/sign-in']);
             return false;
         }
-        if (this.authService.getUser().agent) {
-            if (this.authService.getUser().agent.unite === 'DGP') {
-                return true;
-            }
-        }
-        this.authService.logout();
-        this.router.navigate(['/account/sign-in']);
-        return false;
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

@@ -1,6 +1,6 @@
 <div>
   <div>
-    <form>
+    <form class="form" #userPanelForm="ngForm">
       <div class="form-row">
         <div *ngIf="errormsg" class="form-group col-md-12">
             <div class="alert alert-danger" role="alert">
@@ -19,44 +19,118 @@
 
       <div class="form-row">
         <div class="form-group col-md-12">
-          <label for="inputPassword">Mot de passe</label>
-          <input type="password" class="form-control form-control-sm" 
-            placeholder="mot de passe" name="password" [(ngModel)]="userForm.password">
+          <div class="table-responsive">
+              <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                  <tbody>
+                      <tr>
+                          <td>
+                            <label for="inputPassword">Mot de passe</label>
+                          </td>
+                          <td class="text-right" [hidden]="hiddenToggle">
+                            modifier
+                            <button class="btn btn-sm btn-light" (click)="updatePasswordHandler()" style="padding: 0rem; margin: 0rem; border-radius: 25px;">
+                                <span class="badge badge-pill {{updatePassword ? 'badge-light text-light' : 'badge-danger text-danger'}}" style="margin: 0rem;">O</span>
+                                <span class="badge badge-pill {{updatePassword ? 'badge-success text-success' : 'badge-light text-light'}}" style="margin: 0rem;">O</span>
+                            </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div [hidden]="!updatePassword">
+            <input type="password" class="form-control form-control-sm" 
+              placeholder="mot de passe" name="password" [(ngModel)]="userForm.password" [required]="updatePassword">
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-sm-2">Agent :</div>
-        <div *ngIf="agentName">
-            <span class="badge badge-info">{{agentName.name}}</span>
-            <span class="badge badge-info">{{agentName.unite}}</span>
+        <div class="col-sm-3" style="padding-right: 0rem; margin-right: 0rem;">Agent choisi :</div>
+        <div *ngIf="agentSelected.name" style="padding: 0rem; margin: 0rem;">
+          <span class="badge badge-pill badge-secondary">
+            <span class="badge badge-secondary"><label>{{agentSelected.name}}</label></span>
+            <span class="badge badge-secondary"><label>{{agentSelected.unite}}</label></span>
+            <span class="badge badge-pill badge-danger mouse" (click)="deleteAgentName()">X</span>
+          </span>
         </div>
       </div>
 
+      <div class="form-row text-center" [hidden]="agentSelected.name">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Recherche par
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="optionSelected('matricule')">Matricule</a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="optionSelected('name')">Nom Prenom</a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="optionSelected('unite')">Unite</a>
+            </div>
+          </div>
+          <input type="text" class="form-control form-control-sm" name="searchs" [(ngModel)]="searchAgentForm"
+            placeholder="rechercher par {{searchOption}} ..." (keyup)="searchAgent(searchAgentForm)">
+
+          <!--
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">par :</span>
+          </div>
+          <input type="text" class="form-control form-control-sm" name="nom" [(ngModel)]="searchAgentForm.nom"
+            placeholder="nom prenom" (keyup)="searchAgent(searchAgentForm.nom, 'name')" readonly="{{agentSelected.name}}">
+          <input type="text" class="form-control form-control-sm" placeholder="unite" name="unite" [(ngModel)]="searchAgentForm.unite"
+              (keyup)="searchAgent(searchAgentForm.unite, 'unite')" readonly="{{agentSelected.name}}">
+          
+          <input type="text" placeholder="matricule" name="matricule" class="form-control form-control-sm">
+          <input type="text" placeholder="nom prenom" name="nom" class="form-control form-control-sm" >
+          <input type="text" placeholder="cni" name="cni" class="form-control form-control-sm">
+          -->
+        </div>
+        <div class="card text-center border-primary w-100" *ngIf="searchFound.length && !agentSelected.name">
+          <div class="card-body" style="padding: 0rem; margin: 0rem; max-height: 75px; overflow:auto;">
+            <div class="table-responsive-sm">
+              <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                <tbody>
+                  <tr class="mouse" *ngFor="let agent of searchFound; let i = index"
+                      (click)="selectAgent(agent)">
+                    <td>{{agent.name}}</td>
+                    <td>{{agent.unite}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--
       <div class="form-row">
           <div class="form-group col-md-12">
             <div class="row">
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control form-control-sm" #agentInputName (keyup)="searchAgent(agentInputName.value, 'name')">
+                  <input type="text" class="form-control form-control-sm" placeholder="recherche par unite" #agentInputName (keyup)="searchAgent(agentInputName.value, 'name')">
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control form-control-sm" #agentInputUnite (keyup)="searchAgent(agentInputUnite.value, 'unite')">
+                  <input type="text" class="form-control form-control-sm" placeholder="recherche par unite" #agentInputUnite (keyup)="searchAgent(agentInputUnite.value, 'unite')">
                 </div>
             </div>
-            <div  *ngIf="agentSearch.length" class="h-50">
-                <div *ngFor="let agent of agentSearch; let i = index" > 
-                  <div class="row mouse" (click)="selectAgent(agent)">
-                    <div class="col-sm-6">
-                        {{agent.name}}
-                    </div>
-                    <div class="col-sm-6">
-                        {{agent.unite}}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div *ngIf="searchFound.length" class="table-responsive-sm border-ligth">
+              <table class="table table-sm table-borderless"> 
+                <tbody >
+                      <tr class="row mouse" *ngFor="let agent of searchFound; let i = index" (click)="selectAgent(agent)">
+                          <th>
+                              {{agent.name}}
+                          </th>
+                          <td>
+                              {{agent.unite}}
+                          </td>
+                      </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
       </div>
+      -->
 <!--
       <div class="form-row">
         <div class="form-group col-md-12">
@@ -67,40 +141,59 @@
       </div>
     -->
       <div class="form-row" [hidden]="userForm.active === undefined">
-          <div class="form-group col-md-12">
-            <label for="inputActive">Status</label>
-            <select class="form-control form-control-sm" name="active" [(ngModel)]="userForm.active">
-                <option [value]="true" >actif</option>
-                <option [value]="false" >inactif</option>
-              </select>
-          </div>
+        <div class="form-group col-md-12">
+          <label for="inputActive">Status</label>
+          <select class="form-control form-control-sm" name="active" [(ngModel)]="userForm.active">
+              <option [value]="true" >actif</option>
+              <option [value]="false" >inactif</option>
+            </select>
         </div>
+      </div>
 <!--
       <div class="form-group row">
           <div class="col-sm-2">Role :</div>
           <div *ngFor="let rule of userForm.role">
-              <span class="badge badge-info">{{rule}}</span><br/>
+              <span class="badge badge-primary">{{rule}}</span><br/>
           </div>
       </div>
 -->
 
       <div class="form-group row">
           <div class=" col-sm-12">
+            <label >Groupe :</label>
+            <select class="form-control form-control-sm" name="groupe" [(ngModel)]="userForm.groupe" required>
+                <option [value]="undefined" disabled hidden>--- choix du groupe ---</option>
+                <option *ngFor="let groupe of allGroupe" [value]="groupe._id">{{groupe.name}}</option>
+            </select>
+          </div>
+      </div>
+
+      <div class="form-group row">
+          <div class=" col-sm-12">
             <label >Role :</label>
-            <select class="form-control form-control-sm" name="agent" [(ngModel)]="userForm.role">
-                <option *ngFor="let roles of allRules; let i = index" [value]="roles" > {{roles}}</option>
+            <select class="form-control form-control-sm" name="agent" [(ngModel)]="userForm.role" required>
+                <option [value]="undefined" disabled hidden>--- choisir rôle ---</option>
+                <option [value]="'chef_division'">chef_division</option>
+                <option [value]="'chef_secretaire'">chef_secretaire</option>
+                <option [value]="'secretaire'">secretaire</option>
             </select>
           </div>
       </div>
       <div class="form-group row" [hidden]="action !== 'ajouter'">
         <div class="col-sm-12">
-          <button type="submit" (click)="addUsers()" class="btn-sm btn-block btn-primary">Enregister</button>
+          <span class="d-block" tabindex="0" data-toggle="tooltip" title="Renseigner tout les champs">
+            <button type="button" [disabled]="!userPanelForm.form.valid || !agentSelected.name" (click)="addUsers()" 
+              class="btn-sm btn-block {{!userPanelForm.form.valid || !agentSelected.name ? 'btn-outline-success' : 'btn-success'}}">Enregister</button>
+          </span>
         </div>
       </div>
 
       <div class="form-group row" [hidden]="action !== 'modifier'">
           <div class="col-sm-12">
-            <button type="submit" (click)="updateUsers()" class="btn-sm btn-block btn-primary">Modifier</button>
+              <span class="d-block" tabindex="0" data-toggle="tooltip" title="Renseigner tout les champs">
+                <button type="button" [disabled]="!userPanelForm.form.valid || !agentSelected.name" (click)="updateUsers()"
+                  class="btn-sm btn-block {{!userPanelForm.form.valid || !agentSelected.name ? 'btn-outline-primary' : 'btn-primary'}}">Modifier</button>
+              </span>
           </div>
       </div>
     </form>

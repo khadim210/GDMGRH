@@ -46,11 +46,11 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <label for="datelancement">Date Lancement</label>
+                                            <label for="datelancement">Date Lancement Prevu</label>
                                             <input type="date" class="form-control form-control-sm" id="datelancement" placeholder="date lancement" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="datecloture">Date Clôture</label>
+                                            <label for="datecloture">Date Clôture Prevu</label>
                                             <input type="date" class="form-control form-control-sm" id="datecloture" placeholder="date cloture" required>
                                         </div>
                                     </div>
@@ -82,24 +82,45 @@
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12">
-                <div class="fixedcard card-body">
+                <div class="card-body">
                     <h5 class="card-title">Liste des sessions</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <select class="form-control form-control-sm" name="status">
+                                            <option [value]="'numero'" >Numero</option>
+                                            <option [value]="'libelle'">Libelle</option>
+                                            <option [value]="'niveau'">Niveau</option>
+                                        </select>
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ...">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm">Imprimer</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <table class="col-md-12 table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Numero</th>
-                                <th scope="col">Nom Session</th>
+                                <th scope="col">Libelle</th>
                                 <th scope="col">Niveau</th>
                                 <th scope="col">Effectif</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                 
-                        <tbody *ngIf="sessionList.length">
+                        <tbody class="fixedcard" *ngIf="sessionList.length">
                             <tr *ngFor="let session of sessionList, let i = index">
-                                <td>{{i}}</td>
-                                <td>{{session?.nom}}</td>
+                                <td>{{session?.libelle}}</td>
                                 <td>{{session?.niveau}}</td>
                                 <td >{{session?.effectif}}</td>
                                 <td><span class="badge badge-primary mouse" (click)="showsession(session)" data-toggle="modal" data-target="#sessionModal">

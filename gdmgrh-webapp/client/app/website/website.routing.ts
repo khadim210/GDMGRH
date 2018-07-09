@@ -9,6 +9,7 @@ const routes: Routes = [
     { path: 'account',
       component: AccountManagerComponent,
       canActivate: [AuthGuard],
+      canActivateChild: [AuthGuard],
       children: [
         { path: 'sign-in', component: SignInComponent },
         { path: 'setting', component: SettingComponent }

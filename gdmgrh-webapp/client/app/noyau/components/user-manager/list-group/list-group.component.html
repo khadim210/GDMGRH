@@ -1,70 +1,93 @@
 <div>
     <div >
-      <div class="row">
-          <div class="col-md-10">
-            <h2>Groupe d'utilisateurs</h2>
-          </div> 
-          <div class="col-md-2">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#groupModal">
-              Ajouter
-            </button>
-          </div>
-      </div>
-  
-      <div class="row" >
-        <table class="col-md-12 table">
-            <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Unite</th>
-                  <th scope="col">Utilisateur</th>
-                  <th scope="col">Status</th>
-                </tr>
-            </thead>
-  
-            <tbody *ngIf="groupList">
-                <tr *ngFor="let Group of groupList, let i = index">
-                  <td>{{i}}</td>
-                  <td>{{Group.name}}</td>
-                  <td>{{Group.unite}}</td>
-                  <td >{{Group?.users.length}}</td>
-                  <th><span class="badge {{Group.status === 'actif' ? 'badge-success' : 'badge-danger'}}">{{Group.status}}</span></th>
-                  <td><span class="badge badge-info">
-                      <button type="button" class="btn-sm btn-info" (click)="showGroup(Group)" data-toggle="modal" data-target="#groupModal">
-                          afficher
-                        </button>
-                  </span></td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!groupList">
-                <tr>
-                  <td></td>
-                  <th></th>
-                  <td></td>
-                  <td>Vide</td>
-                  <th></th>
-                  <td></td>
-                  <td></td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+              <h2>Groupe d'utilisateurs</h2>
+            </div>
+        </div>
+        <div class="card w-100" style="padding: 0rem;">
+            <div class="card-body" style="padding: 1rem;">
+              <div class="row">
+                <div class="col-md-8 col-sm-8 col-12">
+                  <div class="row">          
+                    <div class="form-group col-md-6 col-sm-6 col-12">
+                          <select class="form-control form-control-sm" (change)="searchChange($event.target.value)">
+                              <option [value]="''" disabled hidden> Rechercher par ... </option>
+                              <option [value]="'name'" >Nom du groupe</option>  
+                              <option [value]="'moduleSelect'" >Division</option>
+                          </select>
+                    </div>
+                    
+                    <div class="form-group col-md-6 col-sm-6 col-12">
+                        <input type="text" class="{{search.option === '' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="searchField" [(ngModel)]="search.field"
+                              [disabled]="search.option === ''" placeholder="{{search.option === '' ? '' : 'renseigner le mot cherché'}}" (keyup)="searchGroupe(search.field)">
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-4 col-sm-4 col-12">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-sm btn-block btn-outline-primary" (click)="addGroupeModal()" data-toggle="modal" data-target="#groupeModal">
+                      Ajouter
+                  </button>
+                </div>
+              </div>
+
+              <div class="row" >
+                <table class="col-md-12 table table-sm" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Division</th>
+                          <th scope="col">Nbre Utilisateur</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+          
+                    <tbody *ngIf="groupeList" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                        <tr *ngFor="let groupe of groupeList, let i = index">
+                          <td>{{i}}</td>
+                          <td>{{groupe.name}}</td>
+                          <td>{{groupe.moduleSelect}}</td>
+                          <td >{{groupe?.users.length}}</td>
+                          <th><span class="badge {{groupe.status === 'actif' ? 'badge-success' : 'badge-danger'}}">{{groupe.status}}</span></th>
+                          <td><span class="badge badge-primary mouse" (click)="annonceGroupe(groupe)" data-toggle="modal" data-target="#groupeModal">
+                                  afficher
+                          </span></td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!groupeList">
+                        <tr>
+                          <td></td>
+                          <th></th>
+                          <td></td>
+                          <td>Vide</td>
+                          <th></th>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
     </div>
+  </div>
   
     <!-- Modal -->
-    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
+    <div class="modal fade" id="groupeModal" tabindex="-1" role="dialog" aria-labelledby="groupeModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="groupModalLabel">Gestion des groupes</h5>
-            <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="groupeModalLabel">Gestion des groupes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <app-creat-group [action]="btnModal" [groupForm]="groupItem" (group)="handlerGroupEmit($event)"></app-creat-group>
+            <app-creat-group></app-creat-group>
           </div>
         </div>
       </div>

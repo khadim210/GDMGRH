@@ -1,26 +1,84 @@
 <div>
     <div>
       
-      <form>
+      <form #groupePanelForm="ngForm">
         <div class="form-row">
+          <div *ngIf="msgerror" class="alert alert-danger w-100" role="alert">
+              {{msgerror | json}}
+          </div>
           <div class="form-group col-md-12">
             <label for="name">Nom</label>
             <input type="text" class="form-control form-control-sm" 
-              placeholder="nom du groupe" name="name" [(ngModel)]="groupForm.name">
+              placeholder="nom du groupe" name="name" [(ngModel)]="groupForm.name" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-12">
             <label for="description">Description</label>
             <input type="text" class="form-control form-control-sm" 
-              placeholder="description" name="description" [(ngModel)]="groupForm.description">
+              placeholder="description" name="description" [(ngModel)]="groupForm.description" required>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="inputUser">Utilisateurs</label> 
-            <div *ngIf="groupForm.users.length">
+          <label for="inputUser">Utilisateurs</label>
+          <div class="w-100" *ngIf="userSelected.length">
+            <div class="card border-ligth w-100">
+              <div class="card-body" style="padding: 0rem; margin: 0rem; max-height: 75px; overflow:auto;">
+                    <span class="badge badge-pill badge-secondary" 
+                      *ngFor="let user of userSelected; let i = index">
+                      <span class="badge badge-secondary"><label>{{user.username}}</label></span>
+                      <span class="badge badge-pill badge-danger mouse" 
+                        (click)="deleteUserName(user)">X</span>
+                    </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Recherche par
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="optionSelected('username')">Nom d'utilisateur</a>
+                <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="optionSelected('agent')">Nom de l'agent</a>
+              </div>
+          </div>
+          <input type="text" class="form-control form-control-sm" name="searchs" [(ngModel)]="searchUserForm"
+            placeholder="rechercher par {{searchOption}} ..." (keyup)="searchUser(searchUserForm)">
+
+          <!--
+            
+            <input type="text" placeholder="matricule" name="matricule" class="form-control form-control-sm">
+            <input type="text" placeholder="nom prenom" name="nom" class="form-control form-control-sm" >
+            <input type="text" placeholder="cni" name="cni" class="form-control form-control-sm">
+            -->
+          </div>
+          <div class="card text-center border-primary w-100" *ngIf="searchFound.length">
+            <div class="card-body" style="padding: 0rem; margin: 0rem; max-height: 75px; overflow:auto;">
+              <div class="table-responsive-sm">
+                <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                  <tbody>
+                    <tr class="mouse" *ngFor="let user of searchFound; let i = index"
+                        (click)="selectUser(user)">
+                      <td>{{user.username}}</td>
+                      <td>{{user.role}}</td>
+                      <td>{{user.agent.name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!--
+        <div class="form-row">
+          <div class="form-group col-md-12"> 
+            <div *ngIf="groupForm.users">
               <span class="badge badge-info" *ngFor="let user of groupForm.users">{{user}}</span>
             </div>
             <select multiple class="form-control form-control-sm" name="user" [(ngModel)]="groupForm.users">
@@ -28,12 +86,13 @@
             </select>
           </div>
         </div>
-        
+      -->
         <div class="form-row">
             <div class="form-group col-md-12">
-              <label for="inputUnite">Unite</label>
-              <select class="form-control form-control-sm" name="unite" [(ngModel)]="groupForm.unite">
-                <option *ngFor="let unite of uniteList" [value]="unite._id" > {{unite?.name}}</option>
+              <label for="inputUnite">Division</label>
+              <select class="form-control form-control-sm" name="unite" [(ngModel)]="groupForm.moduleSelect" required>
+                  <option [value]="undefined" disabled hidden>--- choisir division ---</option>
+                <option *ngFor="let unite of uniteList" [value]="unite" > {{unite}}</option>
               </select>
             </div>
           </div>
@@ -42,7 +101,7 @@
             <div class="form-group col-md-12">
               <label for="inputStatus">Status</label>
               <select class="form-control form-control-sm" class="form-control form-control-sm" 
-                    name="status" [(ngModel)]="groupForm.status">
+                    name="status" [(ngModel)]="groupForm.status" [required]="groupForm.status">
                   <option [value]="'actif'" >actif</option>
                   <option [value]="'inactif'" >inactif</option>
                 </select>
@@ -51,12 +110,18 @@
 
         <div class="form-group row" [hidden]="action !== 'ajouter'">
           <div class="col-sm-12">
-            <button type="submit" (click)="addGroup()" class="btn-sm btn-block btn-primary">Enregister</button>
+            <span class="d-block" tabindex="0" data-toggle="tooltip" title="Renseigner tout les champs">
+              <button type="submit" (click)="addGroup()" [disabled]="!groupePanelForm.form.valid || !userSelected.length"
+                class="btn-sm btn-block {{!groupePanelForm.form.valid || !userSelected.length ? 'btn-outline-success' : 'btn-success'}}">Enregister</button>
+            </span>
           </div>
         </div>
         <div class="form-group row" [hidden]="action !== 'modifier'">
             <div class="col-sm-12">
-              <button type="submit" (click)="updateGroup()" class="btn-sm btn-block btn-primary">Modifier</button>
+              <span class="d-block" tabindex="0" data-toggle="tooltip" title="Renseigner tout les champs">
+                <button type="submit" (click)="updateGroup()" [disabled]="!groupePanelForm.form.valid || !userSelected.length"
+                  class="btn-sm btn-block {{!groupePanelForm.form.valid || !userSelected.length ? 'btn-outline-primary' : 'btn-primary'}}">Modifier</button>
+              </span>
             </div>
         </div>
       </form>

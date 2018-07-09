@@ -1,26 +1,31 @@
-function repository (item) {
-    this.item = item;
-    this.save = item => item.save(item);
+function repository (Item) {
+  this.Item = Item;
+  this.save = item => item.save();
 
-    this.remove = (criteria) => {
-        item.remove(criteria).exec();
-    };
+  this.remove = (criteria) => {
+    Item.remove(criteria).exec();
+  };
 
-    this.getAll = (creterias = null) => {
-        return (creterias !== null) ? item.find(creterias).exec() : item.find().exec();
-    };
+  this.getAll = (creterias = null) => {
+    return (creterias !== null) ? Item.find(creterias).exec() : Item.find().exec();
+  };
 
-    this.getAllPopulate = (populate, creterias = null) => {
-        return (creterias !== null) ? item.find(creterias).populate(populate).exec() : item.find().populate(populate).exec();
-    };
+  this.getAllPopulate = (populate, creterias = null) => {
+    return (creterias !== null) ? Item.find(creterias).populate(populate).exec() : Item.find().populate(populate).exec();
+  };
 
-    this.getOne = (id) => {
-        return item.findById(id).exec();
-    }
+  this.getOne = (id) => {
+    return Item.findById(id).exec();
+  }
 
-    this.getOneBy = (creteria, field) => {
-        return (field !== null) ? item.findOne(creteria, field).exec() : item.findOne(creteria).exec();
-    }
+  this.getOneBy = (creteria, field = null) => {
+    return (field !== null) ? Item.findOne(creteria, field).exec() : Item.findOne(creteria).exec();
+  }
+  
+  this.populateGetOneBy = (creteria, populate, field = null) => {
+    return (field !== null) ? Item.findOne(creteria, field).populate(populate).exec()
+                              : Item.findOne(creteria).populate(populate).exec();
+  }
 }
 
 module.exports = repository;

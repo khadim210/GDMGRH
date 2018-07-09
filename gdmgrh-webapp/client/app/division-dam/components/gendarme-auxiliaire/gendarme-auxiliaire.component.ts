@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class GendarmeAuxiliaireComponent implements OnInit {
-    constructor() { }
+
+    gendarmeauxiliaireList: any;
+    gendarmeauxiliaireForm: any;
+
+    constructor() { 
+        this.gendarmeauxiliaireList = [];
+        this.gendarmeauxiliaireForm = {};
+    }
 
     ngOnInit() { }
 }

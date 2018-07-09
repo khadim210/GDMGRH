@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NoyauService } from '../../../service/noyau.service';
+import { UserManagerEventService } from '../../../service/user-manager-event.service';
 
 @Component({
   selector: 'app-list-users',
@@ -9,62 +10,89 @@ export class ListUsersComponent implements OnInit {
 
   userList: any;
   userListSearch: any;
-  searchOption: string;
+  groupeList: any;
+  search: any;
   userItem: any;
   adminProfil: any;
-  btnModal: string;
 
   constructor(
-    private noyauService: NoyauService
+    private noyauService: NoyauService,
+    private userManagerEventService: UserManagerEventService
   ) {
     this.userList = [];
+    this.userListSearch = [];
+    this.groupeList = [];
     this.adminProfil = {};
     this.userItem = {};
-    //this.userItem.role = [];
-    this.btnModal = 'ajouter';
-    this.userListSearch = [];
-    this.searchOption = 'username';
+    this.search = {};
+    this.search.option = '';
    }
 
   ngOnInit() {
     this.getAllUsers();
+    this.handlerUserEmit();
   }
 
   showUser(user): void {
     this.userItem = {...user};
-    this.btnModal = 'modifier';
+    for (let x = 0; x < this.groupeList.length; x++) {
+      if (this.groupeList[x].users) {
+        for (let y = 0; y < this.groupeList[x].users.length; y++) {
+          if (this.groupeList[x].users[y] === this.userItem._id) {
+           this.userItem.groupe = this.groupeList[x]._id;
+          }
+        }
+      }
+    }
+    this.annonceUser(this.userItem);
+  }
+
+  annonceUser(_user = {}, _action = 'modifier') {
+    console.log({user: _user, action: _action});
+    this.userManagerEventService.announceUser({user: _user, action: _action});
   }
 
   getAllUsers(): void {
     this.noyauService.getUsers().subscribe( res => {
-      if (res.response) {
-        for (let index = 0; index < res.response.length; index++) {
-          if (res.response[index].role !== 'admin') {
-            this.userList.push(res.response[index]);
+      if (res.allUser && res.groupe) {
+        for (let index = 0; index < res.allUser.length; index++) {
+          if (res.allUser[index].role !== 'admin') {
+            this.userList.push(res.allUser[index]);
           } else {
-            this.adminProfil = res.response[index];
+            this.adminProfil = res.allUser[index];
           }
           this.userListSearch = this.userList;
+        }
+        this.groupeList = res.groupe;
+      }
+    });
+  }
+
+  searchChange(input) {
+    this.search.field = '';
+    this.search.option = input;
+    this.userList = this.userListSearch;
+  }
+
+  handlerUserEmit() {
+    this.userManagerEventService.userConfirmed.subscribe(_user => {
+      if (_user) {
+        this.userList = [];
+        for (let index = 0; index < _user.user.length; index++) {
+          if (_user.user[index].role !== 'admin') {
+            this.userList.push(_user.user[index]);
+          } else {
+            this.adminProfil = _user.user;
+          }
         }
       }
     });
   }
 
-  handlerUserEmit(userEmit) {
-    this.userList = [];
-    for (let index = 0; index < userEmit.user.length; index++) {
-      if (userEmit.user[index].role !== 'admin') {
-        this.userList.push(userEmit.user[index]);
-      } else {
-        this.adminProfil = userEmit.user;
-      }
-    }
-  }
-
-  searchRole(input) {
+  searchUser(input) {
     this.userList = [];
     if (input !== '') {
-      this.filterTable(this.userListSearch, `${input}`);
+      this.filterTable(this.userListSearch, `${input.toUpperCase()}`);
     } else {
       this.userList = this.userListSearch;
     }
@@ -73,12 +101,12 @@ export class ListUsersComponent implements OnInit {
   filterTable(table = [], input) {
     if (table.length) {
       for (let index = 0; index < table.length; index++) {
-        if (table[index][`${this.searchOption}`]._id) {
-          if (this.matchString(table[index][`${this.searchOption}`].name, input)) {
+        if (table[index][`${this.search.option}`]._id) {
+          if (this.matchString((table[index][`${this.search.option}`].name).toUpperCase(), input)) {
             this.userList.push(table[index]);
           }
         } else {
-          if (this.matchString(table[index][`${this.searchOption}`], input)) {
+          if (this.matchString((table[index][`${this.search.option}`]).toUpperCase(), input)) {
             this.userList.push(table[index]);
           }
         }
@@ -93,9 +121,9 @@ export class ListUsersComponent implements OnInit {
     return false;
   }
 
-  closeModal(): void {
+  addUserModal(): void {
     this.userItem = {};
     this.userItem.rule = [];
-    this.btnModal = 'ajouter';
+    this.annonceUser(this.userItem, 'ajouter');
   }
 }

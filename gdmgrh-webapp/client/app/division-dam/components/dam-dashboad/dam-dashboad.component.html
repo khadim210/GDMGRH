@@ -1,11 +1,77 @@
-<div *ngIf="role === 'chef'">
+<div class="row" *ngIf="role === 'chef'">
     Connecter en tant que chef de division DAM
+    <div class="col-12">
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Statistique</h5>
+                <dam-statistique></dam-statistique>
+            </div>
+        </div>
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Necessité Validation</h5>
+                <dam-validation></dam-validation>
+            </div>
+        </div>
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Activité Récente</h5>
+                <dam-statistique></dam-statistique>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div *ngIf="role === 'chef_secretaire'">
+<div class="row" *ngIf="role === 'chef_secretaire'">
     Connecter en tant que Chef Secretaire mais en plus des ces attribution, il a aussi les attributions du chef de division DAM
+    <div class="col-12">
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Statistique</h5>
+                <dam-statistique></dam-statistique>
+            </div>
+        </div>
+    
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Necessité Validation</h5>
+                <dam-validation></dam-validation>
+            </div>
+        </div>
+    
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Gestion Mutation DAM</h5>
+                <dam-mutation></dam-mutation>
+            </div>
+        </div>
+        
+    </div>
 </div>
 
-<div *ngIf="role === 'secretaire'">
+<div class="row" *ngIf="role === 'secretaire'">
     Connecter en tant que Chef Secretaire mais a les attribution de chef secretaire
+    <div class="col-12">
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Statistique</h5>
+                <dam-statistique></dam-statistique>
+            </div>
+        </div>
+    
+        <br>
+        <div class="card border-ligth  mb-3">
+            <div class="card-body" style="margin: 0rem;">
+                <h5 class="card-title">Gestion Mutation DAM</h5>
+                <dam-mutation></dam-mutation>
+            </div>
+        </div>
+    </div>
 </div>

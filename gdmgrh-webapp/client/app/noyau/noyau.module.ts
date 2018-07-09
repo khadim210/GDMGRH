@@ -28,6 +28,7 @@ import { GradesService } from './service/grades.service';
 import { NoyauGuard } from './noyau.guard';
 import { PunitionComponent } from './components/sanction/punition/punition.component';
 import { RecompenseComponent } from './components/sanction/recompense/recompense.component';
+import { UserManagerEventService } from './service/user-manager-event.service';
 
 @NgModule({
     imports: [
@@ -62,7 +63,8 @@ import { RecompenseComponent } from './components/sanction/recompense/recompense
         DiplomesService,
         GradesService,
         GlobalData,
-        NoyauGuard
+        NoyauGuard,
+        UserManagerEventService
     ]
 })
 

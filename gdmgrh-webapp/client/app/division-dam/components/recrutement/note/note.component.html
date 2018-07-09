@@ -13,31 +13,37 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-sm-12 col-12">
-                <h5 class="card-title">Liste de session</h5>
+            <div class="{{sessionPanel}}">
                 <div class="card-body">
+                    <h5 class="card-title">Liste de session</h5>
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <select class="form-control form-control-sm" name="status">
-                                <option [value]="'numero'" >Numero</option>
-                                <option [value]="'nom'">non</option>
-                                <option [value]="'anne'">année</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <button class="btn btn-sm">Imprimer</button>
-                            <button class="btn btn-sm">Exporter</button>
-                        </div>
+                        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <select class="form-control form-control-sm" name="status">
+                                            <option [value]="'numero'" >Numero</option>
+                                            <option [value]="'libelle'">Libelle</option>
+                                            <option [value]="'anne'">année</option>
+                                        </select>
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ...">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm">Imprimer</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <table class="col-md-12 table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Numero</th>
-                                <th scope="col">Nom</th>
+                                <th scope="col">Libelle</th>
                                 <th scope="col">Effectif</th>
                                 <th scope="col">Année</th>
                                 <th scope="col">Action</th>
@@ -46,13 +52,12 @@
                 
                         <tbody class="fixedcard" *ngIf="sessionList.length">
                             <tr *ngFor="let session of sessionList, let i = index">
-                                <td>{{i}}</td>
                                 <td>{{session?.numero}}</td>
-                                <td>{{session?.nom}}</td>
+                                <td>{{session?.libelle}}</td>
                                 <td>{{session?.effectif}}</td>
                                 <td>{{session?.annee}}</td>
                                 <td><span class="badge badge-primary mouse" (click)="showsession(session)" data-toggle="modal" data-target="#sessionModal">
-                                        details
+                                        Lister
                                 </span></td>
                             </tr>
                         </tbody>
@@ -71,23 +76,32 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12 col-12">
+            <div *ngIf="show" class="col-md-6 col-sm-12 col-12">
                 <div class="card-body">
                     <h5 class="card-title">Liste des élèves gendarmes</h5>
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <select class="form-control form-control-sm" name="status">
-                                <option [value]="'matricule'" >Matricule</option>
-                                <option [value]="'nom'">CNI</option>
-                                <option [value]="'cni'">session</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <button class="btn btn-sm">Imprimer</button>
-                        </div>
+                        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <select class="form-control form-control-sm" name="status">
+                                            <option [value]="'matricule'" >Matricule</option>
+                                            <option [value]="'nom'">CNI</option>
+                                            <option [value]="'cni'">session</option>
+                                        </select>
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ...">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm">Exporter</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm">Imprimer</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <table class="col-md-12 table">
                         <thead>

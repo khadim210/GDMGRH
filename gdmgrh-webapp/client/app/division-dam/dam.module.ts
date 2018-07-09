@@ -11,10 +11,14 @@ import { DamDashboadComponent } from './components/dam-dashboad/dam-dashboad.com
 import { RecrutementComponent } from './components/recrutement/recrutement.component';
 import { ReservisteComponent } from './components/reserviste/reserviste.component';
 import { GendarmeAuxiliaireComponent } from './components/gendarme-auxiliaire/gendarme-auxiliaire.component';
+import { ArchiveDamComponent } from './components/archive-dam/archive-dam.component';
 import { SessionComponent } from './components/recrutement/session/session.component';
 import { CandidatureComponent } from './components/recrutement/candidature/candidature.component';
 import { NoteComponent } from './components/recrutement/note/note.component';
 import { AdmisComponent } from './components/recrutement/admis/admis.component';
+import { StatistiqueComponent } from './components/statistique/statistique.component';
+import { MutationDamComponent } from './components/mutation-dam/mutation-dam.component';
+import { ValidationComponent } from './components/validation/validation.component';
 
 
 @NgModule({
@@ -31,10 +35,14 @@ import { AdmisComponent } from './components/recrutement/admis/admis.component';
         RecrutementComponent,
         ReservisteComponent,
         GendarmeAuxiliaireComponent,
+        ArchiveDamComponent,
         SessionComponent,
         CandidatureComponent,
         NoteComponent,
-        AdmisComponent
+        AdmisComponent,
+        StatistiqueComponent,
+        MutationDamComponent,
+        ValidationComponent
     ],
     providers: [
         DamService,

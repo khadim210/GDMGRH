@@ -1,6 +1,158 @@
 <div class="card border-light sticky-top">
     <selector-header></selector-header>
 </div>
-<div class="container-fluid text-center">
-    <button type="button" class="btn btn-secondary btn-lg" (click)="goHome()">Aller à l'accueil</button>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-profile-tab" (click)="iniFormUpdate()" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profil Agent</a>
+                            <a class="nav-link" id="v-pills-user-tab" data-toggle="pill" (click)="iniFormUpdate()" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">Profil Utilisateur</a>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <div class="card">
+                                    <div class="card-body h-25 d-inline-block">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                            <h5 class="card-title">Profile Agent</h5>
+                                                        </th>
+                                                        <td class="text-right" [hidden]="!btnUpdateHidden || displayOnly">
+                                                            <button type="button" (click)="getFormUpdate()" class="btn btn-sm">Modifier</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <form #agentPanelForm="ngForm">
+                                            <div class="row">
+                                                <div class="col-md-12 col-12">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="matriculeagent">Matricule agent : </label>
+                                                        <div class="col-sm-8">
+                                                            <input [(ngModel)]="profilModel.matricule" type="text" class="{{inputClass}} form-control-sm" name="matricule" placeholder="matricule agent" required>
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="nomagent">Nom agent : </label>
+                                                        <div class="col-sm-8">
+                                                            <input [(ngModel)]="profilModel.agent.name" type="text" class="{{inputClass}} form-control-sm" name="lastname" placeholder="nom et prenom du agent" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="numerocni">Numero Carte Identification : </label>
+                                                        <div class="col-sm-8">
+                                                            <input [(ngModel)]="profilModel.agent.cni" type="text" class="{{inputClass}} form-control-sm" name="cni" placeholder="numero carte identification nationale" required>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="genre">Genre : </label>
+                                                        <div class="col-sm-8" [hidden]="btnUpdateHidden">
+                                                            <select class="{{inputClass}} form-control-sm" name="genre" [(ngModel)]="profilModel.agent.genre" required>
+                                                                <option [value]="''" >choisir genre ...</option>
+                                                                <option [value]="'homme'" >Homme</option>
+                                                                <option [value]="'femme'" >Femme</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-8" [hidden]="!btnUpdateHidden">
+                                                            <input [(ngModel)]="profilModel.agent.genre" type="text" class="{{inputClass}} form-control-sm" name="genre" placeholder="genre du agent" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div [hidden]="btnUpdateHidden" class="text-right">
+                                                <button class="btn btn-outline-primary btn-sm" [disabled]="!agentPanelForm.form.valid" type="submit">{{btnUpdate}}</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                                <div class="card">
+                                    <div class="card-body h-25 d-inline-block">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                            <h5 class="card-title">Profile Utilisateur</h5>
+                                                        </th>
+                                                        <td class="text-right" (click)="getFormUpdate()" [hidden]="!btnUpdateHidden">
+                                                            <button type="button" class="btn btn-sm">Modifier</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <form #userPanelForm="ngForm">
+                                            <div class="row">
+                                                <div class="col-md-12 col-12">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="numeromutation">Nom d'utilisateur : </label>
+                                                        <div class="col-sm-8">
+                                                            <input [(ngModel)]="profilModel.username" type="text" class="{{inputClass}} form-control-sm" name="username" placeholder="nom d'utilisateur" required>
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="categorie">Mot de passe : </label>
+                                                        <div class="col-sm-4">
+                                                            <input [(ngModel)]="profilModel.password" type="password" class="form-control-sm {{updatePassword ? 'form-control' : 'form-control-plaintext'}}" name="password" placeholder="mot de passe" [required]="updatePassword">
+                                                        </div>
+                                                        <div class="col-sm-4 text-right" [hidden]="btnUpdateHidden">
+                                                            modifier
+                                                            <button class="btn btn-sm btn-light" (click)="updatePasswordHandler()" style="padding: 0rem; margin: 0rem; border-radius: 25px;">
+                                                                <span class="badge badge-pill {{updatePassword ? 'badge-light text-light' : 'badge-danger text-danger'}}" style="margin: 0rem;">O</span>
+                                                                <span class="badge badge-pill {{updatePassword ? 'badge-success text-success' : 'badge-light text-light'}}" style="margin: 0rem;">O</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="numeromutation">Groupe d'utilisateur : </label>
+                                                        <div class="col-sm-8">
+                                                            <input [(ngModel)]="profilModel.group" type="text" class="form-control-plaintext form-control-sm" name="groupe" placeholder="groupe d'utilisateur" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div [hidden]="btnUpdateHidden" class="text-right">
+                                                <button class="btn btn-outline-primary btn-sm" [disabled]="!userPanelForm.form.valid" type="button">{{btnUpdate}}</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <picture-profile></picture-profile>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="goHome()">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

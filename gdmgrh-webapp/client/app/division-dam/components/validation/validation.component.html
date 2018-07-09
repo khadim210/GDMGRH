@@ -1,0 +1,115 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <select class="form-control form-control-sm" name="status">
+                                <option [value]="''" >Categorie ...</option>
+                                <option [value]="'mutation'" >mutation</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="col-md-12 table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Categorie</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody class="fixedcard" *ngIf="validationList.length">
+                            <tr *ngFor="let validation of validationList, let i = index">
+                                <td>{{i}}</td>
+                                <td>{{validation?.numero}}</td>
+                                <td>{{validation?.categorie}}</td>
+                                <td>{{validation?.CNI}}</td>
+                                <td>
+                                    <span class="badge badge-primary mouse" (click)="showvalidation(validation)" data-toggle="modal" data-target="#validationModal">
+                                        valider
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-primary mouse" (click)="showrevue(validation)" data-toggle="modal" data-target="#validationModal">
+                                        details
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-primary mouse" (click)="showmodifier(validation)" data-toggle="modal" data-target="#validationModal">
+                                        modifier/valider
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!validationList.length">
+                            <tr>
+                                <td></td>
+                                <th></th>
+                                <td></td>
+                                <td>Vide</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="!validationList.length" class="row">
+                    <div class="col-12 table-responsive">
+                        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                tout selectionner
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        <div class="col-4">
+                                            <button class="btn btn-sm">Valider</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="role === 'chef'" class="col-4">
+                                            <button class="btn btn-sm">Revue</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+<!--
+    validation: {
+        numero: 'mutation'+nbrtotal,
+        categorie: 'mutation',
+        division: 'DAM',
+        status: 'appuie chef dam',
+        traiter: true
+    }
+-->

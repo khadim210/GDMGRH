@@ -3,7 +3,7 @@
     <br>
     <br>
     <div class="offset-sm-4 col-sm-4">
-        <form class="form-signin text-center">      
+        <form class="form-signin text-center" #signinPanelForm="ngForm">      
             <div class="text-center mb-4">
                 <img class="mb-4" src="assets/images/logo_gend_sn.png" alt="" width="100" height="150">
                 <div *ngIf="msgerror" class="alert alert-danger" role="alert">
@@ -29,8 +29,8 @@
                 </label>
             -->
             </div>
-            <button class="btn btn-lg btn-primary btn-block"  type="button" (click)="signin()">
-                Envoyer
+            <button class="btn {{btnClass}} btn-block btn-primary" [disabled]="!signinPanelForm.form.valid"  type="button" (click)="signin()">
+                {{btnLogin}}
             </button>
             <p class="mt-5 mb-3 text-muted">&copy; Gendarmerie-2018</p>
         </form>

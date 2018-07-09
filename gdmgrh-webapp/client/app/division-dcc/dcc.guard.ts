@@ -10,18 +10,13 @@ export class DccGuard implements CanActivate, CanActivateChild {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (!this.authService.getUser()) {
+        if (this.authService.isConnected() && this.authService.getUser().group === 'DCC') {
+            return true;
+        } else {
+            this.authService.logout();
+            this.router.navigate(['/account/sign-in']);
             return false;
         }
-
-        if (this.authService.getUser().agent) {
-            if (this.authService.getUser().agent.unite === 'DCC') {
-                return true;
-            }
-        }
-        this.authService.logout();
-        this.router.navigate(['/account/sign-in']);
-        return false;
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

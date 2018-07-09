@@ -8,7 +8,7 @@
     <div >
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12 text-center">
-            <h2>Gestion des admis</h2>
+            <h2>Gestion des archives</h2>
             </div>
         </div>
 
@@ -16,10 +16,10 @@
             <div class="col-md-12 col-sm-12 col-12">
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-4" for="session">Lister Par Session</label>
+                        <label class="col-4" for="categorie">Lister Par Categorie</label>
                         <div class="col-5">
-                            <select class="form-control form-control-sm" name="session">
-                                <option [value]="''" >Session ...</option>
+                            <select class="form-control form-control-sm" name="categorie">
+                                <option [value]="''" >Categorie ...</option>
                             </select>
                         </div>
                     </div>
@@ -29,9 +29,9 @@
                                 <tr>
                                     <th>
                                         <select class="form-control form-control-sm" name="status">
-                                            <option [value]="'matricule'" >Matricule</option>
-                                            <option [value]="'cni'">CNI</option>
-                                            <option [value]="'session'">Session</option>
+                                            <option [value]="'numero'" >Numero</option>
+                                            <option [value]="'libelle'">Libelle</option>
+                                            <option [value]="'categorie'">categorie</option>
                                         </select>
                                     </th>
                                     <td>
@@ -50,29 +50,25 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Matricule</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">Session</th>
-                                <th scope="col">CNI</th>
+                                <th scope="col">numero</th>
+                                <th scope="col">categorie</th>
+                                <th scope="col">libelle</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                 
-                        <tbody class="fixedcard" *ngIf="admisList.length">
-                            <tr *ngFor="let admis of admisList, let i = index">
+                        <tbody class="fixedcard" *ngIf="archiveList.length">
+                            <tr *ngFor="let archive of archiveList, let i = index">
                                 <td>{{i}}</td>
-                                <td>{{admis?.matricule}}</td>
-                                <td>{{admis?.nom}}</td>
-                                <td>{{admis?.prenom}}</td>
-                                <td>{{admis?.session}}</td>
-                                <td>{{admis?.CNI}}</td>
-                                <td><span class="badge badge-primary mouse" (click)="showadmis(admis)" data-toggle="modal" data-target="#admisModal">
+                                <td>{{archive?.numero}}</td>
+                                <td>{{archive?.Categorie}}</td>
+                                <td>{{archive?.libelle}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showarchive(archive)" data-toggle="modal" data-target="#archiveModal">
                                         details
                                 </span></td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="!admisList.length">
+                        <tbody *ngIf="!archiveList.length">
                             <tr>
                                 <td></td>
                                 <th></th>

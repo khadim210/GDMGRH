@@ -1,0 +1,34 @@
+<style>
+    .file-input-wrapper {
+        width: 200px;
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+    }
+    .file-input-wrapper > input[type="file"] {
+        font-size: 200px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+    }
+    .file-input-wrapper > .btn-file-input {
+        display: inline-block;
+        width: 200px;
+        height: 40px;
+    }
+    .file-input-wrapper:hover > .btn-file-input {
+        background-color: #aaa;
+    }
+</style>
+    <div class="card-body">
+        <div class="file-input-wrapper" *ngIf="!src">
+            <img class="img-fluid img-thumbnail" src="./assets/images/profile-picture.png" alt="">
+            <button class="btn bg-ligth btn-file-input">Modifier Profile</button>
+            <input style="padding: 0rem; margin: 0rem;" class="rounded d-block border border-white bg-ligth text-white" type="file" imageUpload (imageSelected)="selected($event)"
+                    id="profilePicture">
+        </div>
+        <div *ngIf="src">
+            <img class="img-fluid img-thumbnail" [src]="src" alt="">
+        </div>
+    </div>

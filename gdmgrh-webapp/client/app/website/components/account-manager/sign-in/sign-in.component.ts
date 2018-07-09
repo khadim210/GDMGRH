@@ -11,6 +11,8 @@ export class SignInComponent implements OnInit {
 
     signinModel: any;
     msgerror: string;
+    btnLogin: string;
+    btnClass: string;
 
     constructor(
         private router: Router,
@@ -18,28 +20,32 @@ export class SignInComponent implements OnInit {
     ) {
         this.signinModel = {};
         this.msgerror = '';
+        this.btnClass = 'btn-outline-primary ';
+        this.btnLogin = 'Connexion';
     }
 
     ngOnInit() { }
 
     signin() {
+        this.btnClass = 'btn-primary';
+        this.btnLogin = 'Authentification ...';
         this.authService.signin(this.signinModel).subscribe(res => {
-            if (res.response) {
-                const response = res.response;
-                if (response.role === 'admin') {
+            if (res.user) {
+                const response = res.user;
+                if (response.group === 'admin') {
                     this.authService.save(response);
                     this.router.navigate(['/noyau/']);
                 } else {
-                    if (response.agent.unite === 'DAM') {
+                    if (response.group === 'DAM') {
                         this.authService.save(response);
                         this.router.navigate(['/dam/']);
-                    } else if (response.agent.unite === 'DCC') {
+                    } else if (response.group === 'DCC') {
                         this.authService.save(response);
                         this.router.navigate(['/dcc/']);
-                    } else if (response.agent.unite === 'DGP') {
+                    } else if (response.group === 'DGP') {
                         this.authService.save(response);
                         this.router.navigate(['/dgp/']);
-                    } else if (response.agent.unite === 'DIF') {
+                    } else if (response.group === 'DIF') {
                         this.authService.save(response);
                         this.router.navigate(['/dif/']);
                     } else {
@@ -47,6 +53,8 @@ export class SignInComponent implements OnInit {
                     }
                 }
             } else if (res.error) {
+                this.btnClass = 'btn-outline-primary ';
+                this.btnLogin = 'Connexion';
                 this.msgerror = res.error;
             }
         });

@@ -12,29 +12,44 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        /*if (this.authService.isConnected()) {
-            return true;
-        } else {
-            return false;
-        }*/
-        if (this.authService.isConnected() && (RegExp('\/account/setting\/*').test(state.url.toString())) ) {
-            return true;
-        }
         if (this.authService.isConnected()) {
-            /*
-            switch (this.authService.getUser().role) {
+
+            if (RegExp('\/account/setting').test(state.url.toString())) {
+                return true;
+            }
+
+            switch (this.authService.getUser().group) {
                 case 'admin': {
                     this.router.navigate(['/noyau/dashboad']);
                     break;
                 }
+                case 'DAM': {
+                    this.router.navigate(['/dam/dashboad']);
+                    break;
+                }
+                case 'DCC': {
+                    this.router.navigate(['/dcc/dashboad']);
+                    break;
+                }
+                case 'DGP': {
+                    this.router.navigate(['/dgp/dashboad']);
+                    break;
+                }
+                case 'DIF': {
+                    this.router.navigate(['/dif/dashboad']);
+                    break;
+                }
                 default: {
                     this.authService.logout();
+                    this.router.navigate(['/account/sign-in']);
                     break;
                 }
             }
-            */
             return false;
         } else {
+            if (RegExp('\/account/setting').test(state.url.toString())) {
+                return false;
+            }
             return true;
         }
     }

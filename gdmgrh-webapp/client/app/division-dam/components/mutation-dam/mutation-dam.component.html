@@ -5,39 +5,43 @@
     }
 </style>
 <div>
-    <div >
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-12 text-center">
-            <h2>Gestion des Gendarmes Auxiliaireures</h2>
-            </div>
-        </div>
-    
+    <div >    
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body h-25 d-inline-block">
-                        <h5 class="card-title">Créer un nouveau gendarme auxiliaire</h5>
+                        <h5 class="card-title">Créer une nouvelle proposition de mutation</h5>
                         <form>
                             <div class="row">
                                 <div class="col-md-12 mb-3 col-12">
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="matriculetemporaire">Matricule Temporaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="matriculetemporaire" placeholder="matricule temporaire" required>
+                                            <label for="numeromutation">Numero Mutation</label>
+                                            <input type="text" class="form-control-plaintext form-control-sm" name="" id="numeromutation" placeholder="numero mutation" readonly>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="contact">Contact</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="prenomgendarmeauxiliaire" placeholder="prenom gendarmeauxiliaire" required>                                            
+                                            <label for="categorie">Categorie</label>
+                                            <input type="text" class="form-control-plaintext form-control-sm" value="mutation" name="" id="categorie" placeholder="categorie mutation" readonly>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="nomgendarmeauxiliaire">Nom Gendarme Auxiliaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="nomgendarmeauxiliaire" placeholder="nom gendarmeauxiliaire" required>
+                                            <label for="matriculegendarme">Matricule Gendarme</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="matriculegendarme" placeholder="matricule gendarme" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="division">Division</label>
+                                            <input type="text" class="form-control-plaintext form-control-sm" name="" id="division" placeholder="division du gendarme" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nomgendarme">Nom Gendarme</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="nomgendarme" placeholder="nom du gendarme" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="prenomgendarmeauxiliaire">Prenom Gendarme Auxiliaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="prenomgendarmeauxiliaire" placeholder="prenom gendarmeauxiliaire" required>
+                                            <label for="prenomgendarme">Prenom Gendarme</label>
+                                            <input type="text" class="form-control form-control-sm" name="" id="prenomgendarme" placeholder="prenom du gendarme" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -47,11 +51,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="genre">Genre</label>
-                                            <select class="form-control form-control-sm" name="genre">
-                                                <option [value]="''" >choisir genre ...</option>
-                                                <option [value]="'homme'" >Homme</option>
-                                                <option [value]="'femme'" >Femme</option>
-                                            </select>
+                                            <input type="text" class="form-control-plaintext form-control-sm" name="" id="genre" placeholder="genre du gendarme" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                 <div class="col-md-12 mb-3 col-12">
                                     <div class="form-row">
                                         <div class="col-md-12">
-                                            <label for="fichierjoint">Fichiers Joints au Dossier</label>
+                                            <label for="fichierjoint">Demande Joints</label>
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" name="" id="fichierjoint" placeholder="fichier joint" required>
                                                 <label class="custom-file-label" for="validatedCustomFile">selectionner le fichier ...</label>
@@ -73,6 +73,8 @@
                                     <div class="col-md-12 mb-3 col-12">
                                         <div class="form-row">
                                             <div class="col-md-12">
+                                                <label for="fichierjoint">Motif</label>
+                                                <textarea class="form-control form-control-sm" placeholder="motif mutation" name="" id="" cols="30" rows="3"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -87,7 +89,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12">
                 <div class="card-body">
-                    <h5 class="card-title">Liste des Gendarme Auxiliaire</h5>
+                    <h5 class="card-title">Liste des mutations</h5>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <select class="form-control form-control-sm" name="status">
@@ -110,22 +112,24 @@
                                 <th scope="col">Matricule</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">Prenom</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                 
-                        <tbody class="fixedcard" *ngIf="gendarmeauxiliaireList.length">
-                            <tr *ngFor="let gendarmeauxiliaire of gendarmeauxiliaireList, let i = index">
+                        <tbody class="fixedcard" *ngIf="mutationList.length">
+                            <tr *ngFor="let mutation of mutationList, let i = index">
                                 <td>{{i}}</td>
-                                <td>{{gendarmeauxiliaire?.matricule}}</td>
-                                <td>{{gendarmeauxiliaire?.nom}}</td>
-                                <td>{{gendarmeauxiliaire?.prenom}}</td>
-                                <td><span class="badge badge-primary mouse" (click)="showGendarmeauxiliaire(gendarmeauxiliaire)" data-toggle="modal" data-target="#gendarmeauxiliaireModal">
+                                <td>{{mutation?.agent.matricule}}</td>
+                                <td>{{mutation?.agent.nom}}</td>
+                                <td>{{mutation?.agent.prenom}}</td>
+                                <td>{{mutation?.status}}</td>
+                                <td><span class="badge badge-primary mouse" (click)="showmutation(mutation)" data-toggle="modal" data-target="#mutationModal">
                                         details
                                 </span></td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="!gendarmeauxiliaireList.length">
+                        <tbody *ngIf="!mutationList.length">
                             <tr>
                                 <td></td>
                                 <th></th>

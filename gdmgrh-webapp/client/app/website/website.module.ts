@@ -15,6 +15,7 @@ import { AccountManagerComponent } from './components/account-manager/account-ma
 import { LogOutComponent } from './components/account-manager/log-out/log-out.component';
 import { SignInComponent } from './components/account-manager/sign-in/sign-in.component';
 import { SettingComponent } from './components/account-manager/setting/setting.component';
+import { PictureProfileComponent } from './components/account-manager/picture-profile/picture-profile.component';
 
 @NgModule({
     imports: [
@@ -37,8 +38,8 @@ import { SettingComponent } from './components/account-manager/setting/setting.c
         SettingComponent,
         HeaderComponent,
         NavbarComponent,
-        FooterComponent
-
+        FooterComponent,
+        PictureProfileComponent
     ],
     providers: [
         AuthService,

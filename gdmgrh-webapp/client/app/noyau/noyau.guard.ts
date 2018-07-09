@@ -12,10 +12,7 @@ export class NoyauGuard implements CanActivate, CanActivateChild {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (!this.authService.getUser()) {
-            return false;
-        }
-        if (this.authService.isConnected() && this.authService.getUser().role === 'admin') {
+        if (this.authService.isConnected() && this.authService.getUser().group === 'admin') {
             return true;
         } else {
             this.authService.logout();

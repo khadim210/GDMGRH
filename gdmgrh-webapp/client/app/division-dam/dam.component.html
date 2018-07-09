@@ -12,20 +12,24 @@
                 <div class="card-body">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-users" aria-selected="false" routerLink="/dam/dashboad/">
+                        aria-controls="v-pills-dashboad" aria-selected="false" routerLink="/dam/dashboad/">
                             Accueil </a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-users" #recruRouterLink="routerLinkActive"
+                        aria-controls="v-pills-recrutement" #recruRouterLink="routerLinkActive"
                         aria-selected="false" routerLink="/dam/recrutement/">
                             Recrutement </a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-graduation" #reservRouterLink="routerLinkActive"
+                        aria-controls="v-pills-reserviste" #reservRouterLink="routerLinkActive"
                         aria-selected="false" routerLink="/dam/reserviste">
                             Réserviste</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                        aria-controls="v-pills-unite" #auxilRouterLink="routerLinkActive"
+                        aria-controls="v-pills-auxil" #auxilRouterLink="routerLinkActive"
                         aria-selected="false" routerLink="/dam/auxiliaire">
                             Gendarme Auxiliaire</a>
+                        <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
+                        aria-controls="v-pills-archive" #archiveRouterLink="routerLinkActive"
+                        aria-selected="false" routerLink="/dam/archive">
+                            Archive</a>
                     </div>
                 </div>
             </div>
@@ -40,11 +44,11 @@
                         routerLink="/dam/recrutement/candidature" role="tab"
                         aria-controls="v-pills-candidature" aria-selected="false">Candidature</a>
                         <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
-                        routerLink="/dam/recrutement/note" role="tab"
-                        aria-controls="v-pills-note" aria-selected="false">Notes</a>
-                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
                         routerLink="/dam/recrutement/admis" role="tab"
                         aria-controls="v-pills-admis" aria-selected="false">Admis</a>
+                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                        routerLink="/dam/recrutement/note" role="tab"
+                        aria-controls="v-pills-note" aria-selected="false">Notes</a>
                     </div>
                 </div>
             </div>

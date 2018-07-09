@@ -12,6 +12,4 @@ router.get('/data', controller.getGoupData);
 router.put('/:_id', controller.updateUserGroupe);
 router.get('/:_id', controller.getOneUserGroupe);
 
-
-
 module.exports = router;
