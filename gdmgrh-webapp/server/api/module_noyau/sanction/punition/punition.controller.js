@@ -16,8 +16,9 @@ export async function addPunition(req, res) {
         };
         var punition = new Punition(punitionParams);
         try {
-            var punitionSave = await PunitionRepository.save(punition);
-            return res.status(200).send(punitionSave);
+            await PunitionRepository.save(punition);
+            var allPunition = await PunitionRepository.getAll();
+            return res.status(200).send(allPunition);
         } catch (error) {
             res.json({response: 'Bad request'});
         }
@@ -46,7 +47,8 @@ export async function updatePunition(req, res) {
             punition.type_officier = punitionParams.type_officier;
             punition.nom_punition = punitionParams.nom_punition;
 
-            var allPunition = await PunitionRepository.save(punition);
+            await PunitionRepository.save(punition);
+            var allPunition = await PunitionRepository.getAll();
             res.status(200).send(allPunition);
         } catch (error) {
             console.log(error);
@@ -59,17 +61,13 @@ export async function updatePunition(req, res) {
 }
 
 export async function deletePunition(req, res) {
+
     var id = req.params.id;
-    // try{
-        // var recompense = await RecompenseRepository.save({_id: id});
-        Punition.findByIdAndRemove(id, function(error, docs){
-            if(error)
-                res.status(500).send('');
-            else
-                res.status(200).send('Suppression success');
-        })
-        //res.status(200).json({response: recompense});
-    // } catch (error){
-        //res.json({response: 'Bad request'});
-    //}
+    try{
+        await PunitionRepository.remove({_id: id});
+        var allPunition = await PunitionRepository.getAll();
+        res.status(200).send(allPunition);
+    } catch (error){
+        res.json({response: 'Bad request'});
+    }
 }

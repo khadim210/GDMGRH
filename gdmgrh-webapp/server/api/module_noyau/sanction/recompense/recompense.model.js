@@ -4,7 +4,7 @@ mongoose.Promise = require('bluebird');
 const RecompenseSchema = mongoose.Schema({
     type_recompense: {
         type: String,
-        enum: ['Decoration', 'Autre Decoration']
+        enum: ['Decoration', 'Autre decoration']
     },
     nom_recompense: String
 

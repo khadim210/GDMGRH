@@ -34,7 +34,7 @@ export class SanctionService {
         );
     }
     deletePunition(_id: Number) {
-        return this.http.delete<any>(`/punition/delete/` + _id).pipe(
+        return this.http.delete<any>(`/sanction/punition/delete/` + _id).pipe(
             catchError(this.authService.handleError('deletePunition'))
         );
     }
@@ -61,7 +61,7 @@ export class SanctionService {
         );
     }
     deleteRecompense(_id: Number) {
-        return this.http.delete<any>(`/recompense/delete/` + _id).pipe(
+        return this.http.delete<any>(`/sanction/recompense/delete/` + _id).pipe(
             catchError(this.authService.handleError('deleteRecompense'))
         );
     }
