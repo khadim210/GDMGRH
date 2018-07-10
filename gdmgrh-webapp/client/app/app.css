@@ -67,5 +67,5 @@
 
 /* Component styles are injected through gulp */
 /* inject:css */
-@import '../components/footer/footer.css';
+@import 'noyau/components/sanction/recompense/recompense.component.css';
 /* endinject */
