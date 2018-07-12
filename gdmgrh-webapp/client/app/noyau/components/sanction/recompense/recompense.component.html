@@ -1,22 +1,12 @@
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1"></span>
-</nav>
-
 <div class="card card-cascade narrower mt-5">
-
     <!--Card image-->
     <div class="view view-cascade gradient-card-header purple-gradient narrower py-4 mx-4 mb-3 d-flex justify-content-center align-items-center">
-
-      <h4 class="white-text font-weight-bold text-uppercase mb-0">Liste recompense</h4>
-
+        <h4 class="white-text font-weight-bold text-uppercase mb-0">Liste recompense</h4>
     </div>
     <!--/Card image-->
-
     <div class="px-4">
-
-      <!--Table-->
-      <table class="table table-hover table-responsive-md mb-0">
-
+        <!--Table-->
+        <table class="table table-hover table-responsive-md mb-0">
             <!--Table head-->
             <thead>
                 <tr>
@@ -26,7 +16,7 @@
                     <th></th>
                     <th>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                          add
+                          ajouter
                       </button>
                     </th>
                 </tr>
@@ -35,22 +25,24 @@
 
             <!--Table body-->
             <tbody>
-                <tr *ngFor="let recompense of datas">
+                <tr *ngFor="let recompense of recompense_data">
                     <th scope="row"> </th>
                     <td>{{recompense.nom_recompense}}</td>
                     <td>{{recompense.type_recompense}}</td>
                     <td>
-                        <button type="button" class="btn btn-success" data-toggle="modal" (click)="btnEdit(recompense)" data-target="#editRecompense">edit</button>
+                        <span class="badge badge-pill badge-success mouse" data-toggle="modal"
+                            (click)="btnEdit(recompense)" data-target="#editRecompense">éditer
+                        </span>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" (click)="btnDelete(recompense)" data-target="#delete">delete</button>
+                        <span class="badge badge-pill badge-danger mouse" data-toggle="modal"
+                            (click)="btnDelete(recompense)" data-target="#delete">supprimer
+                        </span>
                     </td>
                 </tr>
-          </tbody>
-
-          
+            </tbody>
             <!--Table body-->
-            <tbody *ngIf="!datas.length">
+            <tbody *ngIf="!recompense_data.length">
                 <tr>
                     <th scope="row"> </th>
                     <td></td>
@@ -60,139 +52,144 @@
                 </tr>
           </tbody>
         </table>
-
     </div>
-
-    <hr class="my-0">
-
-    </div>
+</div>
 
 
 
 
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<!--Modal: Contact form-->
-<div class="modal-dialog cascading-modal" role="document">
-
-<!--Content-->
-<div class="modal-content">
-
-  <!--Header-->
-  <div class="modal-header primary-color white-text">
-      <h4 class="title">
-          <i class="fa fa-pencil"></i> Ajout Recompense</h4>
-      <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-      </button>
-  </div>
-  <!--Body-->
-  <div class="modal-body">
-
-      <form #recom="ngForm">
-          <!-- Material input name -->
-        <div class="form-group">
-            <label for="type">Type de recompense</label>
-            <select  id="type" [(ngModel)]="recom.type_recompense" name="type_recompense" class="form-control">
-                <option>Decoration</option>
-                <option>Autre Decoration</option>
-            </select>
-        </div>
-
-      <!-- Material input libelle -->
-      <div class="form-group">
-        <label for="nom" >Nom recompense</label>
-        <input type="text" id="form1" class="form-control" [(ngModel)]="recom.nom_recompense"id="nom"  name="nom_recompense">
-
-    </div>
-
-    <button (click)="recordRecompense(recom)" data-dismiss="modal" class="btn btn-primary form-control">Valider
-        </button>
-      </form>
-
-  </div>
-</div>
-<!--/.Content-->
-</div>
-<!--/Modal: Contact form-->
-</div>
-
-<div class="modal fade" id="editRecompense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<!--Modal: Contact form-->
-<div class="modal-dialog cascading-modal" role="document">
-
-    <!--Content-->
-    <div class="modal-content">
-
-        <!--Header-->
-        <div class="modal-header primary-color white-text">
-            <h4 class="title">
-                <i class="fa fa-pencil"></i> Editer Recompense</h4>
-            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <!--Body-->
-        <div class="modal-body">
-
-            <form>
-                <!-- Material input name -->
-                <div class="form-group">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Ajout Recompense</h4>
+                <button type="button" class="close waves-effect waves-light" (click)="recom.reset()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form #recom="ngForm">
+                    <!-- Material input name -->
+                    <div class="form-group">
                         <label for="type">Type de recompense</label>
-                        <select  value="{{type_recompense_edited}}" id="type" [(ngModel)]="type_recompense_edited" name="type_recompense_edited" class="form-control">
+                        <select  id="type" class="form-control"
+                            required
+                            [(ngModel)]="recom.type_recompense" name="type_recompense" #type="ngModel" >
                             <option>Decoration</option>
                             <option>Autre decoration</option>
                         </select>
-                </div>
-                <div class="form-group">
-                        <label for="nom" >Editer libelle</label>
-                        <input type="text" value="{{nom_recompense_edited}}" [(ngModel)]="nom_recompense_edited" name="nom_recompense_edited" id="nom" class="form-control">
+                    </div>
+                    <div *ngIf="type.invalid && (type.dirty || type.touched)" class="alert alert-danger">
+                        <div *ngIf="type.errors.required">
+                            Le type de la recompense est requis.
+                        </div>
                     </div>
 
-                    <button (click)="editerRecompense(type_recompense_edited, nom_recompense_edited)"class="btn btn-primary form-control" data-dismiss="modal">Valider
-                        </button>
-
-            </form>
+                    <div class="form-group">
+                        <label for="nom" >Nom recompense</label>
+                        <input type="text" id="form1" class="form-control" id="nom"  name="nom_recompense"
+                            required minlength="4"
+                            [(ngModel)]="recom.nom_recompense" #nom="ngModel">
+                    </div>
+                    <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                        <div *ngIf="nom.errors.required">
+                            Le nom de la recompense est requis.
+                        </div>
+                        <div *ngIf="nom.errors.minlength">
+                            Le nom de la recompense doit avoir plus de 4 lettres.
+                        </div>
+                    </div>
+                    <button class="btn btn-primary form-control" data-dismiss="modal"
+                        [disabled]="!recom.form.valid"
+                        (click)="addRecompense(recom); recom.reset()">
+                        Valider
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-    <!--/.Content-->
 </div>
-<!--/Modal: Contact form-->
+
+<div class="modal fade" id="editRecompense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Editer Recompense</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form #edit="ngForm">
+                    <div class="form-group">
+                        <label for="type">Type de recompense</label>
+                        <select  id="type" name="type_recompense" value="{{type_recompense_edited}}"
+                            [(ngModel)]="type_recompense_edited" class="form-control">
+                            <option>Autre decoration</option>
+                            <option>Decoration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom" >Editer libelle</label>
+                        <input type="text" value="{{nom_recompense_edited}}"
+                        required minlength="4"
+                        [(ngModel)]="nom_recompense_edited" #lib="ngModel"
+                        name="nom_recompense" id="nom" class="form-control">
+                    </div>
+                    <div *ngIf="lib.invalid && (lib.dirty || lib.touched)" class="alert alert-danger">
+                        <div *ngIf="lib.errors.required">
+                            Le nom de la recompense est requis.
+                        </div>
+                        <div *ngIf="lib.errors.minlength">
+                            Le nom de la recompense doit avoir plus de 4 lettres.
+                        </div>
+                    </div>
+                    <button class="btn btn-primary form-control" data-dismiss="modal"
+                        [disabled]="!edit.form.valid"
+                        (click)="upgradeRecompense(type_recompense_edited, nom_recompense_edited)">
+                        Valider
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--Modal: modalConfirmDelete-->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-    <!--Content-->
-    <div class="modal-content text-center">
-        <!--Header-->
-        <div class="modal-header d-flex justify-content-center">
-            <p class="heading">Etes-vous sure?</p>
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Etes-vous sure?</p>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer flex-center">
+                <a href="#" class="btn  btn-outline-danger" (click)="deleteRecompense()" data-dismiss="modal">Yes</a>
+                <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+            </div>
         </div>
-
-        <!--Body-->
-        <div class="modal-body">
-
-
-
-        </div>
-
-        <!--Footer-->
-        <div class="modal-footer flex-center">
-            <a href="#" class="btn  btn-outline-danger" (click)="delete()" data-dismiss="modal">Yes</a>
-            <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
-        </div>
+        <!--/.Content-->
     </div>
-    <!--/.Content-->
-</div>
 </div>
 <!--Modal: modalConfirmDelete-->
-
-<div *ngIf="succes_action" class="alert alert-success alert-dismissible fade show floa" role="alert">
-    <strong>Action réussie!</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-
 
 

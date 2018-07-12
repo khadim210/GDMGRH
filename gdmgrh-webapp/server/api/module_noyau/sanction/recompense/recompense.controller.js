@@ -15,8 +15,9 @@ export async function addRecompense(req, res) {
         };
         var recompense = new Recompense(recompenseParams);
         try {
-            var recompenseSave = await RecompenseRepository.save(recompense);
-            return res.status(200).send(recompenseSave);
+            await RecompenseRepository.save(recompense);
+            var allRecompense = await RecompenseRepository.getAll();
+            return res.status(200).send(allRecompense);
         } catch (error) {
             return Errorshandling.handleError(res, 500, error, 'Erreur serveur (Mauvaise requete) !!!');
         }
@@ -43,8 +44,10 @@ export async function updateRecompense(req, res) {
             var recompense = await RecompenseRepository.getOneBy({_id: id});
             recompense.type_recompense = recompenseParams.type_recompense;
             recompense.nom_recompense = recompenseParams.nom_recompense;
-            var allRecompnse = await RecompenseRepository.save(recompense);
-            res.status(200).send(allRecompnse);
+            await RecompenseRepository.save(recompense);
+
+            var allRecompense = await RecompenseRepository.getAll();
+            res.status(200).send(allRecompense);
         } catch (error) {
             return Errorshandling.handleError(res, 500, error, 'Erreur serveur (Mauvaise requete) !!!');
         }
@@ -55,11 +58,13 @@ export async function updateRecompense(req, res) {
 }
 
 export async function deleteRecompense(req, res) {
+
     var id = req.params.id;
-    Recompense.findByIdAndRemove(id, function(error, docs){
-        if(error)
-            res.status(500).send('');
-        else
-            res.status(200).send('Suppression success');
-    })
+    try{
+        await RecompenseRepository.remove({_id: id});
+        var allRecompense = await RecompenseRepository.getAll();
+        res.status(200).send(allRecompense);
+    } catch (error){
+        res.json({response: 'Bad request'});
+    }
 }
