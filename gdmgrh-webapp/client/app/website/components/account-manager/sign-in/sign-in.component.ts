@@ -52,11 +52,13 @@ export class SignInComponent implements OnInit {
                         this.msgerror = 'Vous avez pas droit, veuillez prendre contact avec l\'administrateur';
                     }
                 }
-            } else if (res.error) {
-                this.btnClass = 'btn-outline-primary ';
-                this.btnLogin = 'Connexion';
-                this.msgerror = res.error;
+            } else if (422 === res.status) {
+                this.msgerror = res.error.message;
+            } else if (500 === res.status) {
+                this.msgerror = res.error.message;
             }
         });
+        this.btnClass = 'btn-outline-primary ';
+        this.btnLogin = 'Connexion';
     }
 }

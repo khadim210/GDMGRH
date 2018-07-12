@@ -1,0 +1,17 @@
+<div class="card-body">
+    <h1>Commandement Etat Major </h1>
+
+    Nom : {{cmdtEtatMajor.nom}}<br>
+    Code : {{cmdtEtatMajor.code}}
+    <div *ngIf="cmdtEtatMajor?.division">
+        <div *ngFor="let cmdt of cmdtEtatMajor.division">
+            <span class="badge badge-primary"> Adjoint : {{cmdt.chefadjoint.attribution}} </span><br>
+            <div *ngIf="cmdt.iddivision">
+                <div *ngFor="let division of cmdt.iddivision">
+                    Nom : {{division.nom}} <br>
+                    code : {{division.code}} <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

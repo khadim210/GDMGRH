@@ -1,5 +1,6 @@
 import Recompense from './recompense.model';
 import GenericRepository from '../../../service/generic.repository';
+import Errorshandling from '../../../service/errorshandling';
 
 const RecompenseRepository = new GenericRepository(Recompense);
 
@@ -17,7 +18,7 @@ export async function addRecompense(req, res) {
             var recompenseSave = await RecompenseRepository.save(recompense);
             return res.status(200).send(recompenseSave);
         } catch (error) {
-            res.json({response: 'Bad request'});
+            return Errorshandling.handleError(res, 500, error, 'Erreur serveur (Mauvaise requete) !!!');
         }
     } else {
         return res.json({response: 'Bad params'});
@@ -30,7 +31,7 @@ export async function getAllRecompense(req, res) {
         // res.status(200).json({response: allRecompense});
         res.status(200).send(allRecompense);
     } catch (error) {
-        res.json({response: 'Bad request'});
+        return Errorshandling.handleError(res, 422, 'Bad params !!!', 'Mauvaise paramètre !!!');
     }
 }
 
@@ -45,12 +46,11 @@ export async function updateRecompense(req, res) {
             var allRecompnse = await RecompenseRepository.save(recompense);
             res.status(200).send(allRecompnse);
         } catch (error) {
-            console.log(error);
-            res.json({response: 'Bad request'});
+            return Errorshandling.handleError(res, 500, error, 'Erreur serveur (Mauvaise requete) !!!');
         }
 
     } else {
-        return res.status(500).json({response: 'Recompense doesn\'t exist !!!'});
+        return Errorshandling.handleError(res, 422, 'Recompense doesn\'t exist !!!', 'Recompense n\'existe pas !!!');
     }
 }
 

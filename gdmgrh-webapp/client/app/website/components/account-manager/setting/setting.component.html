@@ -113,8 +113,8 @@
                                                         <div class="col-sm-4 text-right" [hidden]="btnUpdateHidden">
                                                             modifier
                                                             <button class="btn btn-sm btn-light" (click)="updatePasswordHandler()" style="padding: 0rem; margin: 0rem; border-radius: 25px;">
-                                                                <span class="badge badge-pill {{updatePassword ? 'badge-light text-light' : 'badge-danger text-danger'}}" style="margin: 0rem;">O</span>
-                                                                <span class="badge badge-pill {{updatePassword ? 'badge-success text-success' : 'badge-light text-light'}}" style="margin: 0rem;">O</span>
+                                                                <span class="badge badge-pill {{updatePassword ? 'badge-light' : 'badge-danger'}}" style="margin: 0rem;">Non</span>
+                                                                <span class="badge badge-pill {{updatePassword ? 'badge-success' : 'badge-light'}}" style="margin: 0rem;">Oui</span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -154,5 +154,10 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+            <upload-file></upload-file>
     </div>
 </div>

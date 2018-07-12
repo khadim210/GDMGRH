@@ -7,7 +7,6 @@ import { WebsiteModule } from '../website/website.module';
 
 import { NoyauService } from './service/noyau.service';
 import { SanctionService } from './service/sanction.service';
-import { UniteService } from './service/unite.service';
 
 import { NoyauRoutingModule } from './noyau.routing';
 
@@ -17,7 +16,7 @@ import { CreatedUsersComponent } from './components/user-manager/created-users/c
 import { CreatGroupComponent } from './components/user-manager/creat-group/creat-group.component';
 import { ListUsersComponent } from './components/user-manager/list-users/list-users.component';
 import { ListGroupComponent } from './components/user-manager/list-group/list-group.component';
-import { UniteComponent } from './components/unite/unite.component';
+import { OrganigrammeComponent } from './components/organigramme/organigramme.component';
 import { SanctionComponent } from './components/sanction/sanction.component';
 import { DashboadComponent } from './components/dashboad/dashboad.component';
 import { DiplomesComponent } from './components/diplomes/diplomes.component';
@@ -29,6 +28,16 @@ import { NoyauGuard } from './noyau.guard';
 import { PunitionComponent } from './components/sanction/punition/punition.component';
 import { RecompenseComponent } from './components/sanction/recompense/recompense.component';
 import { UserManagerEventService } from './service/user-manager-event.service';
+import { TerritorialComponent } from './components/organigramme/territorial/territorial.component';
+import { EcoleComponent } from './components/organigramme/ecole/ecole.component';
+import { EtatMajorComponent } from './components/organigramme/etat-major/etat-major.component';
+import { InspectionComponent } from './components/organigramme/inspection/inspection.component';
+import { MobileComponent } from './components/organigramme/mobile/mobile.component';
+import { SanteComponent } from './components/organigramme/sante/sante.component';
+import { TechniqueComponent } from './components/organigramme/technique/technique.component';
+import { AdministratifComponent } from './components/organigramme/administratif/administratif.component';
+import { CommandComponent } from './components/organigramme/command/command.component';
+import { OrganigrammeService } from './service/organigramme.service';
 
 @NgModule({
     imports: [
@@ -51,20 +60,29 @@ import { UserManagerEventService } from './service/user-manager-event.service';
         DiplomesComponent,
         GradesComponent,
         SanctionComponent,
-        UniteComponent,
+        OrganigrammeComponent,
         DashboadComponent,
         PunitionComponent,
-        RecompenseComponent
+        RecompenseComponent,
+        AdministratifComponent,
+        EcoleComponent,
+        EtatMajorComponent,
+        InspectionComponent,
+        MobileComponent,
+        SanteComponent,
+        TechniqueComponent,
+        TerritorialComponent,
+        CommandComponent
     ],
     providers: [
         NoyauService,
         SanctionService,
-        UniteService,
         DiplomesService,
         GradesService,
         GlobalData,
         NoyauGuard,
-        UserManagerEventService
+        UserManagerEventService,
+        OrganigrammeService
     ]
 })
 

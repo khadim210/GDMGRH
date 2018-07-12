@@ -48,7 +48,6 @@ export class ListUsersComponent implements OnInit {
   }
 
   annonceUser(_user = {}, _action = 'modifier') {
-    console.log({user: _user, action: _action});
     this.userManagerEventService.announceUser({user: _user, action: _action});
   }
 

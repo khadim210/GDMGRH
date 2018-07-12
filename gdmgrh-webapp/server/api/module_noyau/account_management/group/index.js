@@ -1,15 +1,16 @@
 'use strict';
 
 import {Router} from 'express';
+import * as AuthService from '../../../service/auth.service';
 import * as controller from './groupe.controller';
 
 var router = new Router();
 
-router.post('/', controller.createUserGroupe);
-router.get('/', controller.getAllUserGroupe);
+router.post('/', AuthService.hasRole('admin'), controller.createUserGroupe);
+router.get('/', AuthService.hasRole('admin'), controller.getAllUserGroupe);
 router.get('/data', controller.getGoupData);
 
-router.put('/:_id', controller.updateUserGroupe);
-router.get('/:_id', controller.getOneUserGroupe);
+router.put('/update-groupe/:_id', AuthService.hasRole('admin'), controller.updateUserGroupe);
+router.get('/get-one-groupe/:_id', AuthService.hasRole('admin'), controller.getOneUserGroupe);
 
 module.exports = router;

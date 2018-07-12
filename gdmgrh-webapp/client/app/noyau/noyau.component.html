@@ -27,9 +27,9 @@
                   aria-selected="false" routerLink="/noyau/grades">
                     Grades</a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
-                  aria-controls="v-pills-unite" #commandRouterLink="routerLinkActive"
-                  aria-selected="false" routerLink="/noyau/unite">
-                    Commandemant</a>
+                  aria-controls="v-pills-organigramme" #organigrammeRouterLink="routerLinkActive"
+                  aria-selected="false" routerLink="/noyau/organigramme">
+                   Organigramme</a>
                   <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                   aria-controls="v-pills-sanction" #sanctionRouterLink="routerLinkActive"
                   aria-selected="false" routerLink="/noyau/sanction">
@@ -57,12 +57,41 @@
           </div>
             
             <!--
-              Sous Menu commandemant
+              Sous Menu organigramme
             -->
-            <div class="card text-white mb-1" [hidden]="!commandRouterLink.isActive">
+            <div class="card text-white mb-1" [hidden]="!organigrammeRouterLink.isActive">
                 <div class="card-body">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        
+                        <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/ecole"  role="tab"
+                        aria-controls="v-pills-ecole" aria-selected="false">ecole</a>
+
+                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/administratif" role="tab"
+                        aria-controls="v-pills-administratif" aria-selected="false">administratif</a>
+
+                        <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/sante"  role="tab"
+                        aria-controls="v-pills-sante" aria-selected="false">sante</a>
+
+                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/technique" role="tab"
+                        aria-controls="v-pills-technique" aria-selected="false">technique</a>
+
+                        <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/inspection"  role="tab"
+                        aria-controls="v-pills-inspection" aria-selected="false">inspection</a>
+
+                        <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/etat-major"  role="tab"
+                        aria-controls="v-pills-etat-major" aria-selected="false">etat-major</a>
+                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/mobile" role="tab"
+                        aria-controls="v-pills-mobile" aria-selected="false">mobile</a>
+
+                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                        routerLink="/noyau/organigramme/territorial" role="tab"
+                        aria-controls="v-pills-territorial" aria-selected="false">territorial</a>
                     </div>
                 </div>
             </div>
@@ -86,7 +115,7 @@
         <div class="col-12 col-sm-12 col-md-9">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="card border-light">
-              <div class="card-body">
+              <div class="card-body" style="padding: 0rem; margin: 0rem;">
                 <router-outlet></router-outlet>                
               </div>
             </div>

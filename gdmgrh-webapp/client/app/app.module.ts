@@ -25,7 +25,7 @@ import { DifModule } from './division-dif/dif.module';
         DgpModule,
         DifModule,
         WebsiteModule,
-        AppRoutingModule,
+        AppRoutingModule
     ],
     declarations: [
         AppComponent,

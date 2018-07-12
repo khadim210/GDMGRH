@@ -19,6 +19,9 @@ import passport from 'passport';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
+
+import httpLogger from '../components/logger/http_logger';
+
 var MongoStore = connectMongo(session);
 
 export default function(app) {
@@ -44,6 +47,12 @@ export default function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+
+  // HTTP Logger configs
+  if(env === 'production') {
+    app.use(httpLogger);
+  }
+
   app.use(passport.initialize());
 
 

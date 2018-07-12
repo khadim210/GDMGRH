@@ -1,5 +1,6 @@
 import Groupe from './groupe.model';
 import GenericRepository from '../../../service/generic.repository';
+import Errorshandling from '../../../service/errorshandling';
 import * as UserController from '../user/user.controller';
 
 const GroupeRepository = new GenericRepository(Groupe);
@@ -9,8 +10,7 @@ export async function getGroupBy(res, criteria) {
   try {
     group = await GroupeRepository.getAll(criteria);
   } catch(error) {
-    console.log(error);
-    return res.json({error: 'error on geting Groupe'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return group;
 }
@@ -20,8 +20,7 @@ export async function getOneGroupeBy(res, criteria) {
   try {
     groupe = await GroupeRepository.getOneBy(criteria);
   } catch(error) {
-    console.log(error);
-    return res.json({error: 'error on geting one Groupe'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return groupe;
 }
@@ -32,7 +31,7 @@ export async function saveGroup(res, groupe) {
   try {
     returnGroup = await GroupeRepository.save(groupe);
   } catch(error) {
-    return res.json({response: 'error on saving groupe'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return returnGroup;
 }
@@ -42,7 +41,7 @@ export async function getAllGroupe(res) {
   try {
     groupe = await GroupeRepository.getAllPopulate('users');
   } catch(error) {
-    return res.json({error: 'error on getting all Groupe'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return groupe;
 }
@@ -56,7 +55,7 @@ export async function getGoupData(req, res) {
     var allUser = await UserController.getAllUserBy(res, {active: true});
     return res.status(200).json({response: allUser});
   } catch(error) {
-    return res.json({error: 'Bad request'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
 }
 
@@ -81,12 +80,11 @@ export async function createUserGroupe(req, res) {
       groupe = await GroupeRepository.save(groupe);
       groupe = await GroupeRepository.getAllPopulate('users');
     } catch(error) {
-      console.log(error);
-      return res.json({error: 'error on saving groupe'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
     return res.json({response: groupe});
   } else {
-    return res.json({error: 'Bad requestPOST !!!'});
+    return Errorshandling.handleError(res, 422, 'Bad parameter for POST request !!!', 'Syntaxe de la requête erronée !!!');
   }
 }
 
@@ -95,7 +93,7 @@ export async function getAllUserGroupe(req, res) {
   try {
     groupe = await getAllGroupe(res);
   } catch(error) {
-    return res.json({error: 'error on geting all Groupe'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return res.json({response: groupe});
 }
@@ -107,11 +105,11 @@ export async function getOneUserGroupe(req, res) {
     try {
       groupe = await GroupeRepository.getOneBy({_id: idGroupe});
     } catch(error) {
-      return res.json({error: 'error on geting one Groupe'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
     return res.json({response: groupe});
   } else {
-    return res.json({error: 'Bad requestGet'});
+    return Errorshandling.handleError(res, 422, 'Bad parameter for Get request !!!', 'Syntaxe de la requête erronée !!!');
   }
 }
 
@@ -134,11 +132,10 @@ export async function updateUserGroupe(req, res) {
       groupe = await GroupeRepository.save(groupe);
       groupe = await GroupeRepository.getAllPopulate('users');
     } catch(error) {
-      console.log(error);
-      return res.json({error: 'error on saving groupe'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
     return res.json({response: groupe});
   } else {
-    return res.json({error: 'Bad request PUT!!!'});
+    return Errorshandling.handleError(res, 422, 'Bad parameter for PUT request !!!', 'Syntaxe de la requête erronée !!!');
   }
 }

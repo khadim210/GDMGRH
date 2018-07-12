@@ -5,6 +5,7 @@ import * as AuthService from '../../../service/auth.service';
 import * as AgentControllers from '../agent/agent.controller';
 import * as GroupControllers from '../group/groupe.controller';
 import GenericRepository from '../../../service/generic.repository';
+import Errorshandling from '../../../service/errorshandling';
 
 // User Repository
 const UserRepository = new GenericRepository(User);
@@ -15,7 +16,7 @@ export async function getAllUserBy(res, criteria = {}) {
   try {
     return await UserRepository.getAllPopulate('agent', criteria);
   } catch(error) {
-    return res.json({error: 'Bad request'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
 }
 
@@ -26,8 +27,7 @@ export async function getDataUser(req, res) {
     var groupe = await GroupControllers.getGroupBy(res, {status: 'actif'});
     return res.json({agent, groupe});
   } catch(error) {
-    console.log(error);
-    return res.json({error: 'Bad request'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
 }
 
@@ -49,12 +49,12 @@ export async function addUser(req, res) {
     };
     try {
       if(await UserRepository.getOneBy({username: userParams.username})) {
-        return res.json({error: 'Nom d\'utilisateur exist déjà'});
+        return Errorshandling.handleError(res, 422, 'Username allready exist', 'Nom d\'utilisateur exist déjà');
       } else {
         var user = new User(userParams);
         agent = await AgentControllers.getOneAgent(res, user.agent);
         if(!agent) {
-          return res.json({error: 'Agent selectionné n\'existe pas'});
+          return Errorshandling.handleError(res, 422, 'Agent doesn\'t exist', 'Agent selectionné n\'existe pas');
         }
         user = await UserRepository.save(user);
         if(user) {
@@ -69,11 +69,10 @@ export async function addUser(req, res) {
         return res.status(200).json({user, agent, groupe});
       }
     } catch(error) {
-      console.log(error);
-      return res.json({error: 'Bad request POST USER'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
   } else {
-    return res.json({error: 'Bad params POST USER'});
+    return Errorshandling.handleError(res, 422, 'Bad params POST USER', 'Mauvais paramètre !!!');
   }
 }
 
@@ -85,7 +84,7 @@ export async function getAllUser(req, res) {
     var users = mergeUserIdGroup(allUser, groupe);
     return res.status(200).json({allUser, groupe, users});
   } catch(error) {
-    return res.json({error: 'Bad request GET USER'});
+    return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
 }
 function mergeUserIdGroup(userList = [], groupList = []) {
@@ -115,10 +114,10 @@ export async function getOneUser(req, res) {
       var allUser = await UserRepository.getOne(id);
       return res.status(200).json({response: allUser});
     } catch(error) {
-      return res.json({error: 'Bad request GET ONE USER'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
   } else {
-    return res.json({error: 'User doesn\'t exist !!!'});
+    return Errorshandling.handleError(res, 422, 'User doesn\'t exist !!!', 'Le nom d\'utilisateur n\'existe pas !!!');
   }
 }
 
@@ -133,8 +132,7 @@ export async function updateUser(req, res) {
     try {
       user = await UserRepository.getOne(id);
     } catch(error) {
-      console.log(error);
-      return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
 
     try {
@@ -147,8 +145,7 @@ export async function updateUser(req, res) {
         groupe = await GroupControllers.saveGroup(res, groupe);
       }
     } catch(error) {
-      console.log(error);
-      return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
 
     try {
@@ -162,8 +159,7 @@ export async function updateUser(req, res) {
       }
       agent = await AgentControllers.getAllAgent({access: false});
     } catch(error) {
-      console.log(error);
-      return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
 
     try {
@@ -181,10 +177,10 @@ export async function updateUser(req, res) {
       return res.status(200).json({user, agent});
     } catch(error) {
       console.log(error);
-      return res.json({error: 'Bad request PUT USER'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
   } else {
-    return res.json({error: 'User doesn\'t exist !!!'});
+    return Errorshandling.handleError(res, 422, 'User doesn\'t exist !!!', 'Le nom d\'utilisateur n\'existe pas !!!');
   }
 }
 
@@ -199,33 +195,39 @@ export async function signin(req, res) {
     try {
       user = await UserRepository.getOneBy({username: bodyUsername}, '_id username salt hashedPassword agent provider active created updated role');
     } catch(error) {
-      return res.json({error: 'Mauvaise requête, veuillez contacter l\'administrateur !!!'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
-    if(user === null || !user.verifyPassword(password)) {
-      return res.json({error: 'Nom d\'utilisateur ou mot de passe incorrect, en cas d\'oublie veuillez contacter l\'administrateur !!!'});
+    if(user === null) {
+      return Errorshandling.handleError(res, 422, 'Trying to login a user with bad paramters', 'Nom d\'utilisateur'
+                + 'ou mot de passe incorrect, en cas d\'oublie veuillez contacter l\'administrateur !!!');
     }
+
+    if(!user.verifyPassword(password)) {
+      return Errorshandling.handleError(res, 422, 'Trying to login a user with bad password', 'Nom d\'utilisateur'
+                + 'ou mot de passe incorrect, en cas d\'oublie veuillez contacter l\'administrateur !!!');
+    }
+
     if(!user.active) {
-      return res.json({error: 'Identifiant revoquer, veuillez contacter l\'administrateur !!!'});
+      return Errorshandling.handleError(res, 422, 'Access revoque',
+                        'Identifiant revoquer, veuillez contacter l\'administrateur !!!');
     }
 
     try {
       group = await GroupControllers.getOneGroupeBy(res, {users: user._id});
     } catch(error) {
-      return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
     }
 
     if(user.role === 'admin' && group === null) {
       group = {};
       group.moduleSelect = 'admin';
     }
-    
+
     if(user.agent) {
       try {
         agent = await AgentControllers.getOneAgent(res, user.agent);
-        console.log(agent);
       } catch(error) {
-        console.log(error);
-        return res.json({error: 'Erreur serveur, veuillez contacter l\'administrateur !!!'});
+        return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
       }
 
       var token = AuthService.signToken(user._id, user.role);
@@ -252,6 +254,7 @@ export async function signin(req, res) {
       }});
     }
   } else {
-    return res.json({error: 'Mauvaise requête, veuillez contacter l\'administrateur !!!'});
+    return Errorshandling.handleError(res, 422, 'Trying to login a user with bad paramters (usernme or/and password) ',
+                      'Mauvaise requête, veuillez contacter l\'administrateur !!!');
   }
 }

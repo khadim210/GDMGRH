@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { localStorageName } from '../../app.constants';
 
@@ -46,7 +47,10 @@ export class AuthService {
      * Sign-in User
      */
     signin(user) {
-        return this.http.post<any>(`/user/signin`, user).pipe();
+        return this.http.post<any>(`/user/signin`, user)
+          .pipe(
+            catchError(this.handleError('signin'))
+          );
     }
 
   /**

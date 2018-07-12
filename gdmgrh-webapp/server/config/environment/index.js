@@ -3,6 +3,7 @@
 
 import path from 'path';
 import _ from 'lodash';
+import program from 'commander';
 
 /*function requiredProcessEnv(name) {
   if(!process.env[name]) {
@@ -10,6 +11,18 @@ import _ from 'lodash';
   }
   return process.env[name];
 }*/
+
+/**
+ * Read args from program
+ */
+function processArgs() {
+  program
+    .option('-d, --debug', 'Start in debug mode')
+    .parse(process.argv);
+  return {
+    debug: program.debug
+  };
+}
 
 // All configurations will extend these options
 // ============================================
@@ -61,4 +74,5 @@ var all = {
 module.exports = _.merge(
     all,
     require('./shared').default,
-    require(`./${process.env.NODE_ENV}.js`) || {});
+    require(`./${process.env.NODE_ENV}.js`) || {},
+  processArgs());

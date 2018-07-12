@@ -26,7 +26,7 @@ export class NoyauService {
   }
 
   updateUser(user) {
-    return this.http.put<any>(`/user/${user._id}`, user)
+    return this.http.put<any>(`/user/update-user/${user._id}`, user)
       .pipe(
         catchError(this.authService.handleError('updateUser'))
       );
@@ -55,7 +55,7 @@ export class NoyauService {
   }
 
   updateUserGroup(group) {
-    return this.http.put<any>(`/groupe/${group._id}`, group)
+    return this.http.put<any>(`/groupe/update-groupe/${group._id}`, group)
       .pipe(
         catchError(this.authService.handleError('updateUserGroup'))
       );

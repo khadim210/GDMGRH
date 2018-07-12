@@ -1,0 +1,34 @@
+<div class="card-body">
+        <h1>Commandement Mobile </h1>
+    
+        Nom : {{cmdtMobile.nom}}<br>
+        Code : {{cmdtMobile.code}} <br>
+    
+        <div *ngIf="cmdtMobile.legion">
+            <br>
+            Les legions 
+            <span class="badge badge-danger"> {{cmdtMobile.legion.length}}</span>
+            <br>
+            <div *ngFor="let legion of cmdtMobile.legion">
+                <span class="badge badge-primary"> 
+                    {{legion.nom}} <br>
+                    Code : {{legion.code}}
+                    <br>
+                    <div *ngIf="legion.sousentite">
+                        <span class="">Escadron</span>
+                        <span class="">{{legion.sousentite.length}}</span>
+                    </div>
+                </span>
+            </div>
+        </div>
+        <div *ngIf="cmdtMobile.unite">
+                <br>
+                unite
+                <span class="badge badge-danger">{{cmdtMobile.unite.length}}</span>
+                <br>
+                <div *ngFor="let unite of cmdtMobile.unite"> 
+                        Nom : {{unite.nom}} <br>
+                        Code : {{unite.code}} <br>
+                </div>
+            </div>
+    </div>

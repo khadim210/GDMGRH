@@ -50,7 +50,9 @@ export class CreatedUsersComponent implements OnInit {
         this.action = _user.action;
         this.agentSelected = {};
         var user = {..._user.user};
-        this.allAgent = this.allAgent.filter(agent => agent.access !== true);
+        if (this.allAgent) {
+          this.allAgent = this.allAgent.filter(agent => agent.access !== true);
+        }
         if (_user.action === 'modifier') {
           var idAgent = user.agent._id;
           this.allAgent.push(user.agent);

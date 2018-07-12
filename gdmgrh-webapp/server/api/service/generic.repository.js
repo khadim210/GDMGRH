@@ -11,7 +11,11 @@ function repository (Item) {
   };
 
   this.getAllPopulate = (populate, creterias = null) => {
-    return (creterias !== null) ? Item.find(creterias).populate(populate).exec() : Item.find().populate(populate).exec();
+    return (creterias !== null)
+            ? Item.find(creterias).populate(populate)
+                  .exec()
+            : Item.find().populate(populate)
+                  .exec();
   };
 
   this.getOne = (id) => {
@@ -21,11 +25,24 @@ function repository (Item) {
   this.getOneBy = (creteria, field = null) => {
     return (field !== null) ? Item.findOne(creteria, field).exec() : Item.findOne(creteria).exec();
   }
-  
+
   this.populateGetOneBy = (creteria, populate, field = null) => {
-    return (field !== null) ? Item.findOne(creteria, field).populate(populate).exec()
-                              : Item.findOne(creteria).populate(populate).exec();
+    return (field !== null)
+            ? Item.findOne(creteria, field).populate(populate)
+                  .exec()
+            : Item.findOne(creteria).populate(populate)
+                  .exec();
   }
+
+  this.getAllWithPopulate = (populate1, populate2, creterias = null) => {
+    return (creterias !== null)
+      ? Item.find(creterias).populate(populate1)
+            .populate(populate2)
+            .exec()
+      : Item.find().populate(populate1)
+            .populate(populate2)
+            .exec();
+  };
 }
 
 module.exports = repository;

@@ -1,0 +1,38 @@
+<div class="card-body">
+        <h1>Commandement Territorial </h1>
+    
+        Nom : {{cmdtTerritorial.nom}}<br>
+        Code : {{cmdtTerritorial.code}}
+        <div *ngIf="cmdtTerritorial.legion">
+            <div *ngFor="let legion of cmdtTerritorial.legion">
+                <span class="badge badge-primary"> 
+                    {{legion.nom}} <br>
+                    code : {{legion.code}}
+                 </span><br>
+                 Etat Major <br>
+                 Nom : {{legion.etatmajor.nom}} <br>
+                 Code : {{legion.etatmajor.code}} <br>
+                 <br>
+                 <div *ngIf="legion.brigade">
+                    Brigades
+                    <div *ngFor="let brigade of legion.brigade">
+                        Nom : {{brigade.nom}} <br>
+                        Code : {{brigade.code}} <br>
+                    </div>
+                </div> 
+                <br>
+                <br>
+                <div *ngIf="legion.compagnie">
+                    compagnie : <span class="badge badge-danger">{{legion.compagnie.length}} </span>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="cmdtTerritorial.section">
+            Les sections <br>
+            <div *ngFor="let section of cmdtTerritorial.section">
+                        Nom : {{section.nom}} <br>
+                        code : {{section.code}} <br>
+            </div>
+        </div>
+    </div>
