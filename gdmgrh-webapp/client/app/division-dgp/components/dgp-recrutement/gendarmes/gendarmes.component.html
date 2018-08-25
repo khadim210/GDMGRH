@@ -1,0 +1,78 @@
+<div>
+  <div >
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12 text-center">
+          <h2>Liste des utilisateurs</h2>
+        </div>
+    </div>
+    <div class="card w-100" style="padding: 0rem; padding-bottom: 0rem;">
+      <div class="card-body" style="padding: 1rem;">
+          <div class="row">
+            <div class="col-md-8 col-sm-8 col-12">
+              <div class="row">          
+               <!--  <div class="form-group col-md-6 col-sm-6 col-12">
+                      <select class="form-control form-control-sm" (change)="searchChange($event.target.value)">
+                          <option [value]="''" disabled hidden> Rechercher par ... </option>
+                          <option [value]="'username'" >Nom d'utilisateur</option>  
+                          <option [value]="'agent'" >Agent</option>
+                          <option [value]="'role'" >Role</option>
+                          <option [value]="'active'" >Status</option>
+                      </select>
+                </div> -->
+                
+                <!-- <div class="form-group col-md-6 col-sm-6 col-12">
+                    <input type="text" class="{{search.option === '' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="searchField" [(ngModel)]="search.field"
+                          [disabled]="search.option === ''" placeholder="{{search.option === '' ? '' : 'renseigner le mot cherché'}}" (keyup)="searchUser(search.field)">
+                </div> -->
+              </div>
+            </div>
+      
+            <div class="col-md-4 col-sm-4 col-12">
+              <!-- Button trigger modal -->
+              <!-- <button type="button" class="btn btn-sm btn-block btn-outline-primary" (click)="addUserModal()" data-toggle="modal" data-target="#userModal">
+                Ajouter
+              </button> -->
+            </div>
+          </div>
+      
+          <div class="row" >
+            <table class="col-12 table table-sm" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Matricule</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">Prénom</th>
+                      <th scope="col">Grade</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                </thead>
+      
+                <tbody *ngIf="agentList" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                    <tr *ngFor="let agent of agentList, let i = index">
+                      <td>{{i+1}}</td>
+                      <td>{{agent.matricule}}</td>
+                      <td>{{agent.nom}}</td>
+                      <td>{{agent.prenom}}</td>
+                      <td>{{agent.grade}}</td>
+                      <td><span class="badge badge-info" id="{{agent._id}}" (click)="showAgent($event)">Détails</span></td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!agentList">
+                    <tr>
+                      <td></td>
+                      <th></th>
+                      <td></td>
+                      <td>Vide</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+  

@@ -98,7 +98,6 @@ export class DiplomesComponent implements OnInit {
       nomcourt: this.form.get('nomcourt').value,
       niveau: this.form.get('niveau').value,
       typediplome: this.form.get('typediplome').value,
-      specialite: this.form.get('specialite').value,
     };
 
     this.diplomeService.addNewDiplome(nouveaudiplome).subscribe(data => {
@@ -120,7 +119,6 @@ export class DiplomesComponent implements OnInit {
         nomcourt: dataselected.nomcourt,
         niveau: dataselected.niveauequivalent,
         typediplome: dataselected.typediplome,
-        specialite: dataselected.specialite,
       };
   }
 

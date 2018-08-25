@@ -13,7 +13,7 @@ router.put('/:id', controller.updateUser);
 router.get('/:id', controller.getOneUser);
 */
 
-router.get('/getallcivil', AuthService.hasRole('admin'), controller.getcivildiplomes);
+router.get('/getallcivil', controller.getcivildiplomes);
 router.get('/getallmili', AuthService.hasRole('admin'), controller.getmilidiplomes);
 router.get('/getall', AuthService.hasRole('admin'), controller.getalldiplomes);
 router.post('/add', AuthService.hasRole('admin'), controller.adddiplome);

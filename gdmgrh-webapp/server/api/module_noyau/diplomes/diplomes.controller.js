@@ -41,14 +41,12 @@ export async function adddiplome(req, res) {
     var nomcourt = req.body.nomcourt;
     var niveauequivalent = req.body.niveau;
     var typediplome = req.body.typediplome;
-    var specialite = req.body.specialite;
     if(nom && nomcourt && niveauequivalent) {
         var diplomeParams = {
             nom : nom,
             nomcourt: nomcourt,
             niveauequivalent: niveauequivalent,
             typediplome: typediplome,
-            specialite: specialite,
         };
         var diplome = new Diplome(diplomeParams);
         try {
@@ -81,9 +79,6 @@ export async function editdiplome(req, res) {
             }
             if (diplomeParams.typediplome) {
                 diplome.typediplome = diplomeParams.typediplome;
-            }
-            if (diplomeParams.specialite) {
-                diplome.specialite = diplomeParams.specialite;
             }
             var allDiplomes = await DiplomeRepository.save(diplome);
             res.status(200).json({response: allDiplomes});

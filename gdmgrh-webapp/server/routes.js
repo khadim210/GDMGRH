@@ -19,6 +19,8 @@ export default function(app) {
   app.use(`${apiUrl}/sanction/punition`, require('./api/module_noyau/sanction/punition'));
   app.use(`${apiUrl}/sanction/recompense`, require('./api/module_noyau/sanction/recompense'));
 
+  app.use(`${apiUrl}/agents`, require('./api/module_dgp/agents'));
+
   app.use(`${apiUrl}/organigramme/sous-command`, require('./api/module_noyau/hierarchie/sous-command'));
   app.use(`${apiUrl}/organigramme/etat-major`, require('./api/module_noyau/hierarchie/etat-major'));
   app.use(`${apiUrl}/organigramme/mobile`, require('./api/module_noyau/hierarchie/mobile'));

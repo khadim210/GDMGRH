@@ -16,9 +16,6 @@ const DiplomeSchema = mongoose.Schema({
     },
     typediplome: {
       type: String
-    },
-    specialite: {
-        type: String
     }
 });
 

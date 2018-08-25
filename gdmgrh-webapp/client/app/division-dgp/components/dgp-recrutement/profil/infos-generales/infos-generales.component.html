@@ -1,0 +1,347 @@
+<style>
+.fixedcard {
+    max-height:300px;
+    overflow:auto;
+}
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+                <h2>Dossier Gendarme</h2>
+            </div>
+        </div>
+        <form [formGroup]="form" id="ProfilForm" (submit)="submit()">
+
+            <div class="row">
+                <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                    <div class="card">
+
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="mb-0">
+                                    Informations Générales <i class="fa fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="card">
+                                        <div class="card-body h-25 d-inline-block">
+                                            <h4 class="card-title">Informations Générales</h4>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3 col-12">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Matricule">Matricule</label>
+                                                            <input type="text" class="form-control form-control-sm" name="matricule" id="matricule" placeholder="Matricule" formControlName="matricule" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="Civilité">Civilité</label>
+                                                            <select class="form-control form-control-sm" name="civilite" formControlName="civilite">
+                                                                <option value="" selected disabled hidden>--Choisissez une civilité--</option>
+                                                                <option value="M">M.</option>
+                                                                <option value="Mlle">Mlle</option>
+                                                                <option value="Mme">Mme</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Nom">Nom</label>
+                                                            <input type="text" class="form-control form-control-sm" name="nom" id="nom" placeholder="Nom" formControlName="nom" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Prénom">Prénom</label>
+                                                            <input type="text" class="form-control form-control-sm" name="prenom" id="prenom" placeholder="Prénom" formControlName="prenom" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Date de naissance">Date de naissance</label>
+                                                            <input type="date" class="form-control form-control-sm" name="datenaissance" id="datenaissance" formControlName="datenaissance" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Lieu de Naissance">Lieu de Naissance</label>
+                                                            <input type="text" class="form-control form-control-sm" name="lieunaissance" id="lieunaissance" placeholder="Lieu de Naissance" formControlName="lieunaissance" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Filiation">Filiation</label>
+                                                            <input type="text" class="form-control form-control-sm" name="filiation" id="filiation" formControlName="filiation" placeholder="Filiation" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Date d'entrée">Date d'entrée en service</label>
+                                                            <input type="date" class="form-control form-control-sm" name="dateentreeservice" id="dateentreeservice" formControlName="dateentreeservice" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Date de Libération">Date de Libération</label>
+                                                            <input type="date" class="form-control form-control-sm" name="dateliberation" id="dateliberation" required>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Grade">Grade</label>
+                                                            <input type="text" class="form-control form-control-sm" name="grade" id="grade" placeholder="Grade" formControlName="grade" required>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="service">Service</label>
+                                                            <input type="text" class="form-control form-control-sm" name="service" id="service" placeholder="Service" formControlName="service" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3 col-12">
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <label for="Charger Photo de dossier">Charger la photo du dossier</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" name="photodossier" id="photodossier" placeholder="Charger la photo" accept=".jpg, .png, .jpeg" required>
+                                                                <label class="custom-file-label" for="Charger la photo">Charger la photo...</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3 col-12">
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h5 class="mb-0">
+                                    Informations Spéciales <i class="fa fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionEx">
+                            <div class="card-body">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="card">
+                                        <div class="card-body h-25 d-inline-block">
+                                            <h4 class="card-title">Informations Spéciales</h4>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3 col-12">
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Diplome">Diplôme</label>
+                                                            <select class="form-control form-control-sm" name="diplome" formControlName="diplome">
+                                                                <option value="" selected disabled hidden>--Choisissez un diplôme--</option>
+                                                                <option value="Dip1">Dip1</option>
+                                                                <option value="Dip2">Dip2</option>
+                                                                <option *ngFor="let dip of civiles" value="{{dip._id}}">{{dip.nom}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Libellé Diplôme">Libellé du Diplôme</label>
+                                                            <input type="text" class="form-control form-control-sm" name="libellediplome" id="libellediplome" placeholder="Libellé du Diplôme" formControlName="libellediplome" required>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Spécialité">Spécialité</label>
+                                                            <select class="form-control form-control-sm" name="specialite" formControlName="specialite">
+                                                                <option value="" selected disabled hidden>--Choisissez une spécialité--</option>
+                                                                <option value="M">Spec 1</option>
+                                                                <option value="Mlle">Spec 2</option>
+                                                                <option value="Mme">Spec 3</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Stages">Stages</label>
+                                                            <textarea class="form-control form-control-sm" name="stages" id="stages" placeholder="Stages" formControlName="stages" required></textarea>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Permis de conduire">Permis de conduire</label>
+                                                            <select class="form-control form-control-sm" name="permis_conduire" formControlName="permis_conduire">
+                                                                <option value="" selected disabled hidden>--Choisissez--</option>
+                                                                <option value="Aucun permis">Aucun permis</option>
+                                                                <option value="Permis B">Permis B</option>
+                                                                <option value="Permis C">Permis c</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="Langues">Dialectes ou Langues parlées</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" (change)="onchange($event)" type="checkbox" value="Francais" id="francais">
+                                                                <label class="form-check-label" for="Francais">
+                                                                    Francais
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" (change)="onchange($event)" type="checkbox" value="Anglais" id="anglais">
+                                                                <label class="form-check-label" for="Anglais">
+                                                                    Anglais
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" (change)="onchange($event)" type="checkbox" value="Espagnol" id="espagnol">
+                                                                <label class="form-check-label" for="Espagnol">
+                                                                    Espagnol
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" (change)="onchange($event)" type="checkbox" value="Wolof" id="wolof">
+                                                                <label class="form-check-label" for="Wolof">
+                                                                    Wolof
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label for="Autres">Autres</label>
+                                                                <input type="text" class="form-control form-control-sm" name="autreslangues" id="autreslangues" placeholder="Autres langues" formControlName="autreslangues" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="md-form">
+                                                            <label for="Personne à prévenir">Adresse de la Personne à prévenir en cas d'accident</label>
+                                                            <input type="text" class="form-control form-control" name="personnes_prevenir" id="personnes_prevenir" formControlName="personnes_prevenir" required>
+                                                        </div>                                    
+                                                    </div><br><hr><br>
+                                                    <h6>SITUATION DE FAMILLE</h6>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Marié le">Marié le</label>
+                                                            <input type="date" class="form-control form-control-sm" name="datemariage" id="datemariage" formControlName="datemariage" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="avec">Avec</label>
+                                                            <input type="text" class="form-control form-control-sm" name="nomconjoint" id="nomconjoint" formControlName="nomconjoint" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Né(e) le">Né(e) le</label>
+                                                            <input type="date" class="form-control form-control-sm" name="datenaissanceconjoint" id="datenaissanceconjoint" formControlName="datenaissanceconjoint" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Lieu">A</label>
+                                                            <input type="text" class="form-control form-control-sm" name="lieunaissanceconjoint" id="lieunaissanceconjoint" formControlName="lieunaissanceconjoint" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Divorcé le">Divorcé le</label>
+                                                            <input type="date" class="form-control form-control-sm" name="datedivorce" id="datedivorce" formControlName="datedivorce" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="suivant">Suivant</label>
+                                                            <input type="text" class="form-control form-control-sm" name="suivant" id="suivant" formControlName="suivant" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Remarié le">Remarié le</label>
+                                                            <input type="date" class="form-control form-control-sm" name="dateremariage" id="dateremariage" formControlName="dateremariage" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Avec">Avec</label>
+                                                            <input type="text" class="form-control form-control-sm" name="nom_conjoint" id="nom_conjoint" formControlName="nom_conjoint" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Né(e) le">Né(e) le</label>
+                                                            <input type="date" class="form-control form-control-sm" name="datenaissance_conjoint" id="datenaissance_conjoint" formControlName="datenaissance_conjoint" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="Lieu">A</label>
+                                                            <input type="text" class="form-control form-control-sm" name="lieunaissance_conjoint" id="lieunaissance_conjoint" formControlName="lieunaissance_conjoint" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3 col-12">
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingThree">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <h5 class="mb-0">
+                                    Informations professionnelles <i class="fa fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordionEx">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch
+                                3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                                sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+                                accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-header" role="tab" id="headingFour">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                                <h5 class="mb-0">
+                                    Informations Grades <i class="fa fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordionEx">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch
+                                3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                                sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+                                accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div> <br>
+            <div class="row">
+                <button class="btn btn-primary" type="submit">Suivant</button>
+            </div>
+        </form>
+
+
+    </div>
+</div>

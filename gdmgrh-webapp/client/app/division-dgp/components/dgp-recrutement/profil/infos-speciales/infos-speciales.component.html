@@ -1,0 +1,168 @@
+<style>
+.fixedcard {
+    max-height:300px;
+    overflow:auto;
+}
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+                <h2>Dossier Gendarme</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body h-25 d-inline-block">
+                        <h4 class="card-title">Informations Spéciales</h4>
+                        <form [formGroup]="form" id="ProfilForm" (submit)="submit()">
+                            <div class="row">
+                                <div class="col-md-12 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Diplome">Diplôme</label>
+                                            <select class="form-control form-control-sm" name="diplome" formControlName="diplome">
+                                                <option value="" selected disabled hidden>--Choisissez un diplôme--</option>
+                                                <option value="M">M.</option>
+                                                <option value="Mlle">Mlle</option>
+                                                <option value="Mme">Mme</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Libellé Diplôme">Libellé du Diplôme</label>
+                                            <input type="text" class="form-control form-control-sm" name="libellediplome" id="libellediplome" placeholder="Libellé du Diplôme" formControlName="libellediplome" required>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Spécialité">Spécialité</label>
+                                            <select class="form-control form-control-sm" name="specialite" formControlName="specialite">
+                                                <option value="" selected disabled hidden>--Choisissez une spécialité--</option>
+                                                <option value="M">Spec 1</option>
+                                                <option value="Mlle">Spec 2</option>
+                                                <option value="Mme">Spec 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Stages">Stages</label>
+                                            <textarea class="form-control form-control-sm" name="stages" id="stages" placeholder="Stages" formControlName="stages" required></textarea>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Permis de conduire">Permis de conduire</label>
+                                            <select class="form-control form-control-sm" name="permis_conduire" formControlName="permis_conduire">
+                                                <option value="" selected disabled hidden>--Choisissez--</option>
+                                                <option value="Aucun permis">Aucun permis</option>
+                                                <option value="Permis B">Permis B</option>
+                                                <option value="Permis C">Permis c</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Langues">Dialectes ou Langues parlées</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Francais" id="francais">
+                                                <label class="form-check-label" for="Francais">
+                                                    Francais
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Anglais" id="anglais">
+                                                <label class="form-check-label" for="Anglais">
+                                                    Anglais
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Espagnol" id="espagnol">
+                                                <label class="form-check-label" for="Espagnol">
+                                                    Espagnol
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Wolof" id="wolof">
+                                                <label class="form-check-label" for="Wolof">
+                                                    Wolof
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label for="Autres">Autres</label>
+                                                <input type="text" class="form-control form-control-sm" name="autreslangues" id="autreslangues" placeholder="Autres langues" formControlName="autreslangues" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="md-form">
+                                            <label for="Personne à prévenir">Adresse de la Personne à prévenir en cas d'accident</label>
+                                            <input type="text" class="form-control form-control" name="personnes_prevenir" id="personnes_prevenir" formControlName="personnes_prevenir" required>
+                                        </div>                                    
+                                    </div><br><hr><br>
+                                    <h6>SITUATION DE FAMILLE</h6>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Marié le">Marié le</label>
+                                            <input type="date" class="form-control form-control-sm" name="datemariage" id="datemariage" formControlName="datemariage" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="avec">Avec</label>
+                                            <input type="text" class="form-control form-control-sm" name="nomconjoint" id="nomconjoint" formControlName="nomconjoint" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Né(e) le">Né(e) le</label>
+                                            <input type="date" class="form-control form-control-sm" name="datenaissanceconjoint" id="datenaissanceconjoint" formControlName="datenaissanceconjoint" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Lieu">A</label>
+                                            <input type="text" class="form-control form-control-sm" name="lieunaissanceconjoint" id="lieunaissanceconjoint" formControlName="lieunaissanceconjoint" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Divorcé le">Divorcé le</label>
+                                            <input type="date" class="form-control form-control-sm" name="datedivorce" id="datedivorce" formControlName="datedivorce" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="suivant">Suivant</label>
+                                            <input type="text" class="form-control form-control-sm" name="suivant" id="suivant" formControlName="suivant" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Remarié le">Remarié le</label>
+                                            <input type="date" class="form-control form-control-sm" name="dateremariage" id="dateremariage" formControlName="dateremariage" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Avec">Avec</label>
+                                            <input type="text" class="form-control form-control-sm" name="nom_conjoint" id="nom_conjoint" formControlName="nom_conjoint" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Né(e) le">Né(e) le</label>
+                                            <input type="date" class="form-control form-control-sm" name="datenaissance_conjoint" id="datenaissance_conjoint" formControlName="datenaissance_conjoint" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Lieu">A</label>
+                                            <input type="text" class="form-control form-control-sm" name="lieunaissance_conjoint" id="lieunaissance_conjoint" formControlName="lieunaissance_conjoint" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Suivant</button>
+                            <button class="btn btn-defalut" type="button">Ignorer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,6 +32,18 @@
                             Archive</a>
                     </div>
                 </div>
+            </div><br>
+            <div class="card text-white mb-1" [hidden]="!recruRouterLink.isActive">
+                <div class="card-body">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link" data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dgp/recrutement/liste-gendarmes"  role="tab"
+                      aria-controls="v-pills-user" aria-selected="false">Gendarmes</a>
+                      <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                      routerLink="/dgp/recrutement/profil/" role="tab"
+                      aria-controls="v-pills-group" aria-selected="false">Nouveau dossier</a>
+                    </div>
+                </div>
             </div>
         </div>
 

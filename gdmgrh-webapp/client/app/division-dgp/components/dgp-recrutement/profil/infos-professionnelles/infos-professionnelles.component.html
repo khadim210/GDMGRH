@@ -1,0 +1,115 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+            <h2>Dossier Gendarme</h2>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body h-25 d-inline-block">
+                        <h4 class="card-title">Informations Générales</h4>
+                        <form [formGroup]="form" id="ProfilForm" (submit)="submit()">
+                            <div class="row">
+                                <div class="col-md-12 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Matricule">Matricule</label>
+                                            <input type="text" class="form-control form-control-sm" name="matricule" id="matricule" placeholder="Matricule" formControlName="matricule" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Civilité">Civilité</label>
+                                            <select class="form-control form-control-sm" name="civilite" formControlName="civilite">
+                                                <option value="" selected disabled hidden>--Choisissez une civilité--</option>
+                                                <option value="M">M.</option>
+                                                <option value="Mlle">Mlle</option>
+                                                <option value="Mme">Mme</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Nom">Nom</label>
+                                            <input type="text" class="form-control form-control-sm" name="nom" id="nom" placeholder="Nom" formControlName="nom" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Prénom">Prénom</label>
+                                            <input type="text" class="form-control form-control-sm" name="prenom" id="prenom" placeholder="Prénom" formControlName="prenom" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Date de naissance">Date de naissance</label>
+                                            <input type="date" class="form-control form-control-sm" name="datenaissance" id="datenaissance" formControlName="datenaissance" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Lieu de Naissance">Lieu de Naissance</label>
+                                            <input type="text" class="form-control form-control-sm" name="lieunaissance" id="lieunaissance" placeholder="Lieu de Naissance" formControlName="lieunaissance" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Filiation">Filiation</label>
+                                            <input type="text" class="form-control form-control-sm" name="filiation" id="filiation" formControlName="filiation" placeholder="Filiation" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="Date d'entrée">Date d'entrée en service</label>
+                                            <input type="date" class="form-control form-control-sm" name="dateentreeservice" id="dateentreeservice" formControlName="dateentreeservice" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Date de Libération">Date de Libération</label>
+                                            <input type="date" class="form-control form-control-sm" name="dateliberation" id="dateliberation" required>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Grade">Grade</label>
+                                            <input type="text" class="form-control form-control-sm" name="grade" id="grade" placeholder="Grade" formControlName="grade" required>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="service">Service</label>
+                                            <input type="text" class="form-control form-control-sm" name="service" id="service" placeholder="Service" formControlName="service" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label for="Charger Photo de dossier">Charger la photo du dossier</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="photodossier" id="photodossier" placeholder="Charger la photo" accept=".jpg, .png, .jpeg" required>
+                                                <label class="custom-file-label" for="Charger la photo">Charger la photo...</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-12 mb-3 col-12">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <button class="btn btn-primary" type="submit">Suivant</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+      
