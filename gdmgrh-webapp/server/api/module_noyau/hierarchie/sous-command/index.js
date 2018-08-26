@@ -7,5 +7,6 @@ import * as controller from './sous-command.controller';
 var router = new Router();
 
 //router.post('/add', AuthService.hasRole('admin'), controller.addSousCommandement);
-router.post('/one', AuthService.hasRole('admin'), controller.getOneSousCommandement);
+router.put('/:id', AuthService.hasRole('admin'), controller.updateSousCommandement);
+router.get('/:type', AuthService.hasRole('admin'), controller.getOneSousCommandement);
 module.exports = router;

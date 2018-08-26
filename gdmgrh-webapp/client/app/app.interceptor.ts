@@ -17,6 +17,7 @@ export class AppInterceptor implements HttpInterceptor {
     ) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log('### interceptor ###');
         if (this.authService.isConnected()) {
             this.headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authService.getUser().token});
         } else {

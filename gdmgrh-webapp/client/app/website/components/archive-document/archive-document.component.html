@@ -1,0 +1,140 @@
+<div class="row">
+    <div class="col-8">
+        <h5 class="mb-0">
+            <a class="mouse" data-toggle="collapse" (click)="showPanel('createArchive')" [attr.data-target]="'#CreateArchive'" aria-expanded="false" aria-controls="collapseOne">
+                    {{'( '+showPCreateArchive+' ) Creer Un dossier Archive'}}
+            </a>
+        </h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="CreateArchive" class="collapse" aria-labelledby="headingOne">
+            <br>
+            <hr>
+            <form #archiveForm = "ngForm">
+                <div class="row">
+                    <div class="col-md-12 mb-3 col-12">
+                        <div class="row">
+                            <div *ngIf="msgErrorFrom" class="col-12 alert alert-danger" role="alert">
+                                {{msgErrorFrom | json}}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="libelle">Libelle :</label>
+                                <input [(ngModel)]="archive.libelle" type="text" class="form-control form-control-sm"
+                                        name="libelle" placeholder="libelle " required>
+                            </div>
+                            <div class="col-md-4 mb-3">                                            
+                                <label for="datedocument">Date Document</label>
+                                <input [(ngModel)]="archive.date" type="date" class="form-control form-control-sm" 
+                                    name="datedocument" placeholder="date du document" min="" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="categorie">Categorie</label>
+                                <select [(ngModel)]="archive.categorie" class="form-control form-control-sm" name="categorie" required>
+                                    <option [value]="''" disabled hidden>choisir categorie ...</option>
+                                    <option [value]="undefined" disabled hidden>choisir categorie ...</option>
+                                    <option [value]="'notes_services'" >notes de services</option>
+                                    <option [value]="'comptes_rendus'" >Comptes rendus</option>
+                                    <option [value]="'fiches'" >Fiches</option>
+                                    <option [value]="'lettres'" >Lettres</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3 col-12">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label for="description">description</label>
+                                <textarea [(ngModel)]="archive.description" name="attentpromotion" class="form-control" 
+                                    placeholder="description sur le document" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3 col-12">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label for="fichierjoint">Fichiers Joints au Dossier</label>
+                                <upload-file [tableUpload]="tableUpload" [urlCompleted]="urlCompleted" (response)="onResponseFileEmit($event)"></upload-file>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="button" (click)="createArchive()" [disabled]="!archiveForm.form.valid">Enregistrer</button>
+            </form>
+            <hr>
+            <br>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-8">
+        <h5 class="mb-0">
+            <a class="mouse" data-toggle="collapse" (click)="showPanel('listArchive')" [attr.data-target]="'#ListArchive'" aria-expanded="true" aria-controls="collapseOne">
+                    {{'( '+showPListArchive+' ) Lister les archives'}}
+            </a>
+        </h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="ListArchive" class="collapse" aria-labelledby="headingOne">
+                <br>
+            <div class="card w-100" style="padding: 0rem; padding-bottom: 0rem;">
+                <div class="card-body" style="padding: 1rem;">
+                    <div class="row">
+                        
+                    </div>
+                
+                    <div class="row" >
+                        <div class="col-12">
+                            <div class="table-responsive-sm">
+                                <table class="table table-sm" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Libellé</th>
+                                        <th scope="col">Categorie</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                        
+                                    <tbody *ngIf="archiveList.length" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                                        <tr *ngFor="let archive of archiveList, let i = index">
+                                        <td>{{i}}</td>
+                                        <td>{{archive?.libelle}}</td>
+                                        <td>{{archive?.categorie}}</td>
+                                        <td >{{archive?.date}}</td>
+                                        <td><span class="badge badge-primary mouse" (click)="showarchive(archive)" data-toggle="modal" data-target="#archiveModal">
+                                                afficher
+                                        </span></td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="!archiveList.length">
+                                        <tr>
+                                        <td></td>
+                                        <th></th>
+                                        <td></td>
+                                        <td>Vide</td>
+                                        <th></th>
+                                        <td></td>
+                                        <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

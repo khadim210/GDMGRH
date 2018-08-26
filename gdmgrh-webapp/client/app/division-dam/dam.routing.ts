@@ -8,7 +8,7 @@ import { RecrutementComponent } from './components/recrutement/recrutement.compo
 import { ReservisteComponent } from './components/reserviste/reserviste.component';
 import { GendarmeAuxiliaireComponent } from './components/gendarme-auxiliaire/gendarme-auxiliaire.component';
 import { ArchiveDamComponent } from './components/archive-dam/archive-dam.component';
-import { SessionComponent } from './components/recrutement/session/session.component';
+import { PromotionComponent } from './components/recrutement/promotion/promotion.component';
 import { CandidatureComponent } from './components/recrutement/candidature/candidature.component';
 import { NoteComponent } from './components/recrutement/note/note.component';
 import { AdmisComponent } from './components/recrutement/admis/admis.component';
@@ -24,8 +24,8 @@ const routes: Routes = [
           component: RecrutementComponent,
           canActivateChild: [DamGuard],
           children: [
-            { path: '', redirectTo: '/dam/recrutement/session', pathMatch: 'full' },
-            { path: 'session', component: SessionComponent },
+            { path: '', redirectTo: '/dam/recrutement/promotion', pathMatch: 'full' },
+            { path: 'promotion', component: PromotionComponent },
             { path: 'candidature', component: CandidatureComponent },
             { path: 'note', component: NoteComponent },
             { path: 'admis', component: AdmisComponent },

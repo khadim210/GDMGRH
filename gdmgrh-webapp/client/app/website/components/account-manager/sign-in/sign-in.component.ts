@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
 
     signin() {
         this.btnClass = 'btn-primary';
-        this.btnLogin = 'Authentification ...';
+        this.btnLogin = 'Authentification';
         this.authService.signin(this.signinModel).subscribe(res => {
             if (res.user) {
                 const response = res.user;

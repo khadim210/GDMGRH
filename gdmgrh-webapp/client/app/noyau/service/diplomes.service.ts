@@ -11,43 +11,43 @@ export class DiplomesService {
     private http: HttpClient
   ) { }
 
-  getAllDiplomes(){
-    return this.http.get<any>(`diplomes/getall`)
+  getAllDiplomes() {
+    return this.http.get<any>(`/noyau/diplomes/getall`)
       .pipe(
         catchError(this.handleError('getDiplomes'))
       );
   }
 
-  getmiliDiplomes(){
-    return this.http.get<any>(`/diplomes/getallmili`)
+  getmiliDiplomes() {
+    return this.http.get<any>(`/noyau/diplomes/getallmili`)
       .pipe(
         catchError(this.handleError('getDiplomes'))
       );
   }
 
-  getcivilDiplomes(){
-    return this.http.get<any>(`/diplomes/getallcivil`)
+  getcivilDiplomes() {
+    return this.http.get<any>(`/noyau/diplomes/getallcivil`)
       .pipe(
         catchError(this.handleError('getDiplomes'))
       );
   }
 
-  addNewDiplome(newdiplome){
-    return this.http.post<any>(`/diplomes/add`,newdiplome)
+  addNewDiplome(newdiplome) {
+    return this.http.post<any>(`/noyau/diplomes/add`, newdiplome)
       .pipe(
         catchError(this.handleError('addDiplomes'))
       );
   }
 
-  editDiplome(diplome,id){
-    return this.http.put<any>(`/diplomes/edit/${id}`,diplome)
+  editDiplome(diplome, id) {
+    return this.http.put<any>(`/noyau/diplomes/edit/${id}`, diplome)
       .pipe(
         catchError(this.handleError('getDiplomes'))
       );
   }
 
-  deleteDiplome(id){
-    return this.http.delete<any>(`/diplomes/${id}`,id)
+  deleteDiplome(id) {
+    return this.http.delete<any>(`/noyau/diplomes/${id}`, id)
       .pipe(
         catchError(this.handleError('getDiplomes'))
       );

@@ -8,7 +8,7 @@ import { SettingComponent } from './components/account-manager/setting/setting.c
 const routes: Routes = [
     { path: 'account',
       component: AccountManagerComponent,
-      //canActivate: [AuthGuard],
+      canActivate: [AuthGuard],
       children: [
         { path: 'sign-in', component: SignInComponent },
         { path: 'setting', component: SettingComponent }

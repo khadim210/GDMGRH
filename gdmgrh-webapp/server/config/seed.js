@@ -5,8 +5,16 @@
 
 'use strict';
 import User from '../api/module_noyau/account_management/user/user.model';
-import Agent from '../api/module_noyau/account_management/agent/agent.model'
+//import Agent from '../api/module_noyau/account_management/agent/agent.model';
 
+import * as Constante from './constante';
+import * as SousCommandController from '../api/module_noyau/hierarchie/sous-command/sous-command.controller';
+
+
+var constante = Constante.souscommandt;
+var allSousCommandement = [constante.commandement1, constante.commandement2,
+                           constante.commandement3, constante.commandement4,
+                           constante.commandement5];
 /*
 User.find({}).remove()
     .then(() => {
@@ -15,11 +23,12 @@ User.find({}).remove()
         password: 'admin',
         role: 'admin'
       })
-    .then(() => {
-        console.log('finished populating users');
-      });
+    .then(async function() {
+      console.log('finished populating users');
+      await SousCommandController.handlerSousCommandement(allSousCommandement);
     });
-*/
+    });
+
     /*
 Agent.find({}).remove()
     .then(() => {

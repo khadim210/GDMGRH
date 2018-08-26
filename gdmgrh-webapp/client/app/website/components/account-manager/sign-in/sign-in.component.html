@@ -29,9 +29,12 @@
                 </label>
             -->
             </div>
-            <button class="btn {{btnClass}} btn-block btn-primary" [disabled]="!signinPanelForm.form.valid"  type="button" (click)="signin()">
-                {{btnLogin}}
-            </button>
+            <div [hidden]="btnLogin ==='Authentification'">
+                <button class="btn {{btnClass}} btn-block btn-primary" [disabled]="!signinPanelForm.form.valid"  type="button" (click)="signin()">
+                        {{btnLogin}} 
+                </button>
+            </div>
+            <div [hidden]="btnLogin !=='Authentification'"><img src="assets/images/Spinner-33px.gif" alt=""></div>
             <p class="mt-5 mb-3 text-muted">&copy; Gendarmerie-2018</p>
         </form>
     </div>

@@ -1,11 +1,13 @@
 import multer from 'multer';
 import Media from './media.model';
+import config from '../../config/environment';
 import GenericRepository from '../service/generic.repository';
 import Errorshandling from '../service/errorshandling';
 import {mediaDestination} from '../../config';
 
 
 var dest = `${mediaDestination}`;
+var nameFile = null;
 
 const store = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,7 +19,7 @@ const store = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: store }).array('uploads[]', 12);
+const upload = multer({ storage: store }).array('upload[]', 12);
 
 const MediaRepository = new GenericRepository(Media);
 
@@ -43,12 +45,16 @@ export async function uploadFile(req, res) {
         let media = new Media({
           name: file.originalname,
           description: req.body.description,
-          urlResized: req.body.urlResized || '/uploads/',
+          urlResized: req.body.urlResized || `/uploads/${file.filename}`,
           type: file.mimetype,
           fileName: file.filename,
           creator: req.user._id,
           created: Date.now()
         });
+        /*
+        res.sendFile(name, { root: path.join(__dirname, '../../uploads'),
+                  dotfiles: 'deny', headers: { 'x-timestamp': Date.now(), 'x-sent': true} });
+        */
         return MediaRepository.save(media).then(_media => {
           data.push({ _media });
         });
@@ -58,4 +64,21 @@ export async function uploadFile(req, res) {
       });
     }
   });
+}
+
+
+export async function getFileUpload(req, res) {
+  let idFile = req.params.id;
+  if(idFile) {
+    try {
+      let fileInfo = await MediaRepository.getOne(idFile);
+      if(fileInfo) {
+        return res.status(200).json({
+          type: 'GET',
+          url: `${config.SERVER_DOMAINE}${fileInfo.urlResized}` });
+      }
+    } catch(error) {
+      return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
+    }
+  }
 }

@@ -1,0 +1,276 @@
+<style>
+    .fixedcard {
+        max-height:300px;
+        overflow:auto;
+    }
+</style>
+<div>
+    <div >
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 text-center">
+            <h2>Gestion des promotions</h2>
+            </div>
+        </div>
+    
+        <div class="row" id="detail">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body h-25 d-inline-block">
+                        <h6 class="card-title" [hidden]="btnAction ==='Editer'">Créer une nouvelle promotion</h6>
+                        <h6 class="card-title" [hidden]="!(btnAction ==='Editer')">Modifier Promotion</h6>
+                        <form #sessionForm="ngForm">
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div *ngIf="msgErrorFrom" class="alert alert-danger" role="alert">
+                                                {{msgErrorFrom | json}}
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="numeropromotion">Numero Promotion</label>
+                                                <input [(ngModel)]="promotionForm.numero" type="text" class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" 
+                                                        name="numeropromotion" placeholder="numero promotion" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-row">
+                                                <label for="niveaupromotion">Niveau</label>
+                                                <input [hidden]="!(btnAction ==='Editer')" [(ngModel)]="promotionForm.numero" type="text"
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="numeropromotion" placeholder="numero promotion"
+                                                    [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                                    
+                                                <select [hidden]="btnAction ==='Editer'" [(ngModel)]="promotionForm.niveau" class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="status" [required]="!(btnAction ==='Editer')">
+                                                    <option [value]="undefined" disabled hidden>Choisir niveau ...</option>
+                                                    <option [value]="''" disabled hidden>Choisir niveau ...</option>
+                                                    <option [value]="'officier'" >Officier</option>
+                                                    <option [value]="'sous-officier'" >Sous-officier</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-row">
+                                                <label for="libellepromotion">Libelle Promotion</label>
+                                                <input [(ngModel)]="promotionForm.libelle" type="text" class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" 
+                                                    name="libellepromotion" placeholder="libelle promotion" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-row">
+                                                <label for="effectifattendu">Effectif Attendu</label>
+                                                <input [(ngModel)]="promotionForm.effectifPrevu" type="number" class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" 
+                                                    name="effectifattendu" placeholder="effectif" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-row">
+                                                <label for="datelancement">Date Lancement Prevu</label>
+                                                <input [(ngModel)]="promotionForm.dateDebut" type="date" class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="datelancement"
+                                                        placeholder="date lancement" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" 
+                                                        min="{{date | date:'yyyy-MM-dd'}}" max="{{promotionForm.dateFin}}" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-row">
+                                                <label for="datecloture">Date Clôture Prevu</label>
+                                                <input [(ngModel)]="promotionForm.dateFin" type="date" class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="datecloture"
+                                                placeholder="date cloture" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="{{promotionForm.dateDebut | date:'yyyy-MM-dd'}}" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label for="attentpromotion">Les attents de cette Promotion</label>
+                                            <textarea [(ngModel)]="promotionForm.attents" name="attentpromotion"
+                                                class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" 
+                                                placeholder="description des attends de la promotion" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row" [hidden]="!(btnAction ==='Enregistrer')">
+                                        <div class="col-md-12">
+                                            <label for="ordrelancement">Ordre de Lancement</label>
+                                            <upload-file [tableUpload]="tableUpload" [urlCompleted]="urlCompleted" (response)="onResponseEmit($event)"></upload-file>
+                                        </div>
+                                    </div>
+                                    <div class="form-row" [hidden]="!(btnAction ==='Editer')">
+                                        <div class="col-md-12">
+                                            <label for="ordrelancement">Ordre de Lancement</label><br>
+                                            <a>{{promotionForm?.ordre?.name}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right" [hidden]="!(btnAction ==='Enregistrer')">
+                                <button class="btn btn-primary" [disabled]="!sessionForm.form.valid" type="button"
+                                        (click)="createPromotion()">{{btnAction}}</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-center " [hidden]="!(btnAction ==='Editer') || urlCompleted === 'secretaire'">
+                                    <button class="btn btn-primary" [disabled]="!sessionForm.form.valid" type="button" (click)="actionPromotion(btnAction)">{{btnAction}}</button>
+                                </div>
+                                <div class="{{urlCompleted === 'secretaire' ? 'col-12' : 'col-6'}} text-center" [hidden]="!(btnAction ==='Editer')">
+                                    <button class="btn btn-danger" type="button" (click)="actionPromotion('Annuler')">Annuler</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Button trigger modal -->
+                            <div class="text-center" [hidden]="!(btnAction ==='Appliquer')">
+                                <button class="btn btn-danger" type="button" (click)="actionPromotion('Annuler')">Annuler</button>
+                                <button class="btn btn-secondary" [disabled]="!sessionForm.form.valid" type="button"
+                                (click)="actionPromotion(btnAction)" data-toggle="modal" data-target="#exampleModal">{{btnAction}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="card-body">
+                    <h5 class="card-title">Liste des promotions</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <select class="form-control  form-control-sm" name="status">
+                                            <option [value]="'numero'" >Numero</option>
+                                            <option [value]="'libelle'">Libelle</option>
+                                            <option [value]="'niveau'">Niveau</option>
+                                        </select>
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control  form-control-sm" name="" placeholder="recherche ...">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm">Imprimer</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Numero</th>
+                                    <th scope="col">Libelle</th>
+                                    <th scope="col">Niveau</th>
+                                    <th scope="col">Effectif</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Valider</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                    
+                            <tbody class="fixedcard" *ngIf="promotionList">
+                                <tr *ngFor="let promotion of promotionList, let i = index">
+                                    <td>{{promotion?.numero}}</td>
+                                    <td>{{promotion?.libelle}}</td>
+                                    <td>{{promotion?.niveau}}</td>
+                                    <td >{{promotion?.effectifPrevu}}</td>
+                                    <td>
+                                        <span class="badge {{promotion.status === 'cours' ? 'badge-success' : 'badge-danger'}}">
+                                            {{promotion.status !== 'cloture' ? 'En '+promotion.status : promotion.status}}
+                                    </span></td>
+                                    <td><span class="badge {{promotion.active === true ? 'badge-success' : 'badge-danger'}}">
+                                        {{promotion.active === true ? 'Oui' : 'Non'}}    
+                                    </span></td>
+                                    <td><a class="badge badge-primary mouse" routerLink="/dam/recrutement/promotion" fragment="detail" (click)="showPromotion(promotion)">
+                                            details
+                                    </a></td>
+                                    <td [hidden]="!(promotion.status === 'cours')">
+                                        <span class="badge badge-secondary mouse" (click)="addCandidat(promotion._id)">
+                                            +candidat
+                                    </span></td>
+                                    <td [hidden]="!(promotion.active  === true) || promotion.status === 'cours'
+                                            || promotion.status === 'cloture' || urlCompleted === 'secretaire'">
+                                        <a class="badge badge-success mouse" (click)="updatePromotion(promotion, 'cours')">
+                                            Demarrer
+                                        </a>
+                                    </td>
+                                    <td  [hidden]="!(promotion.active  === true) || promotion.status === 'cloture'
+                                            || urlCompleted === 'secretaire' " >
+                                        <a class="badge badge-danger mouse" data-toggle="modal" data-target="#exampleModal"
+                                                (click)="askConfirm = promotion">
+                                        Clôturer
+                                        </a>
+                                    </td>   
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!promotionList">
+                                <tr>
+                                    <td></td>
+                                    <th></th>
+                                    <td></td>
+                                    <td>Vide</td>
+                                    <th></th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
+      
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div [hidden]="!(btnAction ==='Appliquer')">
+            <div class="modal-body">
+                <h5>Êtes-vous sûr de vouloir modifier les informations de cette promotion ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Non</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="updatePromotion()">Oui</button>
+            </div>
+        </div>
+
+        <div [hidden]="!askConfirm._id">
+            <div class="modal-body">
+                    <h5>Êtes-vous sûr de vouloir clôturer cette promotion ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" (click)="askConfirm = {}">Non</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" 
+                (click)="updatePromotion(askConfirm, 'cloture'); askConfirm = {}">Oui</button>
+            </div>
+        </div>
+
+        <div [hidden]="true">
+            <div class="modal-body">
+                    <h5>Êtes-vous sûr de vouloir clôturer cette promotion ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" (click)="askConfirm = {}">Non</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" 
+                (click)="updatePromotion(askConfirm, 'cloture'); askConfirm = {}">Oui</button>
+            </div>
+        </div>
+
+        <div class="modal-body" hidden="true">
+        ...
+        </div>
+    </div>
+    </div>
+</div>

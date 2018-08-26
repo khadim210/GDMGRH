@@ -6,9 +6,12 @@
 module.exports = {
     // MongoDB connection options
   mongo: {
-    uri: 'mongodb://192.168.1.13/gdmgrhwebapp-dev'
+    uri: 'mongodb://localhost/gdmgrhwebapp-dev'
   },
 
     // Seed database on startup
-  seedDB: true
+  seedDB: true,
+
+  CLIENT_DOMAINE: 'http://localhost:3000',
+  SERVER_DOMAINE: 'http://localhost:9000',
 };

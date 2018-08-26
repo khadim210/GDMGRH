@@ -1,101 +1,74 @@
 <div class="card">
-        <div class="card-body">
-            <h5 class="card-title text-center">Commandement Services Santé</h5>
-            <div class="table-responsive" style="padding: 0rem; margin: 0rem;">
-            <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
-                <tbody>
-                    <tr>
-                        <th class="">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Information Sur le commandement</h5>
-                                    <div>
-                                        <div class="form-group row" [hidden]="!cmdtSante?.nom" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="nom">Nom : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtSante?.nom" class="form-control-plaintext form-control-sm" name="nom" placeholder="nom" required>
-                                            </div>
-                                        </div>
+    <div class="card-body">
+        <h4 class="card-title">Commandement Services Santé</h4>
+        <div class="table-responsive" style="padding: 0rem; margin: 0rem;">
+        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+            <tbody>
+                <tr>
+                    <th class="">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-center">Information Sur le commandement</h6>
+                                <org-model-two-col [element]="cmdtSante" [selectElement]="selectItem" [nameElement]="'cmdt'" 
+                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-two-col>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="">
+                        <div class="card w-100">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <div class="mouse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <div class="float-left"><span class="mouse">Les Services Santé</span>
+                                                <span class="badge badge-pill badge-primary">{{cmdtSante?.subdivision.length}}</span></div>
                                             
-                                        <div class="form-group row" [hidden]="!cmdtSante?.code" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="code">Code : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtSante?.code" class="form-control-plaintext form-control-sm" name="code" placeholder="code" required>
-                                            </div>
+                                                <div class="float-right"><span class="badge badge-pill badge-primary mouse" (click)="addSubdivision()"
+                                                    data-toggle="modal" data-target="#santeModal">Ajouter</span></div>    
                                         </div>
-    
-                                        <div class="form-group row" [hidden]="!cmdtSante?.lieu" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="lieu">Lieu : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtSante?.lieu" class="form-control-plaintext form-control-sm" name="lieu" placeholder="lieu" required>
-                                            </div>
-                                        </div>
-                                            
-                                        <div class="form-group row" [hidden]="!cmdtSante?.gps" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="gps">GPS : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtSante?.gps" class="form-control-plaintext form-control-sm" name="gps" placeholder="gps" required>
-                                            </div>
-                                        </div>
-    
-                                        <div class="form-group row" [hidden]="!cmdtSante?.chef" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="chef">Chef : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtSante?.chef" class="form-control-plaintext form-control-sm" name="chef" placeholder="chef" required>
-                                            </div>
-                                        </div>
-                                            
-                                        <div class="form-group row" [hidden]="!cmdtSante?.contact" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="contact">Contact : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtSante?.contact" class="form-control-plaintext form-control-sm" name="contact" placeholder="contact" required>
+                                    </h5>
+                                    </div>
+                                
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body" *ngIf="cmdtSante?.subdivision">
+                                            <div class="row">
+                                                <div class="col-sm-6" *ngFor="let cmdt of cmdtSante?.subdivision">
+                                                    <org-model-one-col [element]="cmdt" [selectElement]="selectItem" [nameElement]="'sante'"
+                                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                                    <hr>
+                                                </div>
+                                                <hr>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td class="">
-                            <div class="card w-100">
-                                    <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                            <h5 class="mb-0">
-                                                <div class="mouse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    <div class="float-left"><span class="mouse">Les Services Santé</span></div>
-                                                    
-                                                    <div class="float-right"><span class="badge badge-pill badge-primary">{{cmdtSante?.subdivision.length}}</span></div>
-                                                </div>
-                                            </h5>
-                                            </div>
-                                        
-                                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                                <div class="card-body" *ngIf="cmdtSante?.subdivision">
-                                                    <div class="row">
-                                                        <div class="col-sm-6" *ngFor="let cmdt of cmdtSante?.subdivision">
-                                                            <div class="card mb-3">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title">{{cmdt.nom}}</h5>
-                                                                    <p class="card-text">
-    
-                                                                    </p>
-                                                                    <div class="text-center">
-                                                                        <span class="badge badge-pill badge-primary mouse">Detail</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="santeModal" tabindex="-1" role="dialog" aria-labelledby="santeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="santeModalLabel">Ajouter un service sante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <org-model-one-col [element]="modelSante" [selectElement]="selectItem" [nameElement]="'sante'"
+                    [btnAction]="'Ajouter'" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                    
+            </div>
+            </div>
         </div>
     </div>

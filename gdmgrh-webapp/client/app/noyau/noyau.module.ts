@@ -38,6 +38,9 @@ import { TechniqueComponent } from './components/organigramme/technique/techniqu
 import { AdministratifComponent } from './components/organigramme/administratif/administratif.component';
 import { CommandComponent } from './components/organigramme/command/command.component';
 import { OrganigrammeService } from './service/organigramme.service';
+import { SearchComponent } from './components/search/search.component';
+import { ModelOneColComponent } from './components/organigramme/model-one-col/model-one-col.component';
+import { ModelTwoColComponent } from './components/organigramme/model-two-col/model-two-col.component';
 
 @NgModule({
     imports: [
@@ -48,7 +51,8 @@ import { OrganigrammeService } from './service/organigramme.service';
         ReactiveFormsModule
     ],
     exports: [
-        HttpClientModule
+        HttpClientModule,
+        SearchComponent
     ],
     declarations: [
         NoyauComponent,
@@ -72,7 +76,10 @@ import { OrganigrammeService } from './service/organigramme.service';
         SanteComponent,
         TechniqueComponent,
         TerritorialComponent,
-        CommandComponent
+        CommandComponent,
+        SearchComponent,
+        ModelOneColComponent,
+        ModelTwoColComponent
     ],
     providers: [
         NoyauService,

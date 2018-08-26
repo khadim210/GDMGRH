@@ -10,29 +10,36 @@ export class OrganigrammeService {
         private authService: AuthService
     ) { }
 
-    getOneSousCommandt(commandt) {
-      return this.http.post<any>(`/organigramme/sous-command/one/`, commandt)
+    getOneSousCommandt(typeSousCmdt) {
+      return this.http.get<any>(`/noyau/organigramme/sous-command/${typeSousCmdt}`)
       .pipe(
         catchError(this.authService.handleError('getOneSousCommandement'))
       );
     }
 
+    updateSousCommandt(command) {
+      return this.http.put<any>(`/noyau/organigramme/sous-command/${command._id}`, command)
+      .pipe(
+        catchError(this.authService.handleError('updateSousCommandement'))
+      );
+    }
+
     getEtatMajor() {
-        return this.http.get<any>(`/organigramme/etat-major/all/`)
+        return this.http.get<any>(`/noyau/organigramme/etat-major/all/`)
         .pipe(
           catchError(this.authService.handleError('getEtatMajor'))
         );
     }
 
     getMobile() {
-        return this.http.get<any>(`/organigramme/mobile/all/`)
+        return this.http.get<any>(`/noyau/organigramme/mobile/all/`)
         .pipe(
           catchError(this.authService.handleError('getMobile'))
         );
       }
 
       getTerritorial() {
-        return this.http.get<any>(`/organigramme/territorial/all/`)
+        return this.http.get<any>(`/noyau/organigramme/territorial/all/`)
         .pipe(
           catchError(this.authService.handleError('getTerritorial'))
         );

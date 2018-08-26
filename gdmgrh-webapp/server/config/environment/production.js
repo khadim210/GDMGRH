@@ -20,5 +20,8 @@ module.exports = {
             || process.env.MONGOHQ_URL
             || process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME
             || 'mongodb://localhost/gdmgrhwebapp'
-  }
+  },
+
+  CLIENT_DOMAINE: process.env.CLIENT_DOMAINE,
+  SERVER_DOMAINE: process.env.SERVER_DOMAINE,
 };

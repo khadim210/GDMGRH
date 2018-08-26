@@ -1,3 +1,4 @@
+<!--
 <div class="row card">
     <div class="col-sm-12">
         <h4>Upload Section</h4>
@@ -24,4 +25,50 @@
                 <button type="button" class="btn btn-primary" (click)="uploader.uploadAll()">Upload All</button>
         </div>
     </div>                
+</div>
+-->
+<div class="">
+    <div class="custom-file ">
+        <input type="file" accept="application/pdf" class="custom-file-input" (change)="onFileSelect($event.target.files)" 
+                name="fileUplaod" id="fileUpload" [disabled]="disabledInput" multiple>
+        <label class="custom-file-label" for="validatedCustomFile">Selectionner le fichier ...</label>
+    </div>
+    <div class="" *ngIf="fileSelect.length">
+        <hr>
+        <div class="row" *ngFor="let file of fileSelect; let i = index">
+            <div class="col-4">
+                <span>{{file.name}}</span>
+            </div>
+            <div class="col-6">
+                <div class="progress">
+                    <div class="progress-bar bg-success" 
+                    [ngStyle]="{'width': progress[i]}"></div>{{progress[i]}}
+                </div>
+            </div>
+            <div class="col-2" [hidden]="progress[i] === '100%'">
+                <span class="mouse badge badge-pill badge-danger" (click)="deleteFile(file.lastModified)">X</span>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="form-group" [hidden]="!fileSelect.length || (nbrItemSave === fileSelect.length)">
+        <button class="btn btn-sm" type="button" (click)="uploadAllFile()">charger</button>
+    </div>
+    <div class="fixedcard" [hidden]="!tableUpload.length">
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                <tbody>
+                    <tr *ngFor="let fileName of tableUpload">
+                        <td>
+                            {{fileName}}
+                        </td>
+                        <td class="text-right">
+                            <span class="badge badge-pill badge-success">OK</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

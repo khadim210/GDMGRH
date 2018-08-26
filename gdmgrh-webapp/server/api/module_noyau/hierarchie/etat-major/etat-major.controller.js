@@ -58,3 +58,18 @@ export async function getEtatMajor(req, res) {
   }
   return res.json({alletatmajor});
 }
+
+export async function update(req, res) {
+  var idbody = req.params.id;
+  var nombody = req.body.nom;
+  var codebody = req.body.code;
+  var lieubody = req.body.lieu;
+  var contactbody = req.body.contact;
+  var gpsbody = req.body.gps;
+  var chefbody = req.body.chef;
+  var divisionbody = req.body.division;
+  if(nombody && codebody && lieubody && divisionbody
+    && contactbody && chefbody && gpsbody && idbody) {
+    var updateResponse = null;
+  }
+}

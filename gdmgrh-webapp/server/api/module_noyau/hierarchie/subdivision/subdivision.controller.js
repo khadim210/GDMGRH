@@ -17,3 +17,22 @@ export async function saveSubdivision(subdivision, res) {
   return saveSub;
 }
 
+export async function getAllSubdivision(res) {
+  var subdivision = [];
+  try {
+    subdivision = await SubdivisionRepository.getAllWithPopulate({path: 'chef'});
+  } catch(error) {
+    return Errorshandling.handleError(res, 500, error, 'Erreur Server');
+  }
+  return subdivision;
+}
+
+export async function getOneSubdivision(criteria, res) {
+  var subdivision = null;
+  try {
+    subdivision = await SubdivisionRepository.populateGetOneBy(criteria, {path: 'chef'});
+  } catch(error) {
+    return Errorshandling.handleError(res, 500, error, 'Erreur Serveur !!!');
+  }
+  return subdivision;
+}

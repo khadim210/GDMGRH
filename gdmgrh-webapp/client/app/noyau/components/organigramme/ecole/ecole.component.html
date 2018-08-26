@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title text-center">Commandement des Ecoles</h5>
+        <h4 class="card-title">Commandement des Ecoles</h4>
         <div class="table-responsive" style="padding: 0rem; margin: 0rem;">
         <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
             <tbody>
@@ -8,50 +8,9 @@
                     <th class="">
                         <div class="card w-100">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Information Sur le commandement</h5>
-                                <div>
-                                    <div class="form-group row" [hidden]="!cmdtEcole?.nom" style="margin: 0rem;">
-                                        <label class="col-sm-2 col-form-label" for="nom">Nom : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" [value]="cmdtEcole?.nom" class="form-control-plaintext form-control-sm" name="nom" placeholder="nom" required>
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="form-group row" [hidden]="!cmdtEcole?.code" style="margin: 0rem;">
-                                        <label class="col-sm-2 col-form-label" for="code">Code : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" [value]="cmdtEcole?.code" class="form-control-plaintext form-control-sm" name="code" placeholder="code" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row" [hidden]="!cmdtEcole?.lieu" style="margin: 0rem;">
-                                        <label class="col-sm-2 col-form-label" for="lieu">Lieu : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" [value]="cmdtEcole?.lieu" class="form-control-plaintext form-control-sm" name="lieu" placeholder="lieu" required>
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="form-group row" [hidden]="!cmdtEcole?.gps" style="margin: 0rem;">
-                                        <label class="col-sm-2 col-form-label" for="gps">GPS : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" [value]="cmdtEcole?.gps" class="form-control-plaintext form-control-sm" name="gps" placeholder="gps" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row" [hidden]="!cmdtEcole?.chef" style="margin: 0rem;">
-                                        <label class="col-sm-2 col-form-label" for="chef">Chef : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" [value]="cmdtEcole?.chef" class="form-control-plaintext form-control-sm" name="chef" placeholder="chef" required>
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="form-group row" [hidden]="!cmdtEcole?.contact" style="margin: 0rem;">
-                                        <label class="col-sm-2 col-form-label" for="contact">Contact : </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" [value]="cmdtEcole?.contact" class="form-control-plaintext form-control-sm" name="contact" placeholder="contact" required>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h6 class="card-title text-center">Information Sur le commandement</h6>
+                                <org-model-two-col [element]="cmdtEcole" [selectElement]="selectItem" [nameElement]="'cmdt'" 
+                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-two-col>
                             </div>
                         </div>
                     </th>
@@ -59,39 +18,34 @@
                 <tr>
                     <td class="">
                         <div class="card w-100">
-                                <div id="accordion">
-                                    <div class="card">
-                                        <div class="card-header" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <div class="mouse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                <div class="float-left"><span class="mouse">Les Ecoles</span></div>
-                                                
-                                                <div class="float-right"><span class="badge badge-pill badge-primary">{{cmdtEcole?.subdivision.length}}</span></div>
-                                            </div>
-                                        </h5>
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <div class="mouse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <div class="float-left"><span class="mouse">Les Ecoles</span>
+                                                <span class="badge badge-pill badge-primary">{{cmdtEcole?.subdivision.length}}</span></div>
+                                            
+                                            <div class="float-right"><span class="badge badge-pill badge-primary mouse" (click)="addSubdivision()"
+                                                data-toggle="modal" data-target="#ecoleModal">Ajouter</span></div>
                                         </div>
-                                    
-                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                            <div class="card-body" *ngIf="cmdtEcole?.subdivision">
-                                                <div class="row">
-                                                    <div class="col-sm-6" *ngFor="let cmdt of cmdtEcole?.subdivision">
-                                                        <div class="card mb-3">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">{{cmdt.nom}}</h5>
-                                                                <p class="card-text">
-
-                                                                </p>
-                                                                <div class="text-center">
-                                                                    <span class="badge badge-pill badge-primary mouse">Detail</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                    </h5>
+                                    </div>
+                                
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body" *ngIf="cmdtEcole?.subdivision">
+                                            <div class="row">
+                                                <div class="col-sm-6" *ngFor="let cmdt of cmdtEcole?.subdivision">                
+                                                    <org-model-one-col [element]="cmdt" [selectElement]="selectItem" [nameElement]="'ecole'"
+                                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                                    <hr>
                                                 </div>
+                                                <hr>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -99,3 +53,22 @@
         </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="ecoleModal" tabindex="-1" role="dialog" aria-labelledby="ecoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ecoleModalLabel">Ajouter ecole</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <org-model-one-col [element]="modelEcole" [selectElement]="selectItem" [nameElement]="'ecole'"
+                    [btnAction]="'Ajouter'" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                    
+            </div>
+            </div>
+        </div>
+    </div>

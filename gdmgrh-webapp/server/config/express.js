@@ -48,6 +48,9 @@ export default function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
 
+  //Uploads file directory
+  app.use('/uploads', express.static(path.join(`${config.root}/server/`, 'uploads')));
+
   // HTTP Logger configs
   if(env === 'production') {
     app.use(httpLogger);
@@ -59,7 +62,8 @@ export default function(app) {
   // acces control allow origin
   app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Headers', 'Range, Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Expose-Headers', 'Accept-Ranges, Content-Encoding, Content-Length, Content-Range');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
   });

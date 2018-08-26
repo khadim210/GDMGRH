@@ -1,101 +1,76 @@
 <div class="card">
-        <div class="card-body">
-            <h5 class="card-title text-center">Commandement Bureau Administratif</h5>
-            <div class="table-responsive" style="padding: 0rem; margin: 0rem;">
-            <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
-                <tbody>
-                    <tr>
-                        <th class="">
-                            <div class="card w-100">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Information Sur le commandement</h5>
-                                    <div>
-                                        <div class="form-group row" [hidden]="!cmdtAdministratif?.nom" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="nom">Nom : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtAdministratif?.nom" class="form-control-plaintext form-control-sm" name="nom" placeholder="nom" required>
-                                            </div>
-                                        </div>
+    <div class="card-body">
+        <h4 class="card-title">Commandement Bureau Administratif</h4>
+        <div class="table-responsive" style="padding: 0rem; margin: 0rem;">
+        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+            <tbody>
+                <tr>
+                    <th class="">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h6 class="card-title text-center">Information Sur le commandement</h6>
+                                <org-model-two-col [element]="cmdtAdministratif" [selectElement]="selectItem" [nameElement]="'cmdt'" 
+                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-two-col>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="">
+                        <div class="card w-100">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <div class="mouse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <div class="float-left"><span class="mouse">Les Bureaux Administratifs</span>
+                                                <span class="badge badge-pill badge-primary">{{cmdtAdministratif?.subdivision.length}}</span></div>
                                             
-                                        <div class="form-group row" [hidden]="!cmdtAdministratif?.code" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="code">Code : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtAdministratif?.code" class="form-control-plaintext form-control-sm" name="code" placeholder="code" required>
-                                            </div>
+                                            <div class="float-right"><span class="badge badge-pill badge-primary mouse" (click)="addSubdivision()"
+                                                data-toggle="modal" data-target="#administratifModal">
+                                                Ajouter
+                                            </span></div>    
                                         </div>
-    
-                                        <div class="form-group row" [hidden]="!cmdtAdministratif?.lieu" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="lieu">Lieu : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtAdministratif?.lieu" class="form-control-plaintext form-control-sm" name="lieu" placeholder="lieu" required>
-                                            </div>
-                                        </div>
-                                            
-                                        <div class="form-group row" [hidden]="!cmdtAdministratif?.gps" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="gps">GPS : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtAdministratif?.gps" class="form-control-plaintext form-control-sm" name="gps" placeholder="gps" required>
-                                            </div>
-                                        </div>
-    
-                                        <div class="form-group row" [hidden]="!cmdtAdministratif?.chef" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="chef">Chef : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtAdministratif?.chef" class="form-control-plaintext form-control-sm" name="chef" placeholder="chef" required>
-                                            </div>
-                                        </div>
-                                            
-                                        <div class="form-group row" [hidden]="!cmdtAdministratif?.contact" style="margin: 0rem;">
-                                            <label class="col-sm-2 col-form-label" for="contact">Contact : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" [value]="cmdtAdministratif?.contact" class="form-control-plaintext form-control-sm" name="contact" placeholder="contact" required>
+                                    </h5>
+                                    </div>
+                                
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body" *ngIf="cmdtAdministratif?.subdivision">
+                                            <div class="row">
+                                                <div class="col-sm-6" *ngFor="let cmdt of cmdtAdministratif?.subdivision">
+                                                    <org-model-one-col [element]="cmdt" [selectElement]="selectItem" [nameElement]="'administratif'"
+                                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                                    <hr>
+                                                </div>
+                                                <hr>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td class="">
-                            <div class="card w-100">
-                                    <div id="accordion">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                            <h5 class="mb-0">
-                                                <div class="mouse" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    <div class="float-left"><span class="mouse">Les Bureaux Administratifs</span></div>
-                                                    
-                                                    <div class="float-right"><span class="badge badge-pill badge-primary">{{cmdtAdministratif?.subdivision.length}}</span></div>
-                                                </div>
-                                            </h5>
-                                            </div>
-                                        
-                                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                                <div class="card-body" *ngIf="cmdtAdministratif?.subdivision">
-                                                    <div class="row">
-                                                        <div class="col-sm-6" *ngFor="let cmdt of cmdtAdministratif?.subdivision">
-                                                            <div class="card mb-3">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title">{{cmdt.nom}}</h5>
-                                                                    <p class="card-text">
-    
-                                                                    </p>
-                                                                    <div class="text-center">
-                                                                        <span class="badge badge-pill badge-primary mouse">Detail</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="administratifModal" tabindex="-1" role="dialog" aria-labelledby="administratifModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="administratifModalLabel">Ajouter un bureau administratif</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <org-model-one-col [element]="modelAdministratif" [selectElement]="selectItem" [nameElement]="'administratif'"
+                [btnAction]="'Ajouter'" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                
+        </div>
         </div>
     </div>
+</div>

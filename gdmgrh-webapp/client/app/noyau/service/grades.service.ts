@@ -12,41 +12,41 @@ export class GradesService {
   ) { }
 
   getAllCat(){
-    return this.http.get<any>(`/grades/getallcat`)
+    return this.http.get<any>(`/noyau/grades/getallcat`)
       .pipe(
         catchError(this.handleError('getCategories'))
       );
   }
 
   getAllNiv(){
-    return this.http.get<any>(`/grades/getallniv`)
+    return this.http.get<any>(`/noyau/grades/getallniv`)
       .pipe(
         catchError(this.handleError('getNiveaux'))
       );
   }
 
   getAllGrades(){
-    return this.http.get<any>(`/grades/getall`)
+    return this.http.get<any>(`/noyau/grades/getall`)
       .pipe(
         catchError(this.handleError('getGrades'))
       );
   }
   addNewGrade(newgrade){
-    return this.http.post<any>(`/grades/add`,newgrade)
+    return this.http.post<any>(`/noyau/grades/add`,newgrade)
       .pipe(
         catchError(this.handleError('addGrades'))
       );
   }
 
   editGrade(grade,id){
-    return this.http.put<any>(`/grades/edit/${id}`,grade)
+    return this.http.put<any>(`/noyau/grades/edit/${id}`,grade)
       .pipe(
         catchError(this.handleError('getGrades'))
       );
   }
 
   deleteGrade(id){
-    return this.http.delete<any>(`/grades/${id}`,id)
+    return this.http.delete<any>(`/noyau/grades/${id}`,id)
       .pipe(
         catchError(this.handleError('getGrades'))
       );

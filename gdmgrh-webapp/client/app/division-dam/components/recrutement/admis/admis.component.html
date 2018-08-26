@@ -1,74 +1,153 @@
 <style>
-    .fixedcard {
-        max-height:300px;
+    .fixedtable {
+        max-height:200px;
         overflow:auto;
     }
 </style>
 <div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12 text-center">
+        <h2>Gestion des admis</h2>
+        </div>
+    </div>
+
     <div >
+        <hr>
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-12 text-center">
-            <h2>Gestion des admis</h2>
+            <div class="col-12 alert alert-info" role="alert">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="mb-0">
+                            <a class="mouse" data-toggle="collapse" (click)="showPanel('listPrmotion')" [attr.data-target]="'#ListPrmotion'" aria-expanded="true" aria-controls="collapseOne">
+                                    {{'( '+showPlistPrmotion+' ) '}} Lister les promotions en cours et leurs candidats
+                            </a>
+                        </h5>
+                    </div>
+                    
+                    <div class="col-4 text-right" *ngIf="promotionList">
+                        <span class="badge badge-danger">
+                            {{promotionList.length}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-body">
+                    <div id="ListPrmotion" class="collapse" aria-labelledby="headingOne">
+                        <div *ngIf="promotionList">
+                            <div *ngFor="let promotion of promotionList; let i = index;">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h6 class="mb-0">
+                                            <a class="mouse" data-toggle="collapse" (click)="showPanel('listCandidats', i)" 
+                                                [attr.data-target]="'#ListCandidats'+i" aria-expanded="true" aria-controls="collapseOne">
+                                                    {{indexPromo === i ? '( '+showPListCandidats+' )' : '( + )'}}{{' Lister les Candidats de '+ promotion.libelle}}
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    <div class="col-4 text-right" *ngIf="promotionList?.candidats">
+                                        <span class="badge badge-danger">
+                                            {{promotionList?.candidats.length}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="ListCandidats{{i}}" class="collapse" aria-labelledby="headingOne">
+                                            <div *ngIf="promotion?.candidats">
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-12 text-center">
+                                                            <h6>Les candidats</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card w-100" style="padding: 0rem; padding-bottom: 0rem;">
+                                                        <div class="card-body" style="padding: 1rem;">                                                            
+                                                            <div class="row" >
+                                                                <table class="col-12 table table-sm" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">#</th>
+                                                                            <th scope="col">Matricule</th>
+                                                                            <th scope="col">Nom</th>
+                                                                            <th scope="col">Prenom</th>
+                                                                            <th scope="col">CNI</th>
+                                                                            <th scope="col">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                            
+                                                                    <tbody *ngIf="promotion?.candidats.length" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+                                                                        <tr *ngFor="let candidat of promotion?.candidats; let j = index;">
+                                                                            <td>{{i}}</td>
+                                                                            <td>{{candidat?.matricule}}</td>
+                                                                            <td>{{candidat?.nom}}</td>
+                                                                            <td >{{candidat?.prenom}}</td>
+                                                                            <td >{{candidat?.cni}}</td>
+                                                                            <th><span class="badge badge-pill badge-success" (click)="showCandidat(candidat, 'admis')">
+                                                                                admis</span></th>
+                                                                            <td><span class="badge badge-pill badge-danger mouse" (click)="showCandidat(candidat, 'ajourner')">
+                                                                                ajourner
+                                                                            </span></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <div class="col-12 text-center" *ngIf="!promotion?.candidats.length">
+                                                                    Pas de candidats pour le moment
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+    
+                        <div *ngIf="!promotionList">
+                            Pas de sessions en cours
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+    <div >
+
+        <div class="row">
+            <div class="col-8">
+                <h4 class="mb-0">
+                    Liste des candidats admis
+                </h4>
+            </div>
+        </div>
+        <hr>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12">
                 <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-4" for="session">Lister Par Session</label>
-                        <div class="col-5">
-                            <select class="form-control form-control-sm" name="session">
-                                <option [value]="''" >Session ...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        <select class="form-control form-control-sm" name="status">
-                                            <option [value]="'matricule'" >Matricule</option>
-                                            <option [value]="'cni'">CNI</option>
-                                            <option [value]="'session'">Session</option>
-                                        </select>
-                                    </th>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ...">
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm">Imprimer</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                     <table class="col-md-12 table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Matricule</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">Session</th>
-                                <th scope="col">CNI</th>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Libelle</th>
+                                <th scope="col">Niveau</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                 
-                        <tbody class="fixedcard" *ngIf="admisList.length">
+                        <tbody class="fixedtable" *ngIf="admisList.length">
                             <tr *ngFor="let admis of admisList, let i = index">
                                 <td>{{i}}</td>
-                                <td>{{admis?.matricule}}</td>
-                                <td>{{admis?.nom}}</td>
-                                <td>{{admis?.prenom}}</td>
-                                <td>{{admis?.session}}</td>
-                                <td>{{admis?.CNI}}</td>
+                                <td>{{admis?.numero}}</td>
+                                <td>{{admis?.libelle}}</td>
+                                <td>{{admis?.niveau}}</td>
                                 <td><span class="badge badge-primary mouse" (click)="showadmis(admis)" data-toggle="modal" data-target="#admisModal">
-                                        details
+                                        lister
                                 </span></td>
                             </tr>
                         </tbody>

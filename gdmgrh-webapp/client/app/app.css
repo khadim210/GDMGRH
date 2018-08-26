@@ -65,7 +65,25 @@
   cursor: pointer;
 }
 
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.fixedcard {
+  max-height:300px;
+  overflow:auto;
+}
+
+/*
+.ng-untouched:not(form) {
+  border: 1px solid #ccc;
+}
+*/
 /* Component styles are injected through gulp */
 /* inject:css */
-@import 'noyau/components/sanction/recompense/recompense.component.css';
+@import '/nodemodules/bootstrap/dist/css/bootstrap.min';
 /* endinject */

@@ -1,38 +1,316 @@
-<div class="card-body">
-        <h1>Commandement Territorial </h1>
-    
-        Nom : {{cmdtTerritorial.nom}}<br>
-        Code : {{cmdtTerritorial.code}}
-        <div *ngIf="cmdtTerritorial.legion">
-            <div *ngFor="let legion of cmdtTerritorial.legion">
-                <span class="badge badge-primary"> 
-                    {{legion.nom}} <br>
-                    code : {{legion.code}}
-                 </span><br>
-                 Etat Major <br>
-                 Nom : {{legion.etatmajor.nom}} <br>
-                 Code : {{legion.etatmajor.code}} <br>
-                 <br>
-                 <div *ngIf="legion.brigade">
-                    Brigades
-                    <div *ngFor="let brigade of legion.brigade">
-                        Nom : {{brigade.nom}} <br>
-                        Code : {{brigade.code}} <br>
+<div>
+    <h1>Commandement Territorial </h1>
+    <div class="card border-light w-100 mb-3">
+        <div class="card-header">Etat Major de la Gendarmerie Nationale</div>
+
+
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="card-title text-center">Information sur le commandement </h5>
+                        <org-model-two-col [element]="cmdtTerritorial" [selectElement]="selectItem" [nameElement]="'cmdt'" 
+                        [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-two-col>
+                    <hr>
+                </div>
+            </div>
+
+<!--
+
+    Section
+
+-->
+
+            <hr>
+            <div class="row">
+                <div class="col-4">
+                    <h6 class="mb-0">
+                        <a class="mouse" data-toggle="collapse" (click)="showPanel('section')" [attr.data-target]="'#sectionsOne'" aria-expanded="false" aria-controls="collapseOne">
+                                {{'( '+showPSections+' ) Les sections'}}
+                        </a>
+                    </h6>
+                </div>
+                <div class="col-8 text-right" *ngIf="cmdtTerritorial.section">
+                    <span class="badge badge-danger">
+                        {{cmdtTerritorial.section.length}}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="sectionsOne" class="collapse" aria-labelledby="headingOne">
+                        <div class="alert alert-danger text-center" role="alert" *ngIf="!cmdtTerritorial.section">
+                            <h4 class="alert-heading">Pas de sections</h4>
+                            <p>Vous pouvez en créer !!!</p>
+                            <hr>
+                            <button class="btn btn-sm btn-outline-success">Créer</button>
+                        </div>
+            
+                        <div class="row" *ngIf="cmdtTerritorial.section">
+                            <div class="col-sm-6" *ngFor="let section of cmdtTerritorial.section">
+                                <div class="card border-light mb-3">
+                                    <div class="card-body text-center">        
+                                        <org-model-one-col [element]="section" [selectElement]="selectItem" [nameElement]="'section'"
+                                            [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div> 
-                <br>
-                <br>
-                <div *ngIf="legion.compagnie">
-                    compagnie : <span class="badge badge-danger">{{legion.compagnie.length}} </span>
+                </div>
+            </div>
+
+<!--
+
+    Legions
+
+-->
+            <hr>
+            <h5 class="card-title">Les legions</h5>
+            <div class="alert alert-danger text-center" role="alert" *ngIf="!cmdtTerritorial.legion">
+                <h4 class="alert-heading">Pas de legions</h4>
+                <p>Vous pouvez en créer !!!</p>
+                <hr>
+                <button class="btn btn-sm btn-outline-success">Créer</button>
+            </div>
+
+            <div class="row" *ngIf="cmdtTerritorial.legion">
+                <div class="col-12" *ngFor="let legion of cmdtTerritorial.legion, let i = index">
+                    <div class="card border-light mb-3">
+                        <div class="card-header" id="headingOne">
+                            <h6 class="mb-0">
+                                <a class="mouse" data-toggle="collapse" (click)="showPanelLegion(i)" [attr.data-target]="'#collapseOne'+i" aria-expanded="false" aria-controls="collapseOne">
+                                    {{indexLegion === i ? '( '+showOneLegion+' )' : '( + )'}} {{' legion #'+(i+1)}}
+                                </a>
+                            </h6>
+                        </div>
+                        
+                        <div id="collapseOne{{i}}" class="collapse " aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <div>
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h6 class="card-title">Information legion</h6>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label" for="nomcmdt">Nom : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.nom" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="nomcmdt" placeholder="Nom legion" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label" for="codecmdt">Code : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.code" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="codecmdt" placeholder="code legion" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" [hidden]="!legion.lieu && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="lieucmdt">Lieu : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.lieu" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="lieucmdt" placeholder="lieu legion" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" [hidden]="!legion.gps && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="gpscmdt">GPS : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.gps" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="gpscmdt" placeholder="gps legion" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row"[hidden]="!legion.chef && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="chefcmdt">Chef : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.chef" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="chefcmdt" placeholder="chef legion" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" [hidden]="!legion.contact && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="contactcmdt">Contact : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.contact" type="number" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="contactcmdt" placeholder="contact legion" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <h6 class="card-title">Etat Major</h6>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label" for="nomcmdt">Nom : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.etatmajor.nom" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="nomcmdt" placeholder="Nom legion.etatmajor" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-4 col-form-label" for="codecmdt">Code : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.etatmajor.code" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="codecmdt" placeholder="code legion.etatmajor" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" [hidden]="!legion.etatmajor.lieu && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="lieucmdt">Lieu : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.etatmajor.lieu" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="lieucmdt" placeholder="lieu legion.etatmajor" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" [hidden]="!legion.etatmajor.gps && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="gpscmdt">GPS : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.etatmajor.gps" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="gpscmdt" placeholder="gps legion.etatmajor" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row"[hidden]="!legion.etatmajor.chef && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="chefcmdt">Chef : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.etatmajor.chef" type="text" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="chefcmdt" placeholder="chef legion.etatmajor" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" [hidden]="!legion.etatmajor.contact && selectItem !== legion._id">
+                                                    <label class="col-sm-4 col-form-label" for="contactcmdt">Contact : </label>
+                                                    <div class="col-sm-8">
+                                                        <input [(ngModel)]="legion.etatmajor.contact" type="number" [required]="selectItem === legion._id"
+                                                            class="{{selectItem === legion._id ? 'form-control' : 'form-control-plaintext'}} form-control-sm"
+                                                            name="contactcmdt" placeholder="contact legion.etatmajor" [readonly]="selectItem !== legion._id">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="form-group row">
+                                            <div class="col-12 text-center">
+                                                <button type="button" [disabled]="selectItem !== legion._id && btnSousAction === 'Enregistrer'" 
+                                                    (click)="updateLegion(legion)" class="btn btn-sm btn-outline-primary">
+                                                    {{selectItem === legion._id ? btnSousAction : 'Modifier'}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h6 class="mb-0">
+                                                <a class="mouse" data-toggle="collapse" (click)="showPanel('brigade')" [attr.data-target]="'#brigadeOne'+i" aria-expanded="false" aria-controls="collapseOne">
+                                                        {{indexLegion === i ? '( '+showPBrigade+' )' : '( + )'}}{{' Les brigades'}}
+                                                </a>
+                                            </h6>
+                                        </div>
+                                        <div class="col-8 text-right" *ngIf="legion.brigade">
+                                            <span class="badge badge-danger">
+                                                {{legion.brigade.length}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div id="brigadeOne{{i}}" class="collapse" aria-labelledby="headingOne">
+                                                <div *ngIf="legion.brigade">
+                                                    <div class="row">
+                                                        <div class="col-sm-6" *ngFor="let brigade of legion.brigade">
+                                                            <div class="card border-light mb-3">
+                                                                <div class="card-body text-center">
+                                                                    <org-model-one-col [element]="brigade" [selectElement]="selectItem" [nameElement]="'brigade'"
+                                                                    [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                                                </div> 
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h6 class="mb-0">
+                                                <a class="mouse" data-toggle="collapse" (click)="showPanel('compagnie')" [attr.data-target]="'#compagnieOne'+i" aria-expanded="false" aria-controls="collapseOne">
+                                                        {{indexLegion === i ? '( '+showPCompagnie+' )' : '( + )'}}{{' Les Compagnies'}}
+                                                </a>
+                                            </h6>
+                                        </div>
+                                        <div class="col-8 text-right" *ngIf="legion.compagnie">
+                                            <span class="badge badge-danger">
+                                                {{legion.compagnie.length}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div id="compagnieOne{{i}}" class="collapse" aria-labelledby="headingOne">
+                                                <div *ngIf="legion.compagnie">
+                                                    <div class="row">
+                                                        <div class="col-sm-12" *ngFor="let compagnie of legion.compagnie">
+                                                            <div class="card border-light mb-3">
+                                                                <div class="card-body text-center">
+                                                                    <org-model-two-col [element]="compagnie" [selectElement]="selectItem" [nameElement]="'compagnie'" 
+                                                                        [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-two-col>
+                                                                </div> 
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-4">
+                                                                    <h6 class="mb-0">
+                                                                        <a class="mouse" data-toggle="collapse" (click)="showPanel('brigade compagnie')" [attr.data-target]="'#compBrigadeOne'+i" aria-expanded="false" aria-controls="collapseOne">
+                                                                                {{indexLegion === i ? '( '+showPBrigadeCompagnie+' )' : '( + )'}} Les Brigades
+                                                                        </a>
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="col-8 text-right" *ngIf="compagnie.sousentite">
+                                                                    <span class="badge badge-danger">
+                                                                        {{compagnie.sousentite.length}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div id="compBrigadeOne{{i}}" class="collapse" aria-labelledby="headingOne">
+                                                                        <div *ngIf="compagnie.sousentite">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6" *ngFor="let brigade of compagnie.sousentite">
+                                                                                    <div class="card border-light mb-3">
+                                                                                        <div class="card-body text-center">
+                                                                                            <org-model-one-col [element]="brigade" [selectElement]="selectItem" [nameElement]="'brigade compagnie'" 
+                                                                                                [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <hr>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
         </div>
-
-        <div *ngIf="cmdtTerritorial.section">
-            Les sections <br>
-            <div *ngFor="let section of cmdtTerritorial.section">
-                        Nom : {{section.nom}} <br>
-                        code : {{section.code}} <br>
-            </div>
-        </div>
     </div>
+</div>

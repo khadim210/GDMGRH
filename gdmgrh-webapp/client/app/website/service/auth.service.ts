@@ -47,7 +47,7 @@ export class AuthService {
      * Sign-in User
      */
     signin(user) {
-        return this.http.post<any>(`/user/signin`, user)
+        return this.http.post<any>(`/noyau/user/signin`, user)
           .pipe(
             catchError(this.handleError('signin'))
           );

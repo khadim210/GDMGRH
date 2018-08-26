@@ -35,28 +35,28 @@
                                         <form #agentPanelForm="ngForm">
                                             <div class="row">
                                                 <div class="col-md-12 col-12">
-                                                    <div class="form-group row">
+                                                    <div class="form-group row" [hidden]="!profilModel.matricule">
                                                         <label class="col-sm-4 col-form-label" for="matriculeagent">Matricule agent : </label>
                                                         <div class="col-sm-8">
                                                             <input [(ngModel)]="profilModel.matricule" type="text" class="{{inputClass}} form-control-sm" name="matricule" placeholder="matricule agent" required>
                                                         </div>
                                                     </div>
                                                         
-                                                    <div class="form-group row">
+                                                    <div class="form-group row" [hidden]="!profilModel.agent.name">
                                                         <label class="col-sm-4 col-form-label" for="nomagent">Nom agent : </label>
                                                         <div class="col-sm-8">
                                                             <input [(ngModel)]="profilModel.agent.name" type="text" class="{{inputClass}} form-control-sm" name="lastname" placeholder="nom et prenom du agent" required>
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group row">
+                                                    <div class="form-group row" [hidden]="!profilModel.agent.cni">
                                                         <label class="col-sm-4 col-form-label" for="numerocni">Numero Carte Identification : </label>
                                                         <div class="col-sm-8">
                                                             <input [(ngModel)]="profilModel.agent.cni" type="text" class="{{inputClass}} form-control-sm" name="cni" placeholder="numero carte identification nationale" required>
                                                         </div>
                                                     </div>
                                                     
-                                                    <div class="form-group row">
+                                                    <div class="form-group row" [hidden]="!profilModel.agent.genre">
                                                         <label class="col-sm-4 col-form-label" for="genre">Genre : </label>
                                                         <div class="col-sm-8" [hidden]="btnUpdateHidden">
                                                             <select class="{{inputClass}} form-control-sm" name="genre" [(ngModel)]="profilModel.agent.genre" required>
@@ -154,10 +154,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-            <upload-file></upload-file>
     </div>
 </div>

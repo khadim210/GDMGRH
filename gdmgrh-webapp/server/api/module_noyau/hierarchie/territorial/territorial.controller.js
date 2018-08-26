@@ -54,9 +54,42 @@ export async function addTerritorial(req, res) {
 export async function getTerritorial(req, res) {
   var allTerritorial = null;
   try {
-    allTerritorial = await TerritorialRepository.getAllWithPopulate({path: 'section'}, {path: 'legion'});
+    allTerritorial = await TerritorialRepository.getAllWithPopulate({path: 'section'}, {path: 'legion.compagnie', populate: { path: 'sousentite' }});
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return res.json({allTerritorial});
+}
+
+export async function updateTerritorial(req, res) {
+  var idbody = req.params.id;
+  var nombody = req.body.nom;
+  var codebody = req.body.code;
+  var lieubody = req.body.lieu;
+  var contactbody = req.body.contact;
+  var gpsbody = req.body.gps;
+  var chefbody = req.body.chef;
+  var sectionbody = req.body.section;
+  var legionbody = req.body.legion;
+  if(nombody && codebody && lieubody && sectionbody && legionbody
+    && contactbody && chefbody && gpsbody && idbody) {
+    var updateResponse = null;
+  }
+}
+
+export async function updateLegion(req, res) {
+  var idbody = req.params.id;
+  var nombody = req.body.nom;
+  var codebody = req.body.code;
+  var lieubody = req.body.lieu;
+  var contactbody = req.body.contact;
+  var gpsbody = req.body.gps;
+  var chefbody = req.body.chef;
+  var etatmajorbody = req.body.etatmajor;
+  var brigadebody = req.body.brigade;
+  var compagniebody = req.body.compagnie;
+  if(nombody && codebody && lieubody && brigadebody && compagniebody
+    && contactbody && chefbody && gpsbody && etatmajorbody && idbody) {
+    var updateResponse = null;
+  }
 }

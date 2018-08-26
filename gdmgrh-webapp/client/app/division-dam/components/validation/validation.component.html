@@ -17,65 +17,75 @@
                             </select>
                         </div>
                     </div>
-                    <table class="col-md-12 table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Numero</th>
-                                <th scope="col">Categorie</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                
-                        <tbody class="fixedcard" *ngIf="validationList.length">
-                            <tr *ngFor="let validation of validationList, let i = index">
-                                <td>{{i}}</td>
-                                <td>{{validation?.numero}}</td>
-                                <td>{{validation?.categorie}}</td>
-                                <td>{{validation?.CNI}}</td>
-                                <td>
-                                    <span class="badge badge-primary mouse" (click)="showvalidation(validation)" data-toggle="modal" data-target="#validationModal">
-                                        valider
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-primary mouse" (click)="showrevue(validation)" data-toggle="modal" data-target="#validationModal">
-                                        details
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-primary mouse" (click)="showmodifier(validation)" data-toggle="modal" data-target="#validationModal">
-                                        modifier/valider
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="!validationList.length">
-                            <tr>
-                                <td></td>
-                                <th></th>
-                                <td></td>
-                                <td>Vide</td>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive-sm">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Libelle</th>
+                                    <th scope="col">Categorie</th>
+                                    <th scope="col">Division</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                    
+                            <tbody class="fixedcard" *ngIf="validationList.length">
+                                <tr *ngFor="let validation of validationList, let i = index">
+                                    <td>{{i}}</td>
+                                    <td>{{validation?.libelle}}</td>
+                                    <td>{{validation?.categorie}}</td>
+                                    <td>{{validation?.division}}</td>
+                                    <td>{{validation?.status}}</td>
+                                    <td>
+                                        <span class="badge badge-primary mouse" (click)="showvalidation(validation)">
+                                            valider
+                                        </span>
+                                    </td>
+                                    <!--
+                                    <td>
+                                        <span class="badge badge-primary mouse" (click)="showrevue(validation)">
+                                            details
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-primary mouse" (click)="showmodifier(validation)" >
+                                            modifier/valider
+                                        </span>
+                                    </td>
+                                    -->
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="test" type="checkbox" value="" id="defaultCheck1">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!validationList.length">
+                                <tr>
+                                    <td></td>
+                                    <th></th>
+                                    <td></td>
+                                    <td>Pas de nécessiter de validation</td>
+                                    <th></th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="!validationList.length" class="col-12">
+                                Pas de nécessiter de validation
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="!validationList.length" class="row">
-                    <div class="col-12 table-responsive">
+                <div class="row">
+                    <div class="col-12 table-responsive" *ngIf="validationList.length">
                         <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
                             <tbody>
                                 <tr>
                                     <th>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <input class="form-check-input" type="checkbox" name="test" value="" id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">
                                                 tout selectionner
                                             </label>
@@ -85,13 +95,13 @@
                                         
                                     </td>
                                     <td>
-                                        <div class="col-4">
-                                            <button class="btn btn-sm">Valider</button>
+                                        <div *ngIf="role === 'chef'" class="col-4 text-right">
+                                            <button class="btn btn-sm">Revue</button>
                                         </div>
                                     </td>
                                     <td>
-                                        <div *ngIf="role === 'chef'" class="col-4">
-                                            <button class="btn btn-sm">Revue</button>
+                                        <div class="col-4 text-right">
+                                            <button class="btn btn-sm">Valider</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -106,7 +116,7 @@
         
 <!--
     validation: {
-        numero: 'mutation'+nbrtotal,
+        libelle: 'mutation'+nbrtotal,
         categorie: 'mutation',
         division: 'DAM',
         status: 'appuie chef dam',

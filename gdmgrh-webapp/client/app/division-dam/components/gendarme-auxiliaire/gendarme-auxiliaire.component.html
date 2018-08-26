@@ -13,45 +13,90 @@
         </div>
     
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-12">
+            <div class="col-md-10 col-sm-10 col-12">
                 <div class="card">
                     <div class="card-body h-25 d-inline-block">
                         <h5 class="card-title">Créer un nouveau gendarme auxiliaire</h5>
                         <form>
                             <div class="row">
                                 <div class="col-md-12 mb-3 col-12">
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="matriculetemporaire">Matricule Temporaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="matriculetemporaire" placeholder="matricule temporaire" required>
+                                    <div class="row">
+                                        <div class="col-md-9 col-8">
+                                            <div class="row">
+                                                <div *ngIf="msgErrorFrom" class="col-12 alert alert-danger" role="alert">
+                                                    {{msgErrorFrom | json}}
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="matriculetemporaire">Matricule Temporaire</label>
+                                                    <input [(ngModel)]="gendarmeauxiliaireForm.matricule" type="text" class="form-control form-control-sm"
+                                                            name="matriculetemporaire" placeholder="matricule temporaire" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <label for="numerocni">Numero Carte Identification</label>
+                                                    <input [(ngModel)]="gendarmeauxiliaireForm.cni" type="text" class="form-control form-control-sm"
+                                                            name="numerocni" placeholder="numero carte identification nationale" required>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="contact">Contact</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="prenomgendarmeauxiliaire" placeholder="prenom gendarmeauxiliaire" required>                                            
+                                        <div class="col-2">
+                                            <picture-profile [src]="src" [urlCompleted]="urlCompleted" (uploadResponse)="onResponsePictureEmit($event)"></picture-profile>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="nomgendarmeauxiliaire">Nom Gendarme Auxiliaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="nomgendarmeauxiliaire" placeholder="nom gendarmeauxiliaire" required>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.nom" type="text" class="form-control form-control-sm"
+                                                    name="nomgendarmeauxiliaire" placeholder="nom gendarmeauxiliaire" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="prenomgendarmeauxiliaire">Prenom Gendarme Auxiliaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="prenomgendarmeauxiliaire" placeholder="prenom gendarmeauxiliaire" required>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.prenom" type="text" class="form-control form-control-sm" 
+                                                    name="prenomgendarmeauxiliaire" placeholder="prenom gendarmeauxiliaire" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="genre">Genre</label>
+                                            <select [(ngModel)]="gendarmeauxiliaireForm.genre" class="form-control form-control-sm" name="genre" required>
+                                                <option [value]="''" disabled hidden>choisir genre ...</option>
+                                                <option [value]="undefined" disabled hidden>choisir genre ...</option>
+                                                <option [value]="'homme'" >Homme</option>
+                                                <option [value]="'femme'" >Femme</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">                                            
+                                            <label for="genre">Date Naissance</label>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.dateNaissance" type="date" class="form-control form-control-sm" 
+                                                name="dateNaissance" placeholder="date de naissance" min="" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="diplome">Dernier Diplôme</label>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.dernierDiplome" type="text" class="form-control form-control-sm"
+                                                    name="diplome" placeholder="dernier diplome" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="specialite">Spécialité</label>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.specialite" type="text" class="form-control form-control-sm"
+                                                    name="specialite" placeholder="specialite" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <label for="numerocni">Numero Carte Identification</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="numerocni" placeholder="numero carte identification nationale" required>
+                                            <label for="contact">Numero Téléphone</label>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.contact" type="text" class="form-control form-control-sm"
+                                                    name="778889900" placeholder="contact" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="genre">Genre</label>
-                                            <select class="form-control form-control-sm" name="genre">
-                                                <option [value]="''" >choisir genre ...</option>
-                                                <option [value]="'homme'" >Homme</option>
-                                                <option [value]="'femme'" >Femme</option>
-                                            </select>
+                                            <label for="email">Adresse Email</label>
+                                            <input [(ngModel)]="gendarmeauxiliaireForm.email" type="text" class="form-control form-control-sm"
+                                                    name="email" placeholder="adresse@email.com" pattern="([a-zA-Z0-9-_.]+)@([a-z]+)([.])([a-z]{2,5})" required>
                                         </div>
                                     </div>
                                 </div>
@@ -61,10 +106,7 @@
                                     <div class="form-row">
                                         <div class="col-md-12">
                                             <label for="fichierjoint">Fichiers Joints au Dossier</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="" id="fichierjoint" placeholder="fichier joint" required>
-                                                <label class="custom-file-label" for="validatedCustomFile">selectionner le fichier ...</label>
-                                            </div>
+                                            <upload-file [tableUpload]="tableUpload" [urlCompleted]="urlCompleted" (response)="onResponseFileEmit($event)"></upload-file>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <button class="btn btn-primary" type="submit">Enregistrer</button>
+                            <button class="btn btn-primary" type="button" (click)="createGendarme()">Enregistrer</button>
                         </form>
                     </div>
                 </div>
@@ -120,7 +162,7 @@
                                 <td>{{gendarmeauxiliaire?.matricule}}</td>
                                 <td>{{gendarmeauxiliaire?.nom}}</td>
                                 <td>{{gendarmeauxiliaire?.prenom}}</td>
-                                <td><span class="badge badge-primary mouse" (click)="showGendarmeauxiliaire(gendarmeauxiliaire)" data-toggle="modal" data-target="#gendarmeauxiliaireModal">
+                                <td><span class="badge badge-primary mouse" (click)="showGendarmeAuxiliaire(gendarmeauxiliaire)" data-toggle="modal" data-target="#gendarmeauxiliaireModal">
                                         details
                                 </span></td>
                             </tr>

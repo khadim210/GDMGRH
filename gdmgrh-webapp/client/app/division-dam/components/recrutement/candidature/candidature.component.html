@@ -5,7 +5,7 @@
     }
 </style>
 <div>
-    <div >
+    <div id="detail" >
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12 text-center">
             <h2>Gestion des candidatures</h2>
@@ -14,73 +14,190 @@
     
         <div class="row">
             <div class="col-md-12 col-sm-12 col-12">
-                <div class="card">
+                <div  class="card">
                     <div class="card-body h-25 d-inline-block">
-                        <h5 class="card-title">Créer une nouvelle candidature</h5>
-                        <form>
+                        <h5 class="card-title" [hidden]="btnAction ==='Editer'">Créer une nouvelle candidature</h5>
+                        <h6 class="card-title" [hidden]="!(btnAction ==='Editer')">Modifier Candidat</h6>
+                        <hr>
+                        <form #candidatPanelForm = "ngForm">
                             <div class="row">
                                 <div class="col-md-12 mb-3 col-12">
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="matriculetemporaire">Matricule Temporaire</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="matriculetemporaire" placeholder="matricule temporaire" required>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div *ngIf="msgErrorFrom" class="col-12 alert alert-danger" role="alert">
+                                                    {{msgErrorFrom | json}}
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="matriculetemporaire">Matricule Temporaire :</label>
+                                                    <input [(ngModel)]="candidatFrom.matricule" type="text" 
+                                                            class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                            name="matricule" placeholder="matricule temporaire" 
+                                                            [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <label for="promotion">Promotion {{btnAction ==='Editer' ? 'Enregistrer' : 'En cours'}} :</label>
+                                                    <input [hidden]="!(btnAction ==='Editer')" [(ngModel)]="candidatFrom.promotion" type="text" 
+                                                            class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                            name="promotion" placeholder="promotion " 
+                                                            [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                                    <select [hidden]="btnAction ==='Editer'" [(ngModel)]="promotion" 
+                                                            class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" name="promotion" [required]="!(btnAction ==='Editer')">
+                                                        <option [value]="''" disabled hidden >Choisir Promotion ...</option>
+                                                        <option [value]="undefined" disabled hidden >Choisir Promotion ...</option>
+                                                        <option *ngFor="let promotion of promotionList" [value]="promotion._id" >{{promotion.libelle}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="session">Session</label>
-                                            <select class="form-control form-control-sm" name="status">
-                                                <option [value]="''" >Choisir niveau ...</option>
-                                                <option *ngFor="let session of sessionList" [value]="session" >{{session.nom}}</option>
-                                            </select>
+                                        <div class="offset-md-1 offset-sm-1 col-2 text-right">
+                                            <picture-profile  [disabled]="btnAction ==='Editer' || (btnAction ==='Editer' && urlCompleted==='secretaire')" [src]="src" 
+                                                [urlCompleted]="urlCompleted" (uploadResponse)="onResponsePictureEmit($event)"></picture-profile>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="nomcandidat">Nom Candidat</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="nomcandidat" placeholder="nom candidat" required>
+                                            <label for="nomcandidat">Nom Candidat :</label>
+                                            <input [(ngModel)]="candidatFrom.nom" type="text" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="nomcandidat" placeholder="nom candidat" 
+                                                    [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="prenomcandidat">Prenom Candidat</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="prenomcandidat" placeholder="prenom candidat" required>
+                                            <label for="prenomcandidat">Prenom Candidat :</label>
+                                            <input [(ngModel)]="candidatFrom.prenom" type="text" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="prenomcandidat" placeholder="prenom candidat" 
+                                                    [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <label for="numerocni">Numero Carte Identification</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id="numerocni" placeholder="numero carte identification nationale" required>
+                                            <label for="numerocni">Numero Carte Identification :</label>
+                                            <input [(ngModel)]="candidatFrom.cni" type="text" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="numerocni" placeholder="numero carte identification nationale" 
+                                                    [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="genre">Genre</label>
-                                            <select class="form-control form-control-sm" name="genre">
-                                                <option [value]="''" >choisir genre ...</option>
-                                                <option [value]="'homme'" >Homme</option>
-                                                <option [value]="'femme'" >Femme</option>
-                                            </select>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <label for="genre">Genre :</label>
+                                                    <input [hidden]="!(btnAction ==='Editer')" [(ngModel)]="candidatFrom.genre" type="text" 
+                                                            class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                            name="genre" placeholder="genre" 
+                                                            [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                                    <select [hidden]="btnAction ==='Editer'" [(ngModel)]="candidatFrom.genre" 
+                                                            class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" 
+                                                            name="genre" [required]="!(btnAction ==='Editer')" >
+                                                        <option [value]="''" disabled hidden>choisir genre ...</option>
+                                                        <option [value]="undefined" disabled hidden>choisir genre ...</option>
+                                                        <option [value]="'homme'" >Homme</option>
+                                                        <option [value]="'femme'" >Femme</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="genre">Date Naissance (> {{year}}) :</label>
+                                                    <input [(ngModel)]="candidatFrom.dateNaissance" type="date" 
+                                                            class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm" 
+                                                            name="dateNaissance" placeholder="date de naissance" min="{{date | date:'yyyy-MM-dd'}}" 
+                                                            [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="diplome">Dernier Diplôme :</label>
+                                            <input [(ngModel)]="candidatFrom.dernierDiplome" type="text" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="diplome" placeholder="dernier diplome" [required]="!(btnAction ==='Editer')" 
+                                                    [readonly]="btnAction ==='Editer'">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="specialite">Spécialité :</label>
+                                            <input [(ngModel)]="candidatFrom.specialite" type="text" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="specialite" placeholder="specialite" [required]="!(btnAction ==='Editer')" 
+                                                    [readonly]="btnAction ==='Editer'">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="contact">Numero Téléphone :</label>
+                                            <input [(ngModel)]="candidatFrom.contact" type="number" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="778889900" placeholder="contact" [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email">Adresse Email :</label>
+                                            <input [(ngModel)]="candidatFrom.email" type="text" 
+                                                    class="{{btnAction ==='Editer' ? 'form-control-plaintext' : 'form-control'}} form-control-sm"
+                                                    name="email" placeholder="adresse@email.com" pattern="([a-zA-Z0-9-_.]+)@([a-z]+)([.])([a-z]{2,5})" 
+                                                    [required]="!(btnAction ==='Editer')" [readonly]="btnAction ==='Editer'">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" [hidden]="btnAction ==='Editer'">
                                 <div class="col-md-12 mb-3 col-12">
                                     <div class="form-row">
                                         <div class="col-md-12">
-                                            <label for="fichierjoint">Fichiers Joints au Dossier</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="" id="fichierjoint" placeholder="fichier joint" required>
-                                                <label class="custom-file-label" for="validatedCustomFile">selectionner le fichier ...</label>
-                                            </div>
+                                            <label for="fichierjoint">Fichiers Joints au Dossier :</label>
+                                            <upload-file [tableUpload]="tableUpload" [urlCompleted]="urlCompleted" 
+                                                (response)="onResponseFileEmit($event)"></upload-file>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                    <div class="col-md-12 mb-3 col-12">
-                                        <div class="form-row">
-                                            <div class="col-md-12">
-                                            </div>
+                            <div class="form-row" [hidden]="btnAction ==='Enregistrer'">
+                                <div class="col-md-12">
+                                    <div *ngIf="showFileUpload.length">
+                                        <label for="ordrelancement">Ordre de Lancement :</label><br>
+                                        <div class="fixedcard table-responsive">
+                                            <table class="table table-sm table-borderless" style="padding: 0rem; margin: 0rem;">
+                                                <tbody>
+                                                    <tr *ngFor="let fichier of showFileUpload">
+                                                        <td>
+                                                            <a>{{fichier?.name}}</a>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <img src="./assets/images/book.png" alt="">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+                                    <div [hidden]="btnAction ==='Appliquer'" *ngIf="!showFileUpload.length">
+                                        <label for="ordrelancement">Ordre de Lancement :</label>
+                                        <span class="badge badge-pill badge-danger">Pas de piece jointe</span>
+                                    </div>
                                 </div>
-                            <button class="btn btn-primary" type="submit">Enregistrer</button>
+                            </div>
+                            <div class="text-right" [hidden]="!(btnAction ==='Enregistrer')">
+                                <button class="btn btn-primary" [disabled]="!candidatPanelForm.form.valid" type="button"
+                                        (click)="createCandidat()">{{btnAction}}</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-center " [hidden]="!(btnAction ==='Editer') || urlCompleted === 'secretaire'">
+                                    <button class="btn btn-primary" type="button" (click)="actionPromotion(btnAction)">{{btnAction}}</button>
+                                </div>
+                                <div class="{{urlCompleted === 'secretaire' ? 'col-12' : 'col-6'}} text-center" [hidden]="!(btnAction ==='Editer')">
+                                    <button class="btn btn-danger" type="button" (click)="actionPromotion('Annuler')">Annuler</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Button trigger modal -->
+                            <div class="text-center" [hidden]="!(btnAction ==='Appliquer')">
+                                <button class="btn btn-danger" type="button" (click)="actionPromotion('Annuler')">Annuler</button>
+                                <button class="btn btn-secondary" [disabled]="!candidatPanelForm.form.valid" type="button"
+                                (click)="actionPromotion(btnAction)" data-toggle="modal" data-target="#candidatModal">{{btnAction}}</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -100,50 +217,88 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ..." required>
+                            <input type="text" class="form-control form-control-sm" name="" placeholder="recherche ...">
                         </div>
                         <div class="col-md-4 mb-3">
                             <button class="btn btn-sm">Imprimer</button>
                         </div>
                     </div>
-                    <table class="col-md-12 table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Matricule</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">CNI</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                
-                        <tbody class="fixedcard" *ngIf="candidatList.length">
-                            <tr *ngFor="let candidat of candidatList, let i = index">
-                                <td>{{i}}</td>
-                                <td>{{candidat?.nom}}</td>
-                                <td>{{candidat?.niveau}}</td>
-                                <td>{{candidat?.effectif}}</td>
-                                <td><span class="badge badge-primary mouse" (click)="showcandidat(candidat)" data-toggle="modal" data-target="#candidatModal">
-                                        details
-                                </span></td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="!candidatList.length">
-                            <tr>
-                                <td></td>
-                                <th></th>
-                                <td></td>
-                                <td>Vide</td>
-                                <th></th>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive-sm">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Matricule</th>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">Prenom</th>
+                                            <th scope="col">CNI</th>
+                                            <th scope="col">Diplôme</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                            
+                                    <tbody class="fixedcard" *ngIf="candidatList.length">
+                                        <tr *ngFor="let candidat of candidatList, let i = index">
+                                            <td>{{i}}</td>
+                                            <td>{{candidat?.matricule}}</td>
+                                            <td>{{candidat?.prenom}}</td>
+                                            <td>{{candidat?.nom}}</td>
+                                            <td>{{candidat?.cni}}</td>
+                                            <td>{{candidat?.dernierDiplome}}</td>
+                                            <td>
+                                                <a class="badge badge-primary mouse" [routerLink]="['/dam/recrutement/candidature']" 
+                                                    fragment="detail" href="#detail" (click)="showCandidat(candidat)">
+                                                    details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="!candidatList.length">
+                                        <tr>
+                                            <td></td>
+                                            <th></th>
+                                            <td></td>
+                                            <td>Vide</td>
+                                            <th></th>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
         
+<!-- Modal -->
+<div class="modal fade" id="candidatModal" tabindex="-1" role="dialog" aria-labelledby="candidatModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="candidatModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div [hidden]="!(btnAction ==='Appliquer')">
+            <div class="modal-body">
+                <h5>Êtes-vous sûr de vouloir modifier les informations de ce candidat ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Non</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="updateCandidat()">Oui</button>
+            </div>
+        </div>
+
+        <div class="modal-body" hidden="true">
+        ...
+        </div>
+    </div>
+    </div>
+</div>

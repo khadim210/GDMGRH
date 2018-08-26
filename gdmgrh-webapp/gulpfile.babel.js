@@ -32,7 +32,9 @@ const paths = {
         scripts: [
             `${clientPath}/**/!(*.spec|*.mock).ts`
         ],
-        styles: [`${clientPath}/{app,components}/**/*.css`],
+        styles: [
+            `${clientPath}/{app,components}/**/*.css`
+        ],
         mainStyle: `${clientPath}/app/app.css`,
         views: `${clientPath}/{app,components}/**/*.html`,
         mainView: `${clientPath}/index.html`,
@@ -326,6 +328,7 @@ gulp.task('serve', cb => {
             'copy:jsbootstrap:dev',
             'copy:jsquery:dev',
             'copy:jspopper:dev',
+            'copy:jstoastr:dev',
             'env:all'
         ],
         // 'webpack:dev',
@@ -346,6 +349,7 @@ gulp.task('serve:debug', cb => {
             'copy:jsbootstrap:dev',
             'copy:jsquery:dev',
             'copy:jspopper:dev',
+            'copy:jstoastr:dev',
             'env:all'
         ],
         'webpack:dev',
@@ -467,6 +471,7 @@ gulp.task('build', cb => {
             'copy:jsbootstrap:dist',
             'copy:jsquery:dist',
             'copy:jspopper:dist',
+            'copy:jstoastr:dist',
             'copy:server',
             'webpack:dist'
         ],
@@ -553,6 +558,21 @@ gulp.task('copy:css:dist', () => {
 });
 
 /**
+ * copy css file
+ */
+
+gulp.task('copy:css:dev', () => {
+    return gulp.src('node_modules/toastr/build/toastr.min.css')
+        .pipe(flatten())
+        .pipe(gulp.dest(`${clientPath}/assets/css`));
+});
+gulp.task('copy:css:dist', () => {
+    return gulp.src('node_modules/toastr/build/toastr.min.css')
+        .pipe(flatten())
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/css`));
+});
+
+/**
  * copy js file (BOOTSTRAP)
  */
 
@@ -595,6 +615,21 @@ gulp.task('copy:jspopper:dist', () => {
     return gulp.src('node_modules/popper.js/dist/umd/popper.min.js')
         .pipe(flatten())
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/js/popper.js`));
+});
+
+/**
+ * copy css file (NG-TOASTR.JS)
+ */
+
+gulp.task('copy:jstoastr:dev', () => {
+    return gulp.src('node_modules/toastr/build/toastr.min.js')
+        .pipe(flatten())
+        .pipe(gulp.dest(`${clientPath}/assets/js/toastr`));
+});
+gulp.task('copy:jstoastr:dist', () => {
+    return gulp.src('node_modules/toastr/build/toastr.min.js')
+        .pipe(flatten())
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/js/toastr`));
 });
 
 /**

@@ -3,14 +3,15 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm-12 col-md-3">
+        <div class="col-12 col-sm-12 col-md-2">
               <br>
               <!--
                   Menu Principale module dam
               -->
-            <div class="card text-white mb-1">
-                <div class="card-body">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div class="card text-white mb-1" style="margin: 0rem; padding: 0rem;">
+                <div class="card-body" style="margin: 0rem; padding: 0rem;">
+                    <div style="margin: 0rem; padding: 0rem;"
+                     class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                         aria-controls="v-pills-dashboad" aria-selected="false" routerLink="/dam/dashboad/">
                             Accueil </a>
@@ -25,7 +26,7 @@
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                         aria-controls="v-pills-auxil" #auxilRouterLink="routerLinkActive"
                         aria-selected="false" routerLink="/dam/auxiliaire">
-                            Gendarme Auxiliaire</a>
+                            Auxiliaire (GA)</a>
                         <a class="nav-link" data-toggle="pill" role="tab" routerLinkActive="active"
                         aria-controls="v-pills-archive" #archiveRouterLink="routerLinkActive"
                         aria-selected="false" routerLink="/dam/archive">
@@ -34,28 +35,29 @@
                 </div>
             </div>
 
-            <div class="card text-white mb-1" [hidden]="!recruRouterLink.isActive">
-                <div class="card-body">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div class="card text-white mb-1" [hidden]="!recruRouterLink.isActive" style="margin: 0rem; padding: 0rem;">
+                <div class="card-body" style="margin: 0rem; padding: 0rem;">
+                    <div style="margin: 0rem; padding: 0rem;"
+                    class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link" data-toggle="pill" routerLinkActive="active"
-                        routerLink="/dam/recrutement/session"  role="tab"
-                        aria-controls="v-pills-session" aria-selected="false">Session</a>
+                        routerLink="/dam/recrutement/promotion"  role="tab"
+                        aria-controls="v-pills-promotion" aria-selected="false">Promotion</a>
                         <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
                         routerLink="/dam/recrutement/candidature" role="tab"
                         aria-controls="v-pills-candidature" aria-selected="false">Candidature</a>
                         <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
                         routerLink="/dam/recrutement/admis" role="tab"
                         aria-controls="v-pills-admis" aria-selected="false">Admis</a>
-                        <a class="nav-link"  data-toggle="pill" routerLinkActive="active"
+                        <!--<a class="nav-link"  data-toggle="pill" routerLinkActive="active"
                         routerLink="/dam/recrutement/note" role="tab"
-                        aria-controls="v-pills-note" aria-selected="false">Notes</a>
+                        aria-controls="v-pills-note" aria-selected="false">Notes</a>-->
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="col-12 col-sm-12 col-md-9">
+        <div class="col-12 col-sm-12 col-md-10">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="card border-light">
                     <div class="card-body">

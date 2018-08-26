@@ -1,8 +1,75 @@
-<div class="card-body">
+<div>
     <h1>Commandement Etat Major </h1>
+    <div class="card border-light w-100 mb-3">
+        <div class="card-header">Etat Major de la Gendarmerie Nationale</div>
+        <div class="card-body">
+            <h5 class="card-title">Information sur le commandement </h5>
+            <org-model-two-col [element]="cmdtEtatMajor" [selectElement]="selectItem" [nameElement]="'cmdt'" 
+                [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-two-col>
+            <hr>
+            <h5 class="card-title">Les divisions</h5>
+            <div *ngIf="cmdtEtatMajor?.division">
+                <div *ngFor="let cmdt of cmdtEtatMajor.division; let i = index;">
+                    <hr>
+                    <div class="alert alert-primary" role="alert">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="nomcmdt">Adjoint Division : </label>
+                            <div class="col-sm-3">
+                                <input [(ngModel)]="cmdt.chefadjoint.agent" type="text"  class="form-control-plaintext form-control-sm"
+                                    name="nomcmdt" placeholder="nom agent" [readonly]="true">
+                            </div>
+                            <label class="col-sm-2 col-form-label" for="nomcmdt">Attribution : </label>
+                            <div class="col-sm-3">
+                                <input class="form-control-plaintext form-control-sm" [(ngModel)]="cmdt.chefadjoint.attribution" type="text" 
+                                    name="attribution" placeholder="attribution" [readonly]="true">
+                            </div>
+                            <div class="col-2 text-center">
+                                <button type="button" [disabled]="selectItem !== '' && btnAction === 'Enregistrer'" class="btn btn-sm btn-outline-primary">Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div class="row">
+                        <div class="col-4">
+                            <h5 class="mb-0">
+                                <a class="mouse" data-toggle="collapse" (click)="showPanel('division', i)" [attr.data-target]="'#divisionsOne'+i" aria-expanded="false" aria-controls="collapseOne">
+                                        {{indexDivision === i ? '( '+showPDivision+' )' : '( + )'}}{{' Lister les divisions'}}
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="col-8 text-right" *ngIf="cmdt.iddivision">
+                            <span class="badge badge-danger">
+                                {{cmdt.iddivision.length}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="divisionsOne{{i}}" class="collapse" aria-labelledby="headingOne">
+                                <div *ngIf="cmdt.iddivision">
+                                    <div class="row">
+                                        <div class="col-sm-6" *ngFor="let division of cmdt.iddivision">
+                                            <div class="card border-light mb-3">
+                                                <div class="card-body text-center">
+                                                    <org-model-one-col [element]="division" [selectElement]="selectItem" [nameElement]="'division'"
+                                                            [btnAction]="btnAction" (actionElement)="onElementEmit($event)"></org-model-one-col>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="card-body">
 
-    Nom : {{cmdtEtatMajor.nom}}<br>
-    Code : {{cmdtEtatMajor.code}}
     <div *ngIf="cmdtEtatMajor?.division">
         <div *ngFor="let cmdt of cmdtEtatMajor.division">
             <span class="badge badge-primary"> Adjoint : {{cmdt.chefadjoint.attribution}} </span><br>
@@ -15,3 +82,4 @@
         </div>
     </div>
 </div>
+-->

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ImageUploadModule } from 'ng2-imageupload';
 import { FileUploadModule } from 'ng2-file-upload';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { NotFoundComponent } from './components/404/404.component';
 import { AuthService } from './service/auth.service';
@@ -20,6 +21,9 @@ import { SettingComponent } from './components/account-manager/setting/setting.c
 import { PictureProfileComponent } from './components/account-manager/picture-profile/picture-profile.component';
 import { WebsiteService } from './service/website.service';
 import { UploadFileComponent } from './components/account-manager/upload-file/upload-file.component';
+import { ArchiveDocumentComponent } from './components/archive-document/archive-document.component';
+import { NotificationService } from './service/notification.service';
+import { PdfViewsComponent } from './components/pdf-views/pdf-views.component';
 
 @NgModule({
     imports: [
@@ -28,13 +32,18 @@ import { UploadFileComponent } from './components/account-manager/upload-file/up
         FormsModule,
         WebsiteRoutingModule,
         ImageUploadModule,
-        FileUploadModule
+        FileUploadModule,
+        PdfViewerModule
     ],
     exports: [
         CommonModule,
         NotFoundComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        PictureProfileComponent,
+        UploadFileComponent,
+        ArchiveDocumentComponent,
+        PdfViewsComponent
     ],
     declarations: [
         NotFoundComponent,
@@ -46,12 +55,15 @@ import { UploadFileComponent } from './components/account-manager/upload-file/up
         NavbarComponent,
         FooterComponent,
         PictureProfileComponent,
-        UploadFileComponent
+        UploadFileComponent,
+        ArchiveDocumentComponent,
+        PdfViewsComponent
     ],
     providers: [
         AuthService,
         AuthGuard,
-        WebsiteService
+        WebsiteService,
+        NotificationService
     ]
 })
 

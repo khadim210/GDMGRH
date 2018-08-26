@@ -1,0 +1,17 @@
+<div class="input-group input-group-sm">
+    <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{searchOption === '' ? 'Recherche par' : searchOption}}
+        </button>
+        <div class="dropdown-menu">
+            <div *ngIf="filterOption">
+                <div *ngFor="let option of filterOption">
+                    <a class="dropdown-item" (click)="optionSelected(option)">{{option}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="text" [disabled]="searchOption===''" class="form-control form-control-sm" name="searchs" [(ngModel)]="searchForm"
+    placeholder=" {{searchOption === '' ? 'Click sur recherche par' : 'entrer mot recherché ...'}}" (keyup)="searchHandler(searchForm)">
+</div>

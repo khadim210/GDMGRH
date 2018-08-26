@@ -48,9 +48,25 @@ export async function addMobile(req, res) {
 export async function getMobile(req, res) {
   var allMobile = null;
   try {
-    allMobile = await MobileRepository.getAllWithPopulate({path: 'unite'}, {path: 'legion'});
+    allMobile = await MobileRepository.getAllWithPopulate({path: 'unite'}, {path: 'legion', populate: { path: 'sousentite' }});
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
   return res.json({allMobile});
+}
+
+export async function updateMobile(req, res) {
+  var idbody = req.params.id;
+  var nombody = req.body.nom;
+  var codebody = req.body.code;
+  var lieubody = req.body.lieu;
+  var contactbody = req.body.contact;
+  var gpsbody = req.body.gps;
+  var chefbody = req.body.chef;
+  var unitebody = req.body.unite;
+  var legionbody = req.body.legion;
+  if(nombody && codebody && lieubody && unitebody && legionbody
+    && contactbody && chefbody && gpsbody && idbody) {
+    var updateResponse = null;
+  }
 }

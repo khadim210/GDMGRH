@@ -18,6 +18,26 @@ export async function saveEntite(entite, res) {
   return entitesave;
 }
 
+export async function getAllEntite(res) {
+  var entite = [];
+  try {
+    entite = await EntiteRepository.getAllWithPopulate({path: 'sousentite'}, {path: 'chef'});
+  } catch(error) {
+    return Errorshandling.handleError(res, 500, error, 'Erreur Server');
+  }
+  return entite;
+}
+
+export async function getOneEntite(criteria, res) {
+  var entite = null;
+  try {
+    entite = await EntiteRepository.populateGetOneBy(criteria, {path: 'sousentite'});
+  } catch(error) {
+    return Errorshandling.handleError(res, 500, error, 'Erreur Serveur !!!');
+  }
+  return entite;
+}
+
 export async function storeEntiteHandler(entite, res) {
   var allSousEntite = [];
   var entitestore = null;

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { WebsiteModule } from '../website/website.module';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { DamComponent } from './dam.component';
 import { DamRoutingModule } from './dam.routing';
@@ -12,13 +13,14 @@ import { RecrutementComponent } from './components/recrutement/recrutement.compo
 import { ReservisteComponent } from './components/reserviste/reserviste.component';
 import { GendarmeAuxiliaireComponent } from './components/gendarme-auxiliaire/gendarme-auxiliaire.component';
 import { ArchiveDamComponent } from './components/archive-dam/archive-dam.component';
-import { SessionComponent } from './components/recrutement/session/session.component';
+import { PromotionComponent } from './components/recrutement/promotion/promotion.component';
 import { CandidatureComponent } from './components/recrutement/candidature/candidature.component';
 import { NoteComponent } from './components/recrutement/note/note.component';
 import { AdmisComponent } from './components/recrutement/admis/admis.component';
 import { StatistiqueComponent } from './components/statistique/statistique.component';
 import { MutationDamComponent } from './components/mutation-dam/mutation-dam.component';
 import { ValidationComponent } from './components/validation/validation.component';
+import { RecrutementEventService } from './service/recrutement-event.service';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { ValidationComponent } from './components/validation/validation.componen
         HttpClientModule,
         FormsModule,
         WebsiteModule,
-        DamRoutingModule
+        DamRoutingModule,
+        ToastModule.forRoot()
     ],
     exports: [],
     declarations: [
@@ -36,7 +39,7 @@ import { ValidationComponent } from './components/validation/validation.componen
         ReservisteComponent,
         GendarmeAuxiliaireComponent,
         ArchiveDamComponent,
-        SessionComponent,
+        PromotionComponent,
         CandidatureComponent,
         NoteComponent,
         AdmisComponent,
@@ -46,7 +49,8 @@ import { ValidationComponent } from './components/validation/validation.componen
     ],
     providers: [
         DamService,
-        DamGuard
+        DamGuard,
+        RecrutementEventService
     ],
 })
 export class DamModule { }
