@@ -34,7 +34,6 @@ export class EtatMajorComponent implements OnInit {
                 if (res.alletatmajor[0]) {
                     this.cmdtEtatMajor = res.alletatmajor[0];
                 }
-                console.log(this.cmdtEtatMajor);
             }
         });
     }

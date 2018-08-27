@@ -49,7 +49,6 @@ export class MobileComponent implements OnInit {
                 if (res.allMobile[0]) {
                     this.cmdtMobile = res.allMobile[0];
                 }
-                console.log(this.cmdtMobile);
             }
         });
     }

@@ -52,7 +52,6 @@ export class TerritorialComponent implements OnInit {
                     this.cmdtTerritorial = res.allTerritorial[0];
                 }
             }
-            console.log(this.cmdtTerritorial);
         });
     }
 
