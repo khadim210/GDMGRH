@@ -59,6 +59,7 @@ export async function addUser(req, res) {
         user = await UserRepository.save(user);
         if(idGroupe) {
           groupe = await GroupControllers.getOneGroupeBy(res, {_id: idGroupe});
+          groupe.users.push(user._id);
           groupe = await GroupControllers.saveGroup(res, groupe);
         }
         groupe = await GroupControllers.getAllGroupe(res);

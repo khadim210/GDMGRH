@@ -73,8 +73,13 @@ export class CreatedUsersComponent implements OnInit {
   getDataForm(): void {
     this.noyauService.getDataUserForm().subscribe(res => {
       if (res) {
-        this.allAgent = res.agent;
-        this.allGroupe = res.groupe;
+        if (res.agent) {
+          this.allAgent = res.agent;
+        }
+
+        if (res.groupe) {
+          this.allGroupe = res.groupe;
+        }
       }
     });
 
@@ -91,7 +96,7 @@ export class CreatedUsersComponent implements OnInit {
         this.allAgent = res.agent;
         this.agentSelected = {};
       } else if (res.error) {
-        this.errormsg = res.error;
+        this.errormsg = res.error.message;
       }
     });
   }
