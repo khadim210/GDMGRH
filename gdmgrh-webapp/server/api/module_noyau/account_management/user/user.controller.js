@@ -38,7 +38,7 @@ export async function addUser(req, res) {
   var bodyUsername = req.body.username;
   var bodyPassword = req.body.password;
   var idGroupe = req.body.groupe;
-  if(bodyUsername && bodyRole && idAgent && bodyPassword && idGroupe) {
+  if(bodyUsername && bodyRole && idAgent && bodyPassword) {
     var agent = null;
     var groupe = null;
     var userParams = {
@@ -57,12 +57,12 @@ export async function addUser(req, res) {
           return Errorshandling.handleError(res, 422, 'Agent doesn\'t exist', 'Agent selectionné n\'existe pas');
         }
         user = await UserRepository.save(user);
-        if(user) {
+        if(idGroupe) {
           groupe = await GroupControllers.getOneGroupeBy(res, {_id: idGroupe});
           groupe = await GroupControllers.saveGroup(res, groupe);
-          groupe = await GroupControllers.getAllGroupe(res);
-          user = await UserRepository.getAllPopulate('agent');
         }
+        groupe = await GroupControllers.getAllGroupe(res);
+        user = await UserRepository.getAllPopulate('agent');
         agent.access = true;
         agent = await AgentControllers.storageAgent(agent);
         agent = await AgentControllers.getAllAgent({access: false});

@@ -19,18 +19,23 @@ async function saveEtatMajor(etatmajor, res) {
   return saveEtatmajor;
 }
 
+var etatmajorconst = Constante.etatmajor;
+var allDivision = [etatmajorconst.division0, etatmajorconst.division1,
+                    etatmajorconst.division2, etatmajorconst.division3];
 
 export async function addEtatMajor(req, res) {
-  var etatmajorconst = Constante.etatmajor;
-  var allDivision = [etatmajorconst.division0, etatmajorconst.division1, etatmajorconst.division2, etatmajorconst.division3];
+  await handlerEtatMajor(etatmajorconst, allDivision, res);
+}
+
+export async function handlerEtatMajor(constetatmajor, divisionAll, res) {
   var division = [];
   var iddivision = [];
   var etatmajor = null;
   var oneDivision = null;
   try {
-    var etatmajormain = etatmajorconst.etatmajormain;
-    for(let keydiv = 0; keydiv < allDivision.length; keydiv++) {
-      var _division = allDivision[keydiv];
+    var etatmajormain = constetatmajor.etatmajormain;
+    for(let keydiv = 0; keydiv < divisionAll.length; keydiv++) {
+      var _division = divisionAll[keydiv];
       for(let keyiddiv = 0; keyiddiv < _division.iddivision.length; keyiddiv++) {
         var _iddivision = _division.iddivision[keyiddiv];
         oneDivision = await DivisionControllers.saveSubdivision(_iddivision);
@@ -46,12 +51,12 @@ export async function addEtatMajor(req, res) {
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
-  return res.json({etatmajor});
+  return etatmajor;
 }
 
 export async function getEtatMajor(req, res) {
   var alletatmajor = null;
-  try {//['courses.id_course']
+  try {
     alletatmajor = await EtatMajorRepository.getAllPopulate({path: 'division.iddivision'});
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');

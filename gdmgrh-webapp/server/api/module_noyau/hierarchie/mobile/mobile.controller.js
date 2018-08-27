@@ -20,29 +20,35 @@ async function saveMobile(mobile, res) {
   return storeMobile;
 }
 
+
+var mobilemain = Constante.mobile.mobilemain;
+var allUnite = Constante.mobile.allUnite;
+var allLegion = Constante.mobile.allLegion;
+
 export async function addMobile(req, res) {
+  await handlerMobile(mobilemain, allUnite, allLegion, res);
+}
+
+export async function handlerMobile(mainMobile, uniteAll, legionAll, res) {
   var mobilestore = null;
   var idunites = [];
   var idlegions = [];
   try {
-    var mobilemain = Constante.mobile.mobilemain;
-    var allUnite = Constante.mobile.allUnite;
-    var allLegion = Constante.mobile.allLegion;
-    for(let keyunite = 0; keyunite < allUnite.length; keyunite++) {
-      var oneUnite = await SubdivisionController.saveSubdivision(allUnite[keyunite], res);
+    for(let keyunite = 0; keyunite < uniteAll.length; keyunite++) {
+      var oneUnite = await SubdivisionController.saveSubdivision(uniteAll[keyunite], res);
       idunites.push(oneUnite._id);
     }
-    mobilemain.unite = idunites;
-    for(let keylegon = 0; keylegon < allLegion.length; keylegon++) {
-      var oneLegion = await EntiteController.storeEntiteHandler(allLegion[keylegon], res);
+    mainMobile.unite = idunites;
+    for(let keylegon = 0; keylegon < legionAll.length; keylegon++) {
+      var oneLegion = await EntiteController.storeEntiteHandler(legionAll[keylegon], res);
       idlegions.push(oneLegion._id);
     }
-    mobilemain.legion = idlegions;
-    mobilestore = await saveMobile(mobilemain, res);
+    mainMobile.legion = idlegions;
+    mobilestore = await saveMobile(mainMobile, res);
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
-  return res.json({mobilestore});
+  return mobilestore;
 }
 
 export async function getMobile(req, res) {

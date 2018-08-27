@@ -20,22 +20,29 @@ export async function saveTerritorial(territorial, res) {
   return territorialsave;
 }
 
+
+const territorialmain = Constante.territorial.territorialmain;
+const allsection = Constante.territorial.allsection;
+const alllegions = Constante.territorial.alllegions;
+
 export async function addTerritorial(req, res) {
+  var territorialtore = await handlerTerritorial(territorialmain, allsection, alllegions, res);
+  return res.json({territorialtore});
+}
+
+export async function handlerTerritorial(mainTerritorial, sectionAll, legionAll, res) {
   var territorialtore = null;
   var idsections = [];
   var idcompagnie = [];
   try {
-    const territorialmain = Constante.territorial.territorialmain;
-    const allsection = Constante.territorial.allsection;
-    const alllegions = Constante.territorial.alllegions;
-    for(let keysection = 0; keysection < allsection.length; keysection++) {
-      var onesection = await SubdivisionController.saveSubdivision(allsection[keysection], res);
+    for(let keysection = 0; keysection < sectionAll.length; keysection++) {
+      var onesection = await SubdivisionController.saveSubdivision(sectionAll[keysection], res);
       idsections.push(onesection);
     }
-    territorialmain.section = idsections;
+    mainTerritorial.section = idsections;
     idsections = [];
-    for(let keylegion = 0; keylegion < alllegions.length; keylegion++) {
-      var element = alllegions[keylegion];
+    for(let keylegion = 0; keylegion < legionAll.length; keylegion++) {
+      var element = legionAll[keylegion];
       for(let keycomp = 0; keycomp < element.compagnie.length; keycomp++) {
         var onecompa = await EntiteController.storeEntiteHandler(element.compagnie[keycomp], res);
         idcompagnie.push(onecompa._id);
@@ -43,12 +50,12 @@ export async function addTerritorial(req, res) {
       element.compagnie = idcompagnie;
       idcompagnie = [];
     }
-    territorialmain.legion = alllegions;
-    territorialtore = await saveTerritorial(territorialmain, res);
+    mainTerritorial.legion = legionAll;
+    territorialtore = await saveTerritorial(mainTerritorial, res);
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
-  return res.json({territorialtore});
+  return territorialtore;
 }
 
 export async function getTerritorial(req, res) {

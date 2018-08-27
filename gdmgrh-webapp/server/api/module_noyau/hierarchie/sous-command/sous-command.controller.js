@@ -23,7 +23,7 @@ export async function handlerSousCommandement(sousCommandement, res) {
   } catch(error) {
     return Errorshandling.handleError(res, 500, error, 'Erreur serveur !!!');
   }
-  return res.json({storeCommandement});
+  return storeCommandement;
 }
 
 export async function saveSousCommandement(commandement, res) {

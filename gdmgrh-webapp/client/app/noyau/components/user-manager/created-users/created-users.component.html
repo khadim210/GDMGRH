@@ -4,7 +4,7 @@
       <div class="form-row">
         <div *ngIf="errormsg" class="form-group col-md-12">
             <div class="alert alert-danger" role="alert">
-                {{errormsg}}
+                {{errormsg | json}}
             </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
                 Recherche par
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" (click)="optionSelected('matricule')">Matricule</a>
+              <!--<a class="dropdown-item" (click)="optionSelected('matricule')">Matricule</a>-->
               <div role="separator" class="dropdown-divider"></div>
               <a class="dropdown-item" (click)="optionSelected('name')">Nom Prenom</a>
               <div role="separator" class="dropdown-divider"></div>
@@ -161,9 +161,10 @@
       <div class="form-group row">
           <div class=" col-sm-12">
             <label >Groupe :</label>
-            <select class="form-control form-control-sm" name="groupe" [(ngModel)]="userForm.groupe" required>
+            <select class="form-control form-control-sm" name="groupe" [(ngModel)]="userForm.groupe">
                 <option [value]="undefined" disabled hidden>--- choix du groupe ---</option>
                 <option *ngFor="let groupe of allGroupe" [value]="groupe._id">{{groupe.name}}</option>
+                <option *ngIf="!allGroupe" disabled >Pas de groupe</option>
             </select>
           </div>
       </div>
