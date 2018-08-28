@@ -49,21 +49,21 @@ export class DiplomesComponent implements OnInit {
   ngOnInit() {
     this.listediplomes = this.global.listeDiplomes;
     this.listespecialites = this.global.listeSpecialites;
-    //this.getAllDiplomes();
+    this.getAllDiplomes();
     this.getCivilDiplomes();
     this.getMilitaireDiplomes();
   }
 
 
-  // getAllDiplomes(): void {
-  //   this.diplomeService.getAllDiplomes().subscribe(data => {
-  //       if (data) {
-  //         this.diplo = data.diplomes;
-  //       } else {
-  //         this.diplo = [];
-  //       }
-  //   });
-  // }
+  getAllDiplomes(): void {
+    this.diplomeService.getAllDiplomes().subscribe(data => {
+        if (data) {
+          this.diplo = data.diplomes;
+        } else {
+          this.diplo = [];
+        }
+    });
+  }
 
   getCivilDiplomes() {
     this.diplomeService.getcivilDiplomes().subscribe(data => {
@@ -93,7 +93,7 @@ export class DiplomesComponent implements OnInit {
 
   resetform(): void {
     this.form.reset();
-    //this.getAllDiplomes();
+    this.getAllDiplomes();
     this.getCivilDiplomes();
     this.getMilitaireDiplomes();
   }
@@ -109,7 +109,7 @@ export class DiplomesComponent implements OnInit {
     console.log(nouveaudiplome);
 
     this.diplomeService.addNewDiplome(nouveaudiplome).subscribe(data => {
-      //this.getAllDiplomes();
+      this.getAllDiplomes();
       this.getCivilDiplomes();
       this.getMilitaireDiplomes();
     });
@@ -128,6 +128,7 @@ export class DiplomesComponent implements OnInit {
         niveau: dataselected.niveauequivalent,
         typediplome: dataselected.typediplome,
       };
+      console.log('donnees: '+this.donnees);
   }
 
   edit(): void {
@@ -140,7 +141,7 @@ export class DiplomesComponent implements OnInit {
     };
     this.diplomeService.editDiplome(diplome, this.id).subscribe(data => {
         console.log('modifié');
-        //this.getAllDiplomes();
+        /this.getAllDiplomes();
         this.getCivilDiplomes();
         this.getMilitaireDiplomes();
       });
@@ -148,7 +149,7 @@ export class DiplomesComponent implements OnInit {
 
   delete(event): void {
     this.diplomeService.deleteDiplome(event.target.id).subscribe(data => {
-      //this.getAllDiplomes();
+      this.getAllDiplomes();
       this.getCivilDiplomes();
       this.getMilitaireDiplomes();
     });
