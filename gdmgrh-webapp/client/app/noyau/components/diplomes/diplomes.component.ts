@@ -60,7 +60,7 @@ export class DiplomesComponent implements OnInit {
         if (data) {
           this.diplo = data.diplomes;
         } else {
-          this.diplo = null;
+          this.diplo = [];
         }
     });
   }
@@ -70,7 +70,7 @@ export class DiplomesComponent implements OnInit {
       if (data.diplomes.length > 0) {
         this.civiles = data.diplomes;
       } else {
-        this.civiles = null;
+        this.civiles = [];
       }
     });
   }
@@ -80,7 +80,7 @@ export class DiplomesComponent implements OnInit {
       if (data.diplomes.length > 0) {
         this.militaires = data.diplomes;
       } else {
-        this.militaires = null;
+        this.militaires = [];
       }
     });
   }

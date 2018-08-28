@@ -25,7 +25,7 @@ export class DgpService {
 	}*/
 
 	getcivilDiplomes(){
-		return this.http.get<any>(`/diplomes/getallcivil`)
+		return this.http.get<any>(`/noyau/diplomes/getallcivil`)
 		.pipe(
 			catchError(this.handleError('getDiplomes'))
 			);

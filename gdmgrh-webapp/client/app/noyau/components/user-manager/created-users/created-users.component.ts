@@ -86,6 +86,7 @@ export class CreatedUsersComponent implements OnInit {
   }
 
   addUsers(): void {
+    console.log(this.userForm);
     this.noyauService.createdUsers(this.userForm).subscribe(res => {
       if (res.user && res.agent) {
         this.userManagerEventService.confirmUser({user: res.user});

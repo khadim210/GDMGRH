@@ -50,7 +50,10 @@ export class RecompenseComponent implements OnInit {
 
   ngOnInit() {
     this.sanctionService.getRecompenses()
-      .subscribe(data => this.recompense_data = data);
+      .subscribe((data) => {
+        this.recompense_data = data;
+        console.log(data)
+      });
   }
   btnEdit(item: RecompenseModel): void {
     this.recompense_edited = item;
