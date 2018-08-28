@@ -4,6 +4,9 @@
     <h2 align="left">Liste des diplomes</h2><br>
 
 
+
+
+
     <!-- Modal Ajouer -->
     <div class="modal fade" id="AddDiplome" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
@@ -47,6 +50,8 @@
         </div>
       </div>
     </div>
+
+
 
 
 
@@ -104,6 +109,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
     <!-- Affiche la liste des diplômes -->
 
 
@@ -115,7 +129,7 @@
     </nav>
     <div class="tab-content" id="nav-tabContent">
 
-      <div class="card w-100" style="padding: 0rem; padding-bottom: 0rem;">
+      <div class="tab-pane card w-100 fade show active" id="nav-civil" role="tabpanel" aria-labelledby="nav-home-tab" style="padding: 0rem; padding-bottom: 0rem;">
         <div class="card-body" style="padding: 1rem;">
           <div class="row">
             <div class="col-md-8 col-sm-8 col-12">
@@ -138,7 +152,7 @@
 
             <div class="col-md-4 col-sm-4 col-12">
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-sm btn-block btn-outline-primary" data-toggle="modal" data-target="#userModal">
+              <button type="button" class="btn btn-sm btn-block btn-outline-primary" data-toggle="modal" data-target="#AddDiplome">
                 Ajouter
               </button>
             </div>
@@ -156,23 +170,22 @@
                 </tr>
               </thead>
 
-              <tbody style="padding-bottom: 0rem; margin-bottom: 0rem;">
-                <tr>
+              <tbody style="padding-bottom: 0rem; margin-bottom: 0rem;" *ngIf="civiles">
+                <tr *ngFor="let item of civiles">
                   <td>1</td>
-                  <td>aaa</td>
-                  <td>bbb</td>
-                  <td>ccc</td>
-                  <td >ddd</td>
-                  <th><span class="badge badge-pill"> </span></th>
-                  <td><span class="badge badge-primary mouse" data-toggle="modal" data-target="#userModal">
+                  <td>{{item.nom}}</td>
+                  <td>{{item.nomcourt}}</td>
+                  <td>{{item.specialite}}</td>
+                  <td >{{item.niveau}}</td>
+                  <td><span class="badge badge-primary mouse" data-toggle="modal" data-target="#EditDiplome" (click)="selected_diplome($event)" id="{{item._id}}">
                     afficher
                   </span></td>
-                  <td><span class="badge badge-danger mouse" data-toggle="modal">
+                  <td><span class="badge badge-danger mouse" data-toggle="modal" id="{{item._id}}" (click)="delete($event)">
                     supprimer
-                  </span></td>
+                  </span></td> 
                 </tr>
               </tbody>
-              <tbody>
+              <tbody *ngIf="!civiles">
                 <tr>
                   <td></td>
                   <th></th>
@@ -191,18 +204,14 @@
 
 
       <!-- Contenu de Diplomes civiles -->
-      <div class="tab-pane fade show active" id="nav-civil" role="tabpanel" aria-labelledby="nav-home-tab">
+      <!-- <div class="tab-pane fade show active" id="nav-civil" role="tabpanel" aria-labelledby="nav-home-tab">
 
-        <div class="text-right">
-          <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#AddDiplome">Ajouter</button>
-        </div>
-        <div *ngIf="!civiles" class="alert alert-info" style="width: 70%; margin: auto;">
-          <strong>Information!</strong> Vous n'avez pas de diplômes créés dans la base de données. Cliquez <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#AddDiplome">ici</a> pour en ajouter.
-        </div>
+      
+        
 
-        <div *ngIf="civiles" class="container" style="position: relative; padding: 10px; margin: auto;">
+         <div class="container" style="position: relative; padding: 10px; margin: auto;">
           <div class="list-group">
-            <div class="list-group-item"  *ngFor="let dip of civiles">
+            <div class="list-group-item" *ngFor="let dip of civiles">
               <div style="width: 76%;">
                 <h4 class="list-group-item-heading">{{dip.nomcourt}}</h4>
                 <p class="list-group-item-text">{{dip.nom}} ({{dip.niveauequivalent}})</p>
@@ -214,15 +223,91 @@
               </div>
             </div>
           </div> <br><br>
-        </div>
+        </div> 
 
+      </div> -->
+
+
+      <!-- Contenu de Diplomes militaires -->
+      <div class="tab-pane card w-100 fade" id="nav-militaire" role="tabpanel" aria-labelledby="nav-profile-tab" style="padding: 0rem; padding-bottom: 0rem;">
+
+        <div class="card w-100" style="padding: 0rem; padding-bottom: 0rem;">
+        <div class="card-body" style="padding: 1rem;">
+          <div class="row">
+            <div class="col-md-8 col-sm-8 col-12">
+              <div class="row">          
+                <div class="form-group col-md-6 col-sm-6 col-12">
+                  <select class="form-control form-control-sm" >
+                    <option disabled hidden> Rechercher par ... </option>
+                    <option >Libellé</option>  
+                    <option >Nom court</option>
+                    <option >Spécialité</option>
+                    <option >Niveau équivalent</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-12">
+                  <input type="text" name="searchField">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-12">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-sm btn-block btn-outline-primary" data-toggle="modal" data-target="#AddDiplome">
+                Ajouter
+              </button>
+            </div>
+          </div>
+
+          <div class="row" >
+            <table class="col-12 table table-sm" style="padding-bottom: 0rem; margin-bottom: 0rem;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Libellé</th>
+                  <th scope="col">Nom court</th>
+                  <th scope="col">Spécialité</th>
+                  <th scope="col">Niveau équivalent</th>
+                </tr>
+              </thead>
+
+              <tbody style="padding-bottom: 0rem; margin-bottom: 0rem;" *ngIf="militaires">
+                <tr *ngFor="let item of militaires, let i = index;">
+                  <td>{{index}}</td>
+                  <td>{{item.nom}}</td>
+                  <td>{{item.nomcourt}}</td>
+                  <td>{{item.specialite}}</td>
+                  <td >{{item.niveau}}</td>
+                  <td><span class="badge badge-primary mouse" data-toggle="modal" data-target="#EditDiplome" (click)="selected_diplome($event)" id="{{item._id}}">
+                    afficher
+                  </span></td>
+                  <td><span class="badge badge-danger mouse" data-toggle="modal" id="{{item._id}}" (click)="delete($event)">
+                    supprimer
+                  </span></td> 
+                </tr>
+              </tbody>
+              <tbody *ngIf="!militaires">
+                <tr>
+                  <td></td>
+                  <th></th>
+                  <td></td>
+                  <td>Vide</td>
+                  <th></th>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+        </div>
       </div>
 
-
-      <!-- Contenu de Diplomes civiles -->
-      <div class="tab-pane fade" id="nav-militaire" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-        <div class="text-right">
+        <!-- <div class="text-right">
           <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#AddDiplome">Ajouter</button>
         </div>
         <div *ngIf="!militaires" class="alert alert-info" style="width: 70%; margin: auto;">
@@ -243,7 +328,7 @@
               </div>
             </div>
           </div> <br><br>
-        </div>
+        </div> -->
 
       </div>
     </div><br>

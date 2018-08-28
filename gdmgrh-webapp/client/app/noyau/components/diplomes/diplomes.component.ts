@@ -49,45 +49,51 @@ export class DiplomesComponent implements OnInit {
   ngOnInit() {
     this.listediplomes = this.global.listeDiplomes;
     this.listespecialites = this.global.listeSpecialites;
-    this.getAllDiplomes();
+    //this.getAllDiplomes();
     this.getCivilDiplomes();
     this.getMilitaireDiplomes();
   }
 
 
-  getAllDiplomes(): void {
-    this.diplomeService.getAllDiplomes().subscribe(data => {
-        if (data) {
-          this.diplo = data.diplomes;
-        } else {
-          this.diplo = [];
-        }
-    });
-  }
+  // getAllDiplomes(): void {
+  //   this.diplomeService.getAllDiplomes().subscribe(data => {
+  //       if (data) {
+  //         this.diplo = data.diplomes;
+  //       } else {
+  //         this.diplo = [];
+  //       }
+  //   });
+  // }
 
   getCivilDiplomes() {
     this.diplomeService.getcivilDiplomes().subscribe(data => {
+      console.log(data.diplomes);
       if (data.diplomes.length > 0) {
+        console.log('ok civ');
         this.civiles = data.diplomes;
       } else {
-        this.civiles = [];
+        console.log('non civ');
+        this.civiles = null;
       }
     });
   }
 
   getMilitaireDiplomes() {
     this.diplomeService.getmiliDiplomes().subscribe(data => {
+      console.log(data.diplomes);
       if (data.diplomes.length > 0) {
+        console.log('ok mil');
         this.militaires = data.diplomes;
       } else {
-        this.militaires = [];
+        console.log('non mil');
+        this.militaires = null;
       }
     });
   }
 
   resetform(): void {
     this.form.reset();
-    this.getAllDiplomes();
+    //this.getAllDiplomes();
     this.getCivilDiplomes();
     this.getMilitaireDiplomes();
   }
@@ -100,8 +106,10 @@ export class DiplomesComponent implements OnInit {
       typediplome: this.form.get('typediplome').value,
     };
 
+    console.log(nouveaudiplome);
+
     this.diplomeService.addNewDiplome(nouveaudiplome).subscribe(data => {
-      this.getAllDiplomes();
+      //this.getAllDiplomes();
       this.getCivilDiplomes();
       this.getMilitaireDiplomes();
     });
@@ -132,7 +140,7 @@ export class DiplomesComponent implements OnInit {
     };
     this.diplomeService.editDiplome(diplome, this.id).subscribe(data => {
         console.log('modifié');
-        this.getAllDiplomes();
+        //this.getAllDiplomes();
         this.getCivilDiplomes();
         this.getMilitaireDiplomes();
       });
@@ -140,7 +148,7 @@ export class DiplomesComponent implements OnInit {
 
   delete(event): void {
     this.diplomeService.deleteDiplome(event.target.id).subscribe(data => {
-      this.getAllDiplomes();
+      //this.getAllDiplomes();
       this.getCivilDiplomes();
       this.getMilitaireDiplomes();
     });
