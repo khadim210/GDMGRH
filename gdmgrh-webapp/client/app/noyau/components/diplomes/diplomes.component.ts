@@ -141,7 +141,7 @@ export class DiplomesComponent implements OnInit {
     };
     this.diplomeService.editDiplome(diplome, this.id).subscribe(data => {
         console.log('modifié');
-        /this.getAllDiplomes();
+        this.getAllDiplomes();
         this.getCivilDiplomes();
         this.getMilitaireDiplomes();
       });
